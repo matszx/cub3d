@@ -6,7 +6,7 @@
 #    By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/23 15:29:54 by mcygan            #+#    #+#              #
-#    Updated: 2025/01/23 16:12:28 by mcygan           ###   ########.fr        #
+#    Updated: 2025/01/23 17:51:14 by mcygan           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,9 +14,10 @@ NAME 			=	cub3d
 CC 				=	gcc
 CFLAGS 			=	-Wall -Wextra -Werror -fsanitize=address #-O3 -ffast-math
 INC				=	-I/usr/include -Iminilibx
-LIB				=	-Lmlx -lmlx -L/usr/lib/X11 -lX11 -lXext -lm
+LIB				=	-Lminilibx -lmlx -L/usr/lib/X11 -lX11 -lXext -lm
 
-SRC_FILES 		=	main.c
+SRC_FILES 		=	main.c \
+					utils.c
 
 SRC_DIR			=	src/
 SRC				=	$(addprefix $(SRC_DIR), $(SRC_FILES))
