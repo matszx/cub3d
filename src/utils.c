@@ -6,7 +6,7 @@
 /*   By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 16:21:45 by mcygan            #+#    #+#             */
-/*   Updated: 2025/01/23 17:47:37 by mcygan           ###   ########.fr       */
+/*   Updated: 2025/01/23 18:50:47 by mcygan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,30 @@ uint32_t	to_colour(t_vec v)
 	return (colour(255, v.x * 255, v.y * 255, v.z * 255));
 }
 
-void	pxl_put(t_data *data, uint32_t x, uint32_t y, uint32_t colour)
+void	pxl_put(t_img *data, uint32_t x, uint32_t y, uint32_t colour)
 {
 	char	*dst;
 
 	dst = data->addr + (y * data->line_len + x * (data->bpp / 8));
 	*(unsigned int *)dst = colour;
+}
+
+void	draw_tile(t_img *data, uint32_t x, uint32_t y, uint32_t colour)
+{
+	uint32_t	i;
+	uint32_t	j;
+
+	x *= TILE_SIZE;
+	y *= TILE_SIZE;
+	i = y;
+	while (i < y + TILE_SIZE && i < HEIGHT)
+	{
+		j = x;
+		while (j < x + TILE_SIZE && j < WIDTH)
+		{
+			pxl_put(data, j, i, colour);
+			j++;
+		}
+		i++;
+	}
 }
