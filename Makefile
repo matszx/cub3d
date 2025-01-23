@@ -6,7 +6,7 @@
 #    By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/23 15:29:54 by mcygan            #+#    #+#              #
-#    Updated: 2025/01/23 15:30:02 by mcygan           ###   ########.fr        #
+#    Updated: 2025/01/23 16:05:24 by mcygan           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,11 +33,11 @@ $(OBJ_DIR)		:
 					mkdir -p $(OBJ_DIR)
 
 $(NAME)			:	$(OBJ)
-					@make -C mlx
+					@make -C minilibx
 					$(CC) $(CFLAGS) $(INC) $(OBJ) -o $(NAME) $(LIB)
 
 clean			:
-					@make clean -C mlx
+					@make clean -C minilibx
 					rm -rf $(OBJ_DIR)
 
 fclean			:	clean
