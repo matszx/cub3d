@@ -6,7 +6,7 @@
 /*   By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 15:30:03 by mcygan            #+#    #+#             */
-/*   Updated: 2025/01/23 18:53:44 by mcygan           ###   ########.fr       */
+/*   Updated: 2025/01/24 11:41:04 by mcygan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,19 @@ static void	draw_map(t_img *img, const char **map, uint32_t w, uint32_t h)
 		while (++j < w)
 		{
 			if (map[i][j] == '1')
-				draw_tile(img, j, i, 0x000F0F00);
+				draw_tile(img, j, i, 0x0F0F00);
 			else
-				draw_tile(img, j, i, 0x5F5F5F5F);
+				draw_tile(img, j, i, 0x5F5F5F);
 		}
 	}
 }
 
 int	main(void)
 {
+	void		*mlx;
+	void		*win;
+	t_img		img;
+
 	const char	*map[] = {"1111111111111111", \
 						"1000000000000001", \
 						"1000000111110001", \
@@ -49,15 +53,16 @@ int	main(void)
 						"1011111110000001", \
 						"1000000000000001", \
 						"1111111111111111"};
-	void		*mlx;
-	void		*win;
-	t_img		img;
+
+	float		player_x = 3.456;
+	float		player_y = 2.345;
 
 	mlx = mlx_init();
 	win = mlx_new_window(mlx, WIDTH, HEIGHT, "cub3d");
 	img.img = mlx_new_image(mlx, WIDTH, HEIGHT);
 	img.addr = mlx_get_data_addr(img.img, &img.bpp, &img.line_len, &img.endian);
 	draw_map(&img, map, 16, 16);
+	draw_player(&img, player_x, player_y);
 	mlx_put_image_to_window(mlx, win, img.img, 0, 0);
 	mlx_loop(mlx);
 	return (0);

@@ -6,20 +6,20 @@
 /*   By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 16:21:45 by mcygan            #+#    #+#             */
-/*   Updated: 2025/01/23 18:50:47 by mcygan           ###   ########.fr       */
+/*   Updated: 2025/01/24 10:42:19 by mcygan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
 
-uint32_t	colour(uint8_t a, uint8_t r, uint8_t g, uint8_t b)
+uint32_t	colour(uint8_t r, uint8_t g, uint8_t b)
 {
-	return (a << 24 | r << 16 | g << 8 | b);
+	return (r << 16 | g << 8 | b);
 }
 
 uint32_t	to_colour(t_vec v)
 {
-	return (colour(255, v.x * 255, v.y * 255, v.z * 255));
+	return (colour(v.x * 255, v.y * 255, v.z * 255));
 }
 
 void	pxl_put(t_img *data, uint32_t x, uint32_t y, uint32_t colour)
@@ -44,6 +44,26 @@ void	draw_tile(t_img *data, uint32_t x, uint32_t y, uint32_t colour)
 		while (j < x + TILE_SIZE && j < WIDTH)
 		{
 			pxl_put(data, j, i, colour);
+			j++;
+		}
+		i++;
+	}
+}
+
+void	draw_player(t_img *data, float x, float y)
+{
+	uint32_t	i;
+	uint32_t	j;
+
+	x *= TILE_SIZE;
+	y *= TILE_SIZE;
+	i = (uint32_t)(y);
+	while (i < y + 5 && i < HEIGHT)
+	{
+		j = (uint32_t)x;
+		while (j < x + 5 && j < WIDTH)
+		{
+			pxl_put(data, j, i, 0xFFFFFF);
 			j++;
 		}
 		i++;
