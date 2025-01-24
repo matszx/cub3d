@@ -6,7 +6,7 @@
 /*   By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 15:30:03 by mcygan            #+#    #+#             */
-/*   Updated: 2025/01/24 11:41:04 by mcygan           ###   ########.fr       */
+/*   Updated: 2025/01/24 14:53:52 by mcygan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,24 @@ static void	draw_map(t_img *img, const char **map, uint32_t w, uint32_t h)
 			else
 				draw_tile(img, j, i, 0x5F5F5F);
 		}
+	}
+}
+
+static void	draw_rays(t_img *img, const char **map, float px, float py, float pa)
+{
+	float	t;
+	float	cx;
+	float	cy;
+
+	t = 0.0;
+	while (t < 20.0)
+	{
+		cx = px + t * cos(pa);
+		cy = py + t * sin(pa);
+		if (map[(int)cy][(int)cx] == '1')
+			break ;
+		pxl_put(img, (uint32_t)(cx * TILE_SIZE), (uint32_t)(cy * TILE_SIZE), 0xFFFFFF);
+		t += 0.05;
 	}
 }
 
@@ -56,14 +74,19 @@ int	main(void)
 
 	float		player_x = 3.456;
 	float		player_y = 2.345;
+	float		player_a = 1.523;
 
 	mlx = mlx_init();
 	win = mlx_new_window(mlx, WIDTH, HEIGHT, "cub3d");
 	img.img = mlx_new_image(mlx, WIDTH, HEIGHT);
 	img.addr = mlx_get_data_addr(img.img, &img.bpp, &img.line_len, &img.endian);
+	
 	draw_map(&img, map, 16, 16);
 	draw_player(&img, player_x, player_y);
+	draw_rays(&img, map, player_x, player_y, player_a);
+
 	mlx_put_image_to_window(mlx, win, img.img, 0, 0);
 	mlx_loop(mlx);
+	
 	return (0);
 }
