@@ -6,7 +6,7 @@
 /*   By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 15:30:03 by mcygan            #+#    #+#             */
-/*   Updated: 2025/01/24 14:53:52 by mcygan           ###   ########.fr       */
+/*   Updated: 2025/01/26 23:37:47 by mcygan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,19 +33,27 @@ static void	draw_map(t_img *img, const char **map, uint32_t w, uint32_t h)
 
 static void	draw_rays(t_img *img, const char **map, float px, float py, float pa)
 {
-	float	t;
-	float	cx;
-	float	cy;
+	const float	fov = 3.14159 / 3.0;
+	uint32_t	i;
+	float		angle;
+	float		t;
+	float		cx;
+	float		cy;
 
-	t = 0.0;
-	while (t < 20.0)
+	i = -1;
+	while (++i < WIDTH)
 	{
-		cx = px + t * cos(pa);
-		cy = py + t * sin(pa);
-		if (map[(int)cy][(int)cx] == '1')
-			break ;
-		pxl_put(img, (uint32_t)(cx * TILE_SIZE), (uint32_t)(cy * TILE_SIZE), 0xFFFFFF);
-		t += 0.05;
+		angle = pa - fov / 2 + fov * i / (float)WIDTH;
+		t = 0.0;
+		while (t < 20.0)
+		{
+			cx = px + t * cos(angle);
+			cy = py + t * sin(angle);
+			if (map[(int)cy][(int)cx] == '1')
+				break ;
+			pxl_put(img, (uint32_t)(cx * TILE_SIZE), (uint32_t)(cy * TILE_SIZE), 0xFFFFFF);
+			t += 0.05;
+		}
 	}
 }
 
