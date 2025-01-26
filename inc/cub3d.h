@@ -6,7 +6,7 @@
 /*   By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 15:42:11 by mcygan            #+#    #+#             */
-/*   Updated: 2025/01/24 11:41:42 by mcygan           ###   ########.fr       */
+/*   Updated: 2025/01/27 00:19:36 by mcygan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 #define WIDTH		800
 #define HEIGHT		800
 #define TILE_SIZE	50
+#define FOV			90
 
 typedef struct s_data
 {

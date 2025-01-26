@@ -6,7 +6,7 @@
 /*   By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 15:30:03 by mcygan            #+#    #+#             */
-/*   Updated: 2025/01/26 23:37:47 by mcygan           ###   ########.fr       */
+/*   Updated: 2025/01/27 00:19:25 by mcygan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static void	draw_map(t_img *img, const char **map, uint32_t w, uint32_t h)
 
 static void	draw_rays(t_img *img, const char **map, float px, float py, float pa)
 {
-	const float	fov = 3.14159 / 3.0;
+	const float	fov = M_PI / (180 / FOV);
 	uint32_t	i;
 	float		angle;
 	float		t;
