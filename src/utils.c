@@ -6,64 +6,56 @@
 /*   By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 16:21:45 by mcygan            #+#    #+#             */
-/*   Updated: 2025/01/24 10:42:19 by mcygan           ###   ########.fr       */
+/*   Updated: 2025/01/27 14:06:36 by mcygan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
 
-uint32_t	colour(uint8_t r, uint8_t g, uint8_t b)
-{
-	return (r << 16 | g << 8 | b);
-}
-
-uint32_t	to_colour(t_vec v)
-{
-	return (colour(v.x * 255, v.y * 255, v.z * 255));
-}
-
-void	pxl_put(t_img *data, uint32_t x, uint32_t y, uint32_t colour)
+void	pxl_put(t_img *img, uint32_t x, uint32_t y, uint32_t colour)
 {
 	char	*dst;
 
-	dst = data->addr + (y * data->line_len + x * (data->bpp / 8));
-	*(unsigned int *)dst = colour;
+	dst = img->addr + (y * img->line_len + x * (img->bpp / 8));
+	*(uint32_t *)dst = colour;
 }
 
-void	draw_tile(t_img *data, uint32_t x, uint32_t y, uint32_t colour)
+void	draw_tile(t_img *img, uint32_t x, uint32_t y, uint32_t colour)
 {
 	uint32_t	i;
 	uint32_t	j;
 
-	x *= TILE_SIZE;
-	y *= TILE_SIZE;
+	x *= MAP_SCALE;
+	y *= MAP_SCALE;
 	i = y;
-	while (i < y + TILE_SIZE && i < HEIGHT)
+	while (i < y + MAP_SCALE && i < WIN_H)
 	{
 		j = x;
-		while (j < x + TILE_SIZE && j < WIDTH)
+		while (j < x + MAP_SCALE && j < WIN_W)
 		{
-			pxl_put(data, j, i, colour);
+			pxl_put(img, j, i, colour);
 			j++;
 		}
 		i++;
 	}
 }
 
-void	draw_player(t_img *data, float x, float y)
+void	draw_player(t_img *img, float x, float y)
 {
 	uint32_t	i;
 	uint32_t	j;
 
-	x *= TILE_SIZE;
-	y *= TILE_SIZE;
+	x *= MAP_SCALE;
+	y *= MAP_SCALE;
+	x -= 2;
+	y -= 2;
 	i = (uint32_t)(y);
-	while (i < y + 5 && i < HEIGHT)
+	while (i < y + 5 && i < WIN_H)
 	{
 		j = (uint32_t)x;
-		while (j < x + 5 && j < WIDTH)
+		while (j < x + 5 && j < WIN_W)
 		{
-			pxl_put(data, j, i, 0xFFFFFF);
+			pxl_put(img, j, i, 0xFF0000);
 			j++;
 		}
 		i++;

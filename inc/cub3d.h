@@ -6,7 +6,7 @@
 /*   By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 15:42:11 by mcygan            #+#    #+#             */
-/*   Updated: 2025/01/27 00:19:36 by mcygan           ###   ########.fr       */
+/*   Updated: 2025/01/27 14:04:26 by mcygan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,14 @@
 #include <stdint.h>
 #include <math.h>
 
-#define WIDTH		800
-#define HEIGHT		800
-#define TILE_SIZE	50
-#define FOV			90
+#define WIN_W		800
+#define WIN_H		800
+#define MAP_W		16
+#define MAP_H		16
+#define MAP_SCALE	10
+#define FOV			60
 
-typedef struct s_data
+typedef struct s_img
 {
 	void	*img;
 	char	*addr;
@@ -31,25 +33,7 @@ typedef struct s_data
 	int		endian;
 }	t_img;
 
-typedef struct s_vec
-{
-	double	x;
-	double	y;
-	double	z;
-}	t_vec;
-
-typedef t_vec	t_point;
-typedef t_vec	t_colour;
-
-typedef struct s_ray
-{
-	t_point	origin;
-	t_vec	dir;
-}	t_ray;
-
 // utils.c
-uint32_t	colour(uint8_t r, uint8_t g, uint8_t b);
-uint32_t	to_colour(t_vec v);
-void		pxl_put(t_img *data, uint32_t x, uint32_t y, uint32_t colour);
-void		draw_tile(t_img *data, uint32_t x, uint32_t y, uint32_t colour);
-void		draw_player(t_img *data, float x, float y);
+void		pxl_put(t_img *img, uint32_t x, uint32_t y, uint32_t colour);
+void		draw_tile(t_img *img, uint32_t x, uint32_t y, uint32_t colour);
+void		draw_player(t_img *img, float x, float y);
