@@ -6,7 +6,7 @@
 /*   By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 15:30:03 by mcygan            #+#    #+#             */
-/*   Updated: 2025/01/27 14:15:29 by mcygan           ###   ########.fr       */
+/*   Updated: 2025/01/27 14:32:27 by mcygan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,25 @@ static void	draw_map(t_img *img, const char **map, uint32_t w, uint32_t h)
 			else
 				draw_tile(img, j, i, 0x5F5F5F);
 		}
+	}
+}
+
+static void	draw_vertical_ray(t_img *img, uint32_t x, uint32_t h)
+{
+	const uint32_t	ceiling = (WIN_H - h) / 2;
+	const uint32_t	floor = ceiling + h;
+	uint32_t		i;
+
+	if (x < MAP_W * MAP_SCALE)
+		i = MAP_H * MAP_SCALE - 1;
+	else
+		i = -1;
+	while (++i < WIN_H)
+	{
+		if (i >= ceiling && i <= floor)
+			pxl_put(img, x, i, 0x15805F);
+		else
+			pxl_put(img, x, i, 0xFFFFFF);
 	}
 }
 
@@ -54,6 +73,7 @@ static void	draw_rays(t_img *img, const char **map, float px, float py, float pa
 			pxl_put(img, (uint32_t)(cx * MAP_SCALE), (uint32_t)(cy * MAP_SCALE), 0xFFFFFF);
 			t += 0.05;
 		}
+		draw_vertical_ray(img, i, WIN_H / t);
 	}
 }
 
