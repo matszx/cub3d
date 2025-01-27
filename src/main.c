@@ -6,11 +6,12 @@
 /*   By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 15:30:03 by mcygan            #+#    #+#             */
-/*   Updated: 2025/01/27 14:50:12 by mcygan           ###   ########.fr       */
+/*   Updated: 2025/01/27 15:17:07 by mcygan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
+#include <unistd.h>
 
 static void	draw_map(t_img *img, const char **map, uint32_t w, uint32_t h)
 {
@@ -70,13 +71,13 @@ static void	draw_rays(t_img *img, const char **map, float px, float py, float pa
 			if (map[(int)cy][(int)cx] == '1')
 				break ;
 			pxl_put(img, (uint32_t)(cx * MAP_SCALE), (uint32_t)(cy * MAP_SCALE), 0xFFFFFF);
-			t += 0.05;
+			t += 0.01;
 		}
 		draw_vertical_ray(img, i, WIN_H / t);
 	}
 }
 
-static void	render(t_img *img)
+static void	render(t_img *img, float angle)
 {
 	const char	*map[] = {"1111111111111111", \
 						"1000000000000001", \
@@ -94,12 +95,11 @@ static void	render(t_img *img)
 						"1011111110000001", \
 						"1000000000000001", \
 						"1111111111111111"};
-	float		player_x = 3.456;
-	float		player_y = 2.345;
-	float		player_a = 1.523;
+	float		player_x = 3.4;
+	float		player_y = 2.3;
 
 	draw_map(img, map, MAP_W, MAP_H);
-	draw_rays(img, map, player_x, player_y, player_a);
+	draw_rays(img, map, player_x, player_y, angle);
 	draw_player(img, player_x, player_y);
 }
 
@@ -108,13 +108,20 @@ int	main(void)
 	void		*mlx;
 	void		*win;
 	t_img		img;
+	float		angle;
 
 	mlx = mlx_init();
 	win = mlx_new_window(mlx, WIN_W, WIN_H, "cub3d");
 	img.img = mlx_new_image(mlx, WIN_W, WIN_H);
 	img.addr = mlx_get_data_addr(img.img, &img.bpp, &img.line_len, &img.endian);
-	render(&img);
-	mlx_put_image_to_window(mlx, win, img.img, 0, 0);
+	angle = 1.5;
+	while (1)
+	{
+		render(&img, angle);
+		mlx_put_image_to_window(mlx, win, img.img, 0, 0);
+		angle += 0.01;
+		usleep(33000);
+	}
 	mlx_loop(mlx);
 	return (0);
 }
