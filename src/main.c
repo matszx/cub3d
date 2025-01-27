@@ -6,7 +6,7 @@
 /*   By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 15:30:03 by mcygan            #+#    #+#             */
-/*   Updated: 2025/01/27 16:42:25 by mcygan           ###   ########.fr       */
+/*   Updated: 2025/01/27 16:47:32 by mcygan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ static void	draw_rays(t_img *img, const char **map, float px, float py, float pa
 			pxl_put(img, (uint32_t)(cx * MAP_SCALE), (uint32_t)(cy * MAP_SCALE), 0xFFFFFF);
 			t += 0.01;
 		}
-		draw_vertical_ray(img, i, WIN_H / t);
+		draw_vertical_ray(img, i, WIN_H / (t * cos(angle - pa)));
 	}
 }
 
