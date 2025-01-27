@@ -6,7 +6,7 @@
 /*   By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 15:30:03 by mcygan            #+#    #+#             */
-/*   Updated: 2025/01/27 15:17:07 by mcygan           ###   ########.fr       */
+/*   Updated: 2025/01/27 16:42:25 by mcygan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ static void	draw_rays(t_img *img, const char **map, float px, float py, float pa
 		{
 			cx = px + t * cos(angle);
 			cy = py + t * sin(angle);
-			if (map[(int)cy][(int)cx] == '1')
+			if (map[(int)cy][(int)cx] == '1' || map[(int)(cy + 0.01)][(int)(cx + 0.01)] == '1')
 				break ;
 			pxl_put(img, (uint32_t)(cx * MAP_SCALE), (uint32_t)(cy * MAP_SCALE), 0xFFFFFF);
 			t += 0.01;
@@ -114,13 +114,13 @@ int	main(void)
 	win = mlx_new_window(mlx, WIN_W, WIN_H, "cub3d");
 	img.img = mlx_new_image(mlx, WIN_W, WIN_H);
 	img.addr = mlx_get_data_addr(img.img, &img.bpp, &img.line_len, &img.endian);
-	angle = 1.5;
+	angle = -1;
 	while (1)
 	{
 		render(&img, angle);
 		mlx_put_image_to_window(mlx, win, img.img, 0, 0);
 		angle += 0.01;
-		usleep(33000);
+		usleep(5000);
 	}
 	mlx_loop(mlx);
 	return (0);
