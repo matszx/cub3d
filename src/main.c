@@ -6,7 +6,7 @@
 /*   By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 15:30:03 by mcygan            #+#    #+#             */
-/*   Updated: 2025/01/27 14:32:27 by mcygan           ###   ########.fr       */
+/*   Updated: 2025/01/27 14:50:12 by mcygan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,16 +38,15 @@ static void	draw_vertical_ray(t_img *img, uint32_t x, uint32_t h)
 	uint32_t		i;
 
 	if (x < MAP_W * MAP_SCALE)
-		i = MAP_H * MAP_SCALE - 1;
+		i = MAP_H * MAP_SCALE;
 	else
-		i = -1;
-	while (++i < WIN_H)
-	{
-		if (i >= ceiling && i <= floor)
-			pxl_put(img, x, i, 0x15805F);
-		else
-			pxl_put(img, x, i, 0xFFFFFF);
-	}
+		i = 0;
+	while (i < ceiling)
+		pxl_put(img, x, i++, 0x99DDFF);
+	while (i < floor)
+		pxl_put(img, x, i++, 0x15805F);
+	while (i < WIN_H)
+		pxl_put(img, x, i++, 0x36220A);
 }
 
 static void	draw_rays(t_img *img, const char **map, float px, float py, float pa)
