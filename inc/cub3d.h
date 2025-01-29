@@ -6,7 +6,7 @@
 /*   By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 15:42:11 by mcygan            #+#    #+#             */
-/*   Updated: 2025/01/29 14:36:29 by mcygan           ###   ########.fr       */
+/*   Updated: 2025/01/29 16:04:28 by mcygan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 #include <stdio.h>
 #include <stdint.h>
 #include <math.h>
+#include <stdlib.h>
+#include <unistd.h>
 
 #define WIN_W		800
 #define WIN_H		800
@@ -42,13 +44,14 @@ typedef struct s_data
 	char		**map;
 	uint32_t	map_w;
 	uint32_t	map_h;
-	
+
 	float		player_x;
 	float		player_y;
 	float		player_a;
+	float		fov;
 }	t_data;
 
 // utils.c
 void		pxl_put(t_img *img, uint32_t x, uint32_t y, uint32_t colour);
 void		draw_tile(t_img *img, uint32_t x, uint32_t y, uint32_t colour);
-void		draw_player(t_img *img, float x, float y);
+void		draw_player(t_data *data);

@@ -6,7 +6,7 @@
 /*   By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 16:21:45 by mcygan            #+#    #+#             */
-/*   Updated: 2025/01/27 14:06:36 by mcygan           ###   ########.fr       */
+/*   Updated: 2025/01/29 15:54:56 by mcygan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,22 +40,22 @@ void	draw_tile(t_img *img, uint32_t x, uint32_t y, uint32_t colour)
 	}
 }
 
-void	draw_player(t_img *img, float x, float y)
+void	draw_player(t_data *data)
 {
+	uint32_t	x;
+	uint32_t	y;
 	uint32_t	i;
 	uint32_t	j;
 
-	x *= MAP_SCALE;
-	y *= MAP_SCALE;
-	x -= 2;
-	y -= 2;
-	i = (uint32_t)(y);
+	x = data->player_x * MAP_SCALE - MAP_SCALE / 5;
+	y = data->player_y * MAP_SCALE - MAP_SCALE / 5;
+	i = y;
 	while (i < y + 5 && i < WIN_H)
 	{
-		j = (uint32_t)x;
+		j = x;
 		while (j < x + 5 && j < WIN_W)
 		{
-			pxl_put(img, j, i, 0xFF0000);
+			pxl_put(&data->img, j, i, 0xFF0000);
 			j++;
 		}
 		i++;
