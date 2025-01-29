@@ -6,7 +6,7 @@
 /*   By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 15:42:11 by mcygan            #+#    #+#             */
-/*   Updated: 2025/01/27 14:04:26 by mcygan           ###   ########.fr       */
+/*   Updated: 2025/01/29 14:36:29 by mcygan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,27 @@
 
 typedef struct s_img
 {
-	void	*img;
+	void	*ptr;
 	char	*addr;
 	int		bpp;
 	int		line_len;
 	int		endian;
 }	t_img;
+
+typedef struct s_data
+{
+	void		*mlx;
+	void		*win;
+	t_img		img;
+
+	char		**map;
+	uint32_t	map_w;
+	uint32_t	map_h;
+	
+	float		player_x;
+	float		player_y;
+	float		player_a;
+}	t_data;
 
 // utils.c
 void		pxl_put(t_img *img, uint32_t x, uint32_t y, uint32_t colour);

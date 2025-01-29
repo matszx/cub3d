@@ -6,7 +6,7 @@
 /*   By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 15:30:03 by mcygan            #+#    #+#             */
-/*   Updated: 2025/01/27 16:47:32 by mcygan           ###   ########.fr       */
+/*   Updated: 2025/01/29 15:03:59 by mcygan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,25 +103,52 @@ static void	render(t_img *img, float angle)
 	draw_player(img, player_x, player_y);
 }
 
+static void	init_data(t_data *data)
+{
+	char	*m[] = {"1111111111111111", \
+					"1000000000000001", \
+					"1000000111110001", \
+					"1000001000000001", \
+					"1000001001111111", \
+					"1000001000000001", \
+					"1000111110000001", \
+					"1000100011111001", \
+					"1000100010000001", \
+					"1000100010011111", \
+					"1000000010000001", \
+					"1000000010000001", \
+					"1000000010000001", \
+					"1011111110000001", \
+					"1000000000000001", \
+					"1111111111111111"};
+
+	data->mlx = mlx_init();
+	data->win = mlx_new_window(data->mlx, WIN_W, WIN_H, "cub3d");
+	data->img.ptr = mlx_new_image(data->mlx, WIN_W, WIN_H);
+	data->img.addr = mlx_get_data_addr(data->img.ptr, &data->img.bpp,
+					 &data->img.line_len, &data->img.endian);
+	data->map = m;
+	data->map_w = 16;
+	data->map_h = 16;
+	data->player_x = 3.4;
+	data->player_y = 2.3;
+	data->player_a = 1.5;
+}
+
 int	main(void)
 {
-	void		*mlx;
-	void		*win;
-	t_img		img;
-	float		angle;
+	t_data	data;
+	float	angle;
 
-	mlx = mlx_init();
-	win = mlx_new_window(mlx, WIN_W, WIN_H, "cub3d");
-	img.img = mlx_new_image(mlx, WIN_W, WIN_H);
-	img.addr = mlx_get_data_addr(img.img, &img.bpp, &img.line_len, &img.endian);
+	init_data(&data);
 	angle = -1;
 	while (1)
 	{
-		render(&img, angle);
-		mlx_put_image_to_window(mlx, win, img.img, 0, 0);
+		render(&data.img, angle);
+		mlx_put_image_to_window(data.mlx, data.win, data.img.ptr, 0, 0);
 		angle += 0.01;
 		usleep(5000);
 	}
-	mlx_loop(mlx);
+	mlx_loop(data.mlx);
 	return (0);
 }
