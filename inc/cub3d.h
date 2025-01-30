@@ -6,7 +6,7 @@
 /*   By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 15:42:11 by mcygan            #+#    #+#             */
-/*   Updated: 2025/01/30 15:10:08 by mcygan           ###   ########.fr       */
+/*   Updated: 2025/01/30 15:26:51 by mcygan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,12 @@ typedef struct s_data
 	float	fov;
 }	t_data;
 
+void	render(t_data *data);
+
 // utils.c
-void		pxl_put(t_img *img, int x, int y, int colour);
-void		draw_tile(t_img *img, int x, int y, int colour);
-void		draw_player(t_data *data);
+void	pxl_put(t_img *img, int x, int y, int colour);
+void	draw_tile(t_img *img, int x, int y, int colour);
+void	draw_player(t_data *data);
+
+// handlers.c
+void	events_init(t_data *data);

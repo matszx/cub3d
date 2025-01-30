@@ -6,7 +6,7 @@
 /*   By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 15:30:03 by mcygan            #+#    #+#             */
-/*   Updated: 2025/01/30 15:13:29 by mcygan           ###   ########.fr       */
+/*   Updated: 2025/01/30 15:27:26 by mcygan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,11 +95,12 @@ static void	draw_rays(t_data *data)
 	}
 }
 
-static void	render(t_data *data)
+void	render(t_data *data)
 {
 	draw_map(data);
 	draw_rays(data);
 	draw_player(data);
+	mlx_put_image_to_window(data->mlx, data->win, data->img.ptr, 0, 0);
 }
 
 int	main(void)
@@ -123,13 +124,8 @@ int	main(void)
 	t_data	data;
 
 	init_data(&data, map);
-	while (1)
-	{
-		render(&data);
-		mlx_put_image_to_window(data.mlx, data.win, data.img.ptr, 0, 0);
-		data.player_a += 0.01;
-		usleep(5000);
-	}
+	events_init(&data);
+	render(&data);
 	mlx_loop(data.mlx);
 	return (0);
 }
