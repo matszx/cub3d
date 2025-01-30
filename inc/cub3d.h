@@ -6,7 +6,7 @@
 /*   By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 15:42:11 by mcygan            #+#    #+#             */
-/*   Updated: 2025/01/29 16:04:28 by mcygan           ###   ########.fr       */
+/*   Updated: 2025/01/30 15:10:08 by mcygan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,21 +37,21 @@ typedef struct s_img
 
 typedef struct s_data
 {
-	void		*mlx;
-	void		*win;
-	t_img		img;
+	void	*mlx;
+	void	*win;
+	t_img	img;
 
-	char		**map;
-	uint32_t	map_w;
-	uint32_t	map_h;
+	char	**map;
+	int		map_w;
+	int		map_h;
 
-	float		player_x;
-	float		player_y;
-	float		player_a;
-	float		fov;
+	float	player_x;
+	float	player_y;
+	float	player_a;
+	float	fov;
 }	t_data;
 
 // utils.c
-void		pxl_put(t_img *img, uint32_t x, uint32_t y, uint32_t colour);
-void		draw_tile(t_img *img, uint32_t x, uint32_t y, uint32_t colour);
+void		pxl_put(t_img *img, int x, int y, int colour);
+void		draw_tile(t_img *img, int x, int y, int colour);
 void		draw_player(t_data *data);

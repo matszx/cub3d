@@ -6,7 +6,7 @@
 /*   By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 15:30:03 by mcygan            #+#    #+#             */
-/*   Updated: 2025/01/29 16:05:27 by mcygan           ###   ########.fr       */
+/*   Updated: 2025/01/30 15:13:29 by mcygan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,16 +22,16 @@ static void	init_data(t_data *data, char **map)
 	data->map = map;
 	data->map_w = 16;
 	data->map_h = 16;
-	data->player_x = 3.4;
-	data->player_y = 2.3;
+	data->player_x = 1.9;
+	data->player_y = 1.9;
 	data->player_a = 1.5;
 	data->fov = M_PI / (180.0 / FOV);
 }
 
 static void	draw_map(t_data *data)
 {
-	uint32_t	i;
-	uint32_t	j;
+	int	i;
+	int	j;
 
 	i = -1;
 	while (++i < data->map_h)
@@ -47,12 +47,16 @@ static void	draw_map(t_data *data)
 	}
 }
 
-static void	draw_vertical_ray(t_img *img, uint32_t x, uint32_t h)
+static void	draw_vertical_ray(t_img *img, int x, int h)
 {
-	const uint32_t	ceiling = (WIN_H - h) / 2;
-	const uint32_t	floor = ceiling + h;
-	uint32_t		i;
+	int	ceiling;
+	int	floor;
+	int	i;
 
+	ceiling = (WIN_H - h) / 2;
+	floor = ceiling + h;
+	if (floor > WIN_H)
+		floor = WIN_H;
 	if (x < MAP_W * MAP_SCALE)
 		i = MAP_H * MAP_SCALE;
 	else
@@ -67,11 +71,11 @@ static void	draw_vertical_ray(t_img *img, uint32_t x, uint32_t h)
 
 static void	draw_rays(t_data *data)
 {
-	uint32_t	i;
-	float		angle;
-	float		t;
-	float		cx;
-	float		cy;
+	int		i;
+	float	angle;
+	float	t;
+	float	cx;
+	float	cy;
 
 	i = -1;
 	while (++i < WIN_W)
@@ -84,7 +88,7 @@ static void	draw_rays(t_data *data)
 			cy = data->player_y + t * sin(angle);
 			if (data->map[(int)cy][(int)cx] == '1')
 				break ;
-			pxl_put(&data->img, (uint32_t)(cx * MAP_SCALE), (uint32_t)(cy * MAP_SCALE), 0xFFFFFF);
+			pxl_put(&data->img, (int)(cx * MAP_SCALE), (int)(cy * MAP_SCALE), 0xFFFFFF);
 			t += 0.01;
 		}
 		draw_vertical_ray(&data->img, i, WIN_H / (t * cos(angle - data->player_a)));

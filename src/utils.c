@@ -6,24 +6,24 @@
 /*   By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 16:21:45 by mcygan            #+#    #+#             */
-/*   Updated: 2025/01/29 15:54:56 by mcygan           ###   ########.fr       */
+/*   Updated: 2025/01/30 14:15:01 by mcygan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
 
-void	pxl_put(t_img *img, uint32_t x, uint32_t y, uint32_t colour)
+void	pxl_put(t_img *img, int x, int y, int colour)
 {
 	char	*dst;
 
 	dst = img->addr + (y * img->line_len + x * (img->bpp / 8));
-	*(uint32_t *)dst = colour;
+	*(int *)dst = colour;
 }
 
-void	draw_tile(t_img *img, uint32_t x, uint32_t y, uint32_t colour)
+void	draw_tile(t_img *img, int x, int y, int colour)
 {
-	uint32_t	i;
-	uint32_t	j;
+	int	i;
+	int	j;
 
 	x *= MAP_SCALE;
 	y *= MAP_SCALE;
@@ -42,10 +42,10 @@ void	draw_tile(t_img *img, uint32_t x, uint32_t y, uint32_t colour)
 
 void	draw_player(t_data *data)
 {
-	uint32_t	x;
-	uint32_t	y;
-	uint32_t	i;
-	uint32_t	j;
+	int	x;
+	int	y;
+	int	i;
+	int	j;
 
 	x = data->player_x * MAP_SCALE - MAP_SCALE / 5;
 	y = data->player_y * MAP_SCALE - MAP_SCALE / 5;
