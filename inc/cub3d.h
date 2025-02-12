@@ -6,7 +6,7 @@
 /*   By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 15:42:11 by mcygan            #+#    #+#             */
-/*   Updated: 2025/02/12 18:45:56 by mcygan           ###   ########.fr       */
+/*   Updated: 2025/02/12 19:03:17 by mcygan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,15 @@
 #include <unistd.h>
 #include <sys/time.h>
 
-#define WIN_W		800
-#define WIN_H		800
-#define MAP_W		16
-#define MAP_H		16
-#define MAP_SCALE	10
-#define FOV			60
-#define MOVE_SPEED	0.05
+#define WIN_W			800
+#define WIN_H			800
+#define MAP_W			16
+#define MAP_H			16
+#define MAP_SCALE		10
+#define FOV				60
+#define MOVE_SPEED		0.020
+#define LATERAL_SPEED	0.015
+#define	ROTATION_SPEED	0.015
 
 typedef struct s_img
 {

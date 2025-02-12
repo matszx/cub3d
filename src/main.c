@@ -6,7 +6,7 @@
 /*   By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 15:30:03 by mcygan            #+#    #+#             */
-/*   Updated: 2025/02/12 18:48:10 by mcygan           ###   ########.fr       */
+/*   Updated: 2025/02/12 19:02:26 by mcygan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,6 @@ static int	render(t_data *data)
 		draw_player(data);
 		mlx_put_image_to_window(data->mlx, data->win, data->img.ptr, 0, 0);
 	}
-	
 	return (0);
 }
 
