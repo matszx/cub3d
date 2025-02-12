@@ -6,7 +6,7 @@
 /*   By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 13:43:44 by mcygan            #+#    #+#             */
-/*   Updated: 2025/02/12 12:00:31 by mcygan           ###   ########.fr       */
+/*   Updated: 2025/02/12 13:39:41 by mcygan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,20 +23,25 @@ static int	close_handler(t_data *data)
 
 static int	key_handler(int keycode, t_data *data)
 {
-	if (keycode == 0x61)
-		data->player_x += 0.01 * MOVE_SPEED;
-	if (keycode == 0x64)
-		data->player_x -= 0.01 * MOVE_SPEED;
 	if (keycode == 0x77)
-		data->player_y += 0.01 * MOVE_SPEED;
+		move_W(data);
+	if (keycode == 0x61)
+		move_A(data);
 	if (keycode == 0x73)
-		data->player_y -= 0.01 * MOVE_SPEED;
+		move_S(data);
+	if (keycode == 0x64)
+		move_D(data);
 	if (keycode == 0xff53)
 		data->player_a += 0.006 * MOVE_SPEED;
 	if (keycode == 0xff51)
 		data->player_a -= 0.006 * MOVE_SPEED;
 	if (keycode == 0xff1b)
 		close_handler(data);
+	if (data->map[(int)data->player_x][(int)data->player_y] == 1)
+	{
+		data->player_x = roundf(data->player_x);
+		data->player_y = roundf(data->player_y);
+	}
 	return (0);
 }
 

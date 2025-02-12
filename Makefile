@@ -6,7 +6,7 @@
 #    By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/23 15:29:54 by mcygan            #+#    #+#              #
-#    Updated: 2025/01/30 15:20:11 by mcygan           ###   ########.fr        #
+#    Updated: 2025/02/12 12:04:21 by mcygan           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,8 @@ LIB				=	-Lminilibx -lmlx -L/usr/lib/X11 -lX11 -lXext -lm
 
 SRC_FILES 		=	main.c \
 					utils.c \
-					handlers.c
+					handlers.c \
+					move.c
 
 SRC_DIR			=	src/
 SRC				=	$(addprefix $(SRC_DIR), $(SRC_FILES))

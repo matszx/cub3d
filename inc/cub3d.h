@@ -6,7 +6,7 @@
 /*   By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 15:42:11 by mcygan            #+#    #+#             */
-/*   Updated: 2025/02/12 12:00:42 by mcygan           ###   ########.fr       */
+/*   Updated: 2025/02/12 13:27:36 by mcygan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,3 +59,9 @@ void	draw_player(t_data *data);
 
 // handlers.c
 void	events_init(t_data *data);
+
+// move.c
+void	move_W(t_data *data);
+void	move_A(t_data *data);
+void	move_S(t_data *data);
+void	move_D(t_data *data);
