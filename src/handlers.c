@@ -6,7 +6,7 @@
 /*   By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 13:43:44 by mcygan            #+#    #+#             */
-/*   Updated: 2025/02/12 15:55:57 by mcygan           ###   ########.fr       */
+/*   Updated: 2025/02/12 18:35:16 by mcygan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,26 +21,44 @@ static int	close_handler(t_data *data)
 	exit(EXIT_SUCCESS);
 }
 
-static int	key_handler(int keycode, t_data *data)
+static int	key_press_handler(int keycode, t_data *data)
 {
 	if (keycode == 0x77)
-		move_w(data);
+		data->w_press = true;
 	if (keycode == 0x61)
-		move_a(data);
+		data->a_press = true;
 	if (keycode == 0x73)
-		move_s(data);
+		data->s_press = true;
 	if (keycode == 0x64)
-		move_d(data);
-	if (keycode == 0xff53)
-		data->player_a += MOVE_SPEED / 2;
+		data->d_press = true;
 	if (keycode == 0xff51)
-		data->player_a -= MOVE_SPEED / 2;
+		data->left_press = true;
+	if (keycode == 0xff53)
+		data->right_press = true;
 	if (keycode == 0xff1b)
 		close_handler(data);
 	return (0);
 }
 
+static int	key_release_handler(int keycode, t_data *data)
+{
+	if (keycode == 0x77 && data->w_press)
+		data->w_press = false;
+	if (keycode == 0x61 && data->a_press)
+		data->a_press = false;
+	if (keycode == 0x73 && data->s_press)
+		data->s_press = false;
+	if (keycode == 0x64 && data->d_press)
+		data->d_press = false;
+	if (keycode == 0xff51 && data->left_press)
+		data->left_press = false;
+	if (keycode == 0xff53 && data->right_press)
+		data->right_press = false;
+	return (0);
+}
+
 void	events_init(t_data *data)
 {
-	mlx_hook(data->win, 2, 1L << 0, key_handler, data);
+	mlx_hook(data->win, 2, 1L << 0, key_press_handler, data);
+	mlx_hook(data->win, 3, 1L << 1, key_release_handler, data);
 }

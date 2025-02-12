@@ -6,7 +6,7 @@
 /*   By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 15:42:11 by mcygan            #+#    #+#             */
-/*   Updated: 2025/02/12 15:42:35 by mcygan           ###   ########.fr       */
+/*   Updated: 2025/02/12 18:37:07 by mcygan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include <stdio.h>
 #include <stdint.h>
 #include <math.h>
+#include <stdbool.h>
 #include <stdlib.h>
 #include <unistd.h>
 
@@ -25,7 +26,7 @@
 #define MAP_H		16
 #define MAP_SCALE	10
 #define FOV			60
-#define MOVE_SPEED	0.1
+#define MOVE_SPEED	0.05
 
 typedef struct s_img
 {
@@ -50,6 +51,13 @@ typedef struct s_data
 	float	player_y;
 	float	player_a;
 	float	fov;
+
+	bool	w_press;
+	bool	a_press;
+	bool	s_press;
+	bool	d_press;
+	bool	left_press;
+	bool	right_press;
 }	t_data;
 
 // utils.c
@@ -61,7 +69,4 @@ void	draw_player(t_data *data);
 void	events_init(t_data *data);
 
 // move.c
-void	move_w(t_data *data);
-void	move_a(t_data *data);
-void	move_s(t_data *data);
-void	move_d(t_data *data);
+void	player_move(t_data *data);

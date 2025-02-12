@@ -6,13 +6,13 @@
 /*   By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 12:03:55 by mcygan            #+#    #+#             */
-/*   Updated: 2025/02/12 15:42:28 by mcygan           ###   ########.fr       */
+/*   Updated: 2025/02/12 18:39:53 by mcygan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
 
-void	move_w(t_data *data)
+static void	move_w(t_data *data)
 {
 	float	new_x;
 	float	new_y;
@@ -25,7 +25,7 @@ void	move_w(t_data *data)
 		data->player_y = new_y;
 }
 
-void	move_a(t_data *data)
+static void	move_a(t_data *data)
 {
 	float	new_x;
 	float	new_y;
@@ -38,7 +38,7 @@ void	move_a(t_data *data)
 		data->player_y = new_y;
 }
 
-void	move_s(t_data *data)
+static void	move_s(t_data *data)
 {
 	float	new_x;
 	float	new_y;
@@ -51,7 +51,7 @@ void	move_s(t_data *data)
 		data->player_y = new_y;
 }
 
-void	move_d(t_data *data)
+static void	move_d(t_data *data)
 {
 	float	new_x;
 	float	new_y;
@@ -62,4 +62,20 @@ void	move_d(t_data *data)
 		data->player_x = new_x;
 	if (data->map[(int)new_y][(int)data->player_x] != '1')
 		data->player_y = new_y;
+}
+
+void	player_move(t_data *data)
+{
+	if (data->w_press)
+		move_w(data);
+	if (data->a_press)
+		move_a(data);
+	if (data->s_press)
+		move_s(data);
+	if (data->d_press)
+		move_d(data);
+	if (data->left_press)
+		data->player_a -= MOVE_SPEED / 2;
+	if (data->right_press)
+		data->player_a += MOVE_SPEED / 2;
 }

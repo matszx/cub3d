@@ -6,7 +6,7 @@
 /*   By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 15:30:03 by mcygan            #+#    #+#             */
-/*   Updated: 2025/02/12 11:33:02 by mcygan           ###   ########.fr       */
+/*   Updated: 2025/02/12 18:28:09 by mcygan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,12 @@ static void	init_data(t_data *data, char **map)
 	data->player_y = 1.9;
 	data->player_a = 1.5;
 	data->fov = M_PI / (180.0 / FOV);
+	data->w_press = false;
+	data->a_press = false;
+	data->s_press = false;
+	data->d_press = false;
+	data->left_press = false;
+	data->right_press = false;
 }
 
 static void	draw_map(t_data *data)
@@ -97,6 +103,7 @@ static void	draw_rays(t_data *data)
 
 static int	render(t_data *data)
 {
+	player_move(data);
 	draw_map(data);
 	draw_rays(data);
 	draw_player(data);
