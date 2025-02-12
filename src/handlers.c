@@ -6,7 +6,7 @@
 /*   By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 13:43:44 by mcygan            #+#    #+#             */
-/*   Updated: 2025/02/12 18:35:16 by mcygan           ###   ########.fr       */
+/*   Updated: 2025/02/12 18:49:42 by mcygan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,17 +25,17 @@ static int	key_press_handler(int keycode, t_data *data)
 {
 	if (keycode == 0x77)
 		data->w_press = true;
-	if (keycode == 0x61)
+	else if (keycode == 0x61)
 		data->a_press = true;
-	if (keycode == 0x73)
+	else if (keycode == 0x73)
 		data->s_press = true;
-	if (keycode == 0x64)
+	else if (keycode == 0x64)
 		data->d_press = true;
-	if (keycode == 0xff51)
+	else if (keycode == 0xff51)
 		data->left_press = true;
-	if (keycode == 0xff53)
+	else if (keycode == 0xff53)
 		data->right_press = true;
-	if (keycode == 0xff1b)
+	else if (keycode == 0xff1b)
 		close_handler(data);
 	return (0);
 }
@@ -44,15 +44,15 @@ static int	key_release_handler(int keycode, t_data *data)
 {
 	if (keycode == 0x77 && data->w_press)
 		data->w_press = false;
-	if (keycode == 0x61 && data->a_press)
+	else if (keycode == 0x61 && data->a_press)
 		data->a_press = false;
-	if (keycode == 0x73 && data->s_press)
+	else if (keycode == 0x73 && data->s_press)
 		data->s_press = false;
-	if (keycode == 0x64 && data->d_press)
+	else if (keycode == 0x64 && data->d_press)
 		data->d_press = false;
-	if (keycode == 0xff51 && data->left_press)
+	else if (keycode == 0xff51 && data->left_press)
 		data->left_press = false;
-	if (keycode == 0xff53 && data->right_press)
+	else if (keycode == 0xff53 && data->right_press)
 		data->right_press = false;
 	return (0);
 }

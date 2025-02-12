@@ -6,7 +6,7 @@
 /*   By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 15:30:03 by mcygan            #+#    #+#             */
-/*   Updated: 2025/02/12 18:28:09 by mcygan           ###   ########.fr       */
+/*   Updated: 2025/02/12 18:48:10 by mcygan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ static void	init_data(t_data *data, char **map)
 	data->d_press = false;
 	data->left_press = false;
 	data->right_press = false;
+	data->last_frame_time = time_ms();
 }
 
 static void	draw_map(t_data *data)
@@ -103,11 +104,16 @@ static void	draw_rays(t_data *data)
 
 static int	render(t_data *data)
 {
-	player_move(data);
-	draw_map(data);
-	draw_rays(data);
-	draw_player(data);
-	mlx_put_image_to_window(data->mlx, data->win, data->img.ptr, 0, 0);
+	if (time_ms() - data->last_frame_time >= 10)
+	{
+		data->last_frame_time = time_ms();
+		player_move(data);
+		draw_map(data);
+		draw_rays(data);
+		draw_player(data);
+		mlx_put_image_to_window(data->mlx, data->win, data->img.ptr, 0, 0);
+	}
+	
 	return (0);
 }
 

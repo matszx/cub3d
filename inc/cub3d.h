@@ -6,7 +6,7 @@
 /*   By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 15:42:11 by mcygan            #+#    #+#             */
-/*   Updated: 2025/02/12 18:37:07 by mcygan           ###   ########.fr       */
+/*   Updated: 2025/02/12 18:45:56 by mcygan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 #include <stdbool.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <sys/time.h>
 
 #define WIN_W		800
 #define WIN_H		800
@@ -58,9 +59,12 @@ typedef struct s_data
 	bool	d_press;
 	bool	left_press;
 	bool	right_press;
+
+	size_t	last_frame_time;
 }	t_data;
 
 // utils.c
+size_t	time_ms(void);
 void	pxl_put(t_img *img, int x, int y, int colour);
 void	draw_tile(t_img *img, int x, int y, int colour);
 void	draw_player(t_data *data);
