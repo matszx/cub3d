@@ -6,7 +6,7 @@
 /*   By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 16:21:45 by mcygan            #+#    #+#             */
-/*   Updated: 2025/02/12 14:22:44 by mcygan           ###   ########.fr       */
+/*   Updated: 2025/02/12 14:39:04 by mcygan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,14 @@ void	draw_player(t_data *data)
 
 	x = data->player_x * MAP_SCALE - MAP_SCALE / 5;
 	y = data->player_y * MAP_SCALE - MAP_SCALE / 5;
-	i = fmaxf(y, 0);
+	i = y;
+	if (i < 0)
+		i = 0;
 	while (i < y + 5 && i < WIN_H)
 	{
 		j = x;
+		if (j < 0)
+			j = 0;
 		while (j < x + 5 && j < WIN_W)
 		{
 			pxl_put(&data->img, j, i, 0xFF0000);
