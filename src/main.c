@@ -6,7 +6,7 @@
 /*   By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 15:30:03 by mcygan            #+#    #+#             */
-/*   Updated: 2025/02/12 19:02:26 by mcygan           ###   ########.fr       */
+/*   Updated: 2025/02/14 16:00:33 by mcygan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,15 +79,15 @@ static void	draw_vertical_ray(t_img *img, int x, int h)
 static void	draw_rays(t_data *data)
 {
 	int		i;
-	float	angle;
-	float	t;
-	float	cx;
-	float	cy;
+	double	angle;
+	double	t;
+	double	cx;
+	double	cy;
 
 	i = -1;
 	while (++i < WIN_W)
 	{
-		angle = data->player_a - data->fov / 2 + data->fov * i / (float)WIN_W;
+		angle = data->player_a - data->fov / 2 + data->fov * i / (double)WIN_W;
 		t = 0.0;
 		while (t < 20.0)
 		{

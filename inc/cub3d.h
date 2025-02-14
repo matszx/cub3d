@@ -6,7 +6,7 @@
 /*   By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 15:42:11 by mcygan            #+#    #+#             */
-/*   Updated: 2025/02/12 19:03:17 by mcygan           ###   ########.fr       */
+/*   Updated: 2025/02/14 16:00:33 by mcygan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,10 @@ typedef struct s_data
 	int		map_w;
 	int		map_h;
 
-	float	player_x;
-	float	player_y;
-	float	player_a;
-	float	fov;
+	double	player_x;
+	double	player_y;
+	double	player_a;
+	double	fov;
 
 	bool	w_press;
 	bool	a_press;
