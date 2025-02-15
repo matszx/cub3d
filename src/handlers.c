@@ -6,7 +6,7 @@
 /*   By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 13:43:44 by mcygan            #+#    #+#             */
-/*   Updated: 2025/02/12 18:49:42 by mcygan           ###   ########.fr       */
+/*   Updated: 2025/02/15 15:18:41 by mcygan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,19 +23,19 @@ static int	close_handler(t_data *data)
 
 static int	key_press_handler(int keycode, t_data *data)
 {
-	if (keycode == 0x77)
+	if (keycode == KEY_W)
 		data->w_press = true;
-	else if (keycode == 0x61)
+	else if (keycode == KEY_A)
 		data->a_press = true;
-	else if (keycode == 0x73)
+	else if (keycode == KEY_S)
 		data->s_press = true;
-	else if (keycode == 0x64)
+	else if (keycode == KEY_D)
 		data->d_press = true;
-	else if (keycode == 0xff51)
+	else if (keycode == KEY_LEFT)
 		data->left_press = true;
-	else if (keycode == 0xff53)
+	else if (keycode == KEY_RIGHT)
 		data->right_press = true;
-	else if (keycode == 0xff1b)
+	else if (keycode == KEY_ESCAPE)
 		close_handler(data);
 	return (0);
 }

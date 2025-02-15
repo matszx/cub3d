@@ -6,7 +6,7 @@
 /*   By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 15:42:11 by mcygan            #+#    #+#             */
-/*   Updated: 2025/02/14 16:00:33 by mcygan           ###   ########.fr       */
+/*   Updated: 2025/02/15 15:29:36 by mcygan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,14 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <sys/time.h>
+
+#define KEY_W		0x77
+#define KEY_A		0x61
+#define KEY_S		0x73
+#define KEY_D		0x64
+#define KEY_LEFT	0xff51
+#define KEY_RIGHT	0xff53
+#define KEY_ESCAPE	0xff1b
 
 #define WIN_W			800
 #define WIN_H			800
