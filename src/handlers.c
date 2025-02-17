@@ -6,7 +6,7 @@
 /*   By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 13:43:44 by mcygan            #+#    #+#             */
-/*   Updated: 2025/02/15 15:18:41 by mcygan           ###   ########.fr       */
+/*   Updated: 2025/02/17 14:14:46 by mcygan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,17 +42,17 @@ static int	key_press_handler(int keycode, t_data *data)
 
 static int	key_release_handler(int keycode, t_data *data)
 {
-	if (keycode == 0x77 && data->w_press)
+	if (keycode == KEY_W && data->w_press)
 		data->w_press = false;
-	else if (keycode == 0x61 && data->a_press)
+	else if (keycode == KEY_A && data->a_press)
 		data->a_press = false;
-	else if (keycode == 0x73 && data->s_press)
+	else if (keycode == KEY_S && data->s_press)
 		data->s_press = false;
-	else if (keycode == 0x64 && data->d_press)
+	else if (keycode == KEY_D && data->d_press)
 		data->d_press = false;
-	else if (keycode == 0xff51 && data->left_press)
+	else if (keycode == KEY_LEFT && data->left_press)
 		data->left_press = false;
-	else if (keycode == 0xff53 && data->right_press)
+	else if (keycode == KEY_RIGHT && data->right_press)
 		data->right_press = false;
 	return (0);
 }

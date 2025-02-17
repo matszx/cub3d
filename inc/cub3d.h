@@ -6,7 +6,7 @@
 /*   By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 15:42:11 by mcygan            #+#    #+#             */
-/*   Updated: 2025/02/15 15:29:36 by mcygan           ###   ########.fr       */
+/*   Updated: 2025/02/17 15:06:09 by mcygan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,15 +29,13 @@
 #define KEY_RIGHT	0xff53
 #define KEY_ESCAPE	0xff1b
 
-#define WIN_W			800
+#define WIN_W			1200
 #define WIN_H			800
 #define MAP_W			16
 #define MAP_H			16
 #define MAP_SCALE		10
-#define FOV				60
-#define MOVE_SPEED		0.020
-#define LATERAL_SPEED	0.015
-#define	ROTATION_SPEED	0.015
+#define FOV				73
+#define MOVE_SPEED		0.03
 
 typedef struct s_img
 {

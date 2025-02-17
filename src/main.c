@@ -6,7 +6,7 @@
 /*   By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 15:30:03 by mcygan            #+#    #+#             */
-/*   Updated: 2025/02/14 16:00:33 by mcygan           ###   ########.fr       */
+/*   Updated: 2025/02/17 15:14:55 by mcygan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,9 @@ static void	draw_map(t_data *data)
 		while (++j < data->map_w)
 		{
 			if (data->map[i][j] == '1')
-				draw_tile(&data->img, j, i, 0x0F0F00);
+				draw_tile(&data->img, j, i, 0x2E2E2E);
 			else
-				draw_tile(&data->img, j, i, 0x5F5F5F);
+				draw_tile(&data->img, j, i, 0x065EE2);
 		}
 	}
 }
@@ -73,7 +73,7 @@ static void	draw_vertical_ray(t_img *img, int x, int h)
 	while (i < floor)
 		pxl_put(img, x, i++, 0x15805F);
 	while (i < WIN_H)
-		pxl_put(img, x, i++, 0x36220A);
+		pxl_put(img, x, i++, 0x2F1600);
 }
 
 static void	draw_rays(t_data *data)
@@ -95,7 +95,6 @@ static void	draw_rays(t_data *data)
 			cy = data->player_y + t * sin(angle);
 			if (data->map[(int)cy][(int)cx] == '1')
 				break ;
-			pxl_put(&data->img, (int)(cx * MAP_SCALE), (int)(cy * MAP_SCALE), 0xFFFFFF);
 			t += 0.01;
 		}
 		draw_vertical_ray(&data->img, i, WIN_H / (t * cos(angle - data->player_a)));
@@ -104,7 +103,7 @@ static void	draw_rays(t_data *data)
 
 static int	render(t_data *data)
 {
-	if (time_ms() - data->last_frame_time >= 10)
+	if (time_ms() - data->last_frame_time >= 16)
 	{
 		data->last_frame_time = time_ms();
 		player_move(data);
