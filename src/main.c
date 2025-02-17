@@ -6,7 +6,7 @@
 /*   By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 15:30:03 by mcygan            #+#    #+#             */
-/*   Updated: 2025/02/17 15:14:55 by mcygan           ###   ########.fr       */
+/*   Updated: 2025/02/17 17:21:40 by mcygan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,77 @@ static void	draw_vertical_ray(t_img *img, int x, int h)
 		pxl_put(img, x, i++, 0x2F1600);
 }
 
+static double	dda(t_data *data, double cx, double cy)
+{
+	double	posX = data->player_x;
+	double	posY = data->player_y;
+	double	rayDirX = cx - posX;
+	double	rayDirY = cy - posY;
+	double	deltaDistX;
+	double	deltaDistY;
+	int		mapX = (int)posX;
+	int		mapY = (int)posY;
+	double	sideDistX;
+	double	sideDistY;
+	int		stepX;
+	int		stepY;
+	bool	hit = false;
+	int		side;
+	double	perpWallDist;
+
+	if (rayDirX)
+		deltaDistX = fabs(1/ rayDirX);
+	else
+		deltaDistX = 1e30;
+	if (rayDirY)
+		deltaDistY = fabs(1/ rayDirY);
+	else
+		deltaDistY = 1e30;
+	if (rayDirX < 0)
+	{
+		stepX = -1;
+		sideDistX = (posX - mapX) * deltaDistX;
+	}
+	else
+	{
+		stepX = 1;
+		sideDistX = (mapX + 1.0 - posX) * deltaDistX;
+	}
+	if (rayDirY < 0)
+	{
+		stepY = -1;
+		sideDistY = (posY - mapY) * deltaDistY;
+	}	
+	else
+	{
+		stepY = 1;
+		sideDistY = (mapY + 1.0 - posY) * deltaDistY;
+	}
+
+	while (!hit)
+	{
+		if (sideDistX < sideDistY)
+		{
+			sideDistX += deltaDistX;
+			mapX += stepX;
+			side = 0;
+		}
+		else
+		{
+			sideDistY += deltaDistY;
+			mapY += stepY;
+			side = 1;
+		}
+		if (data->map[mapY][mapX] == '1')
+			hit = true;
+	}
+	if (!side)
+		perpWallDist = sideDistX - deltaDistX;
+	else
+		perpWallDist = sideDistY - deltaDistY;
+	return (perpWallDist);
+}
+
 static void	draw_rays(t_data *data)
 {
 	int		i;
@@ -88,15 +159,18 @@ static void	draw_rays(t_data *data)
 	while (++i < WIN_W)
 	{
 		angle = data->player_a - data->fov / 2 + data->fov * i / (double)WIN_W;
-		t = 0.0;
-		while (t < 20.0)
+		/* t = 0.0; */
+		cx = data->player_x + cos(angle);
+		cy = data->player_y + sin(angle);
+		t = dda(data, cx, cy);
+		/* while (t < 20.0)
 		{
 			cx = data->player_x + t * cos(angle);
 			cy = data->player_y + t * sin(angle);
 			if (data->map[(int)cy][(int)cx] == '1')
 				break ;
 			t += 0.01;
-		}
+		} */
 		draw_vertical_ray(&data->img, i, WIN_H / (t * cos(angle - data->player_a)));
 	}
 }
