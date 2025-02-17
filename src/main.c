@@ -6,7 +6,7 @@
 /*   By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 15:30:03 by mcygan            #+#    #+#             */
-/*   Updated: 2025/02/17 22:34:21 by mcygan           ###   ########.fr       */
+/*   Updated: 2025/02/17 23:16:16 by mcygan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,20 +151,20 @@ static void	draw_rays(t_data *data)
 {
 	int		i;
 	double	angle;
-	double	projplane_w;
+	double	projplane_halfw;
 	double	projplane_x;
 	double	x_max;
 	double	t;
 	double	cx;
 	double	cy;
 
-	projplane_w = tan(data->fov / 2) * 2 * 6;
+	projplane_halfw = tan(data->fov / 2);
 	x_max = WIN_W - 1;
 	i = -1;
 	while (++i < WIN_W)
 	{
-		projplane_x = (((i * 2) - x_max) / x_max) * (projplane_w / 2);
-		angle = data->player_a + atan2(projplane_x, 6.0);
+		projplane_x = (((i * 2) - x_max) / x_max) * (projplane_halfw);
+		angle = data->player_a + atan(projplane_x);
 		/* t = 0.0; */
 		cx = data->player_x + cos(angle);
 		cy = data->player_y + sin(angle);
