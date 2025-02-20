@@ -6,7 +6,7 @@
 /*   By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 13:43:44 by mcygan            #+#    #+#             */
-/*   Updated: 2025/02/19 14:55:11 by mcygan           ###   ########.fr       */
+/*   Updated: 2025/02/20 14:13:27 by mcygan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ static int	key_release_handler(int keycode, t_data *data)
 	return (0);
 }
 
-void	events_init(t_data *data)
+void	init_events(t_data *data)
 {
 	mlx_hook(data->win, 2, 1L << 0, key_press_handler, data);
 	mlx_hook(data->win, 3, 1L << 1, key_release_handler, data);

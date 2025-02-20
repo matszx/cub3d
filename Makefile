@@ -6,7 +6,7 @@
 #    By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/23 15:29:54 by mcygan            #+#    #+#              #
-#    Updated: 2025/02/17 15:26:45 by mcygan           ###   ########.fr        #
+#    Updated: 2025/02/20 14:18:09 by mcygan           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,9 +17,12 @@ INC				=	-I/usr/include -Iminilibx
 LIB				=	-Lminilibx -lmlx -L/usr/lib/X11 -lX11 -lXext -lm
 
 SRC_FILES 		=	main.c \
-					utils.c \
+					init.c \
+					minimap.c \
+					render.c \
+					move.c \
 					handlers.c \
-					move.c
+					utils.c
 
 SRC_DIR			=	src/
 SRC				=	$(addprefix $(SRC_DIR), $(SRC_FILES))

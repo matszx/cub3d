@@ -6,7 +6,7 @@
 /*   By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 15:42:11 by mcygan            #+#    #+#             */
-/*   Updated: 2025/02/20 11:08:04 by mcygan           ###   ########.fr       */
+/*   Updated: 2025/02/20 14:16:26 by mcygan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,13 @@
 #include <unistd.h>
 #include <sys/time.h>
 
-#define KEY_W		0x77
-#define KEY_A		0x61
-#define KEY_S		0x73
-#define KEY_D		0x64
-#define KEY_LEFT	0xff51
-#define KEY_RIGHT	0xff53
-#define KEY_ESCAPE	0xff1b
+#define KEY_W			0x77
+#define KEY_A			0x61
+#define KEY_S			0x73
+#define KEY_D			0x64
+#define KEY_LEFT		0xff51
+#define KEY_RIGHT		0xff53
+#define KEY_ESCAPE		0xff1b
 
 #define WIN_W			1200
 #define WIN_H			800
@@ -82,15 +82,22 @@ typedef struct s_data
 	double		rayDirY;
 }	t_data;
 
-// utils.c
-size_t	time_ms(void);
-void	pxl_put(t_img *img, int x, int y, int colour);
-void	draw_tile(t_img *img, int x, int y, int colour);
-void	draw_player(t_data *data);
+// init.c
+void	init_data(t_data *data, char **map);
 
-// handlers.c
-int		close_handler(t_data *data, char *error);
-void	events_init(t_data *data);
+// minimap.c
+void	draw_minimap(t_data *data);
+
+// render.c
+int		render(t_data *data);
 
 // move.c
 void	player_move(t_data *data);
+
+// handlers.c
+int		close_handler(t_data *data, char *error);
+void	init_events(t_data *data);
+
+// utils.c
+size_t	time_ms(void);
+void	pxl_put(t_img *img, int x, int y, int colour);
