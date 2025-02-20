@@ -6,7 +6,7 @@
 /*   By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 14:15:05 by mcygan            #+#    #+#             */
-/*   Updated: 2025/02/20 15:22:03 by mcygan           ###   ########.fr       */
+/*   Updated: 2025/02/20 16:16:56 by mcygan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,27 +119,19 @@ static double	dda(t_data *data, double cx, double cy)
 	return (perpWallDist);
 }
 
-static void	draw_rays(t_data *data)
+static void	cast_rays(t_data *data)
 {
 	int		i;
-	double	angle;
-	double	projplane_halfw;
 	double	projplane_x;
-	double	x_max;
+	double	angle;
 	double	t;
-	double	cx;
-	double	cy;
 
-	projplane_halfw = tan(data->fov / 2);
-	x_max = WIN_W - 1;
 	i = -1;
 	while (++i < WIN_W)
 	{
-		projplane_x = (((i * 2) - x_max) / x_max) * (projplane_halfw);
+		projplane_x = (i * 2.0 - WIN_W) / WIN_W * tan(data->fov / 2);
 		angle = data->player_a + atan(projplane_x);
-		cx = data->player_x + cos(angle);
-		cy = data->player_y + sin(angle);
-		t = dda(data, cx, cy);
+		t = dda(data, data->player_x + cos(angle), data->player_y + sin(angle));
 		draw_vertical_ray(data, i, WIN_H / (t * cos(angle - data->player_a)));
 	}
 }
@@ -151,7 +143,7 @@ int	render(t_data *data)
 		data->last_frame_time = time_ms();
 		player_move(data);
 		draw_minimap(data);
-		draw_rays(data);
+		cast_rays(data);
 		mlx_put_image_to_window(data->mlx, data->win, data->img.ptr, 0, 0);
 	}
 	return (0);
