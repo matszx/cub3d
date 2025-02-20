@@ -6,13 +6,13 @@
 /*   By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 14:15:05 by mcygan            #+#    #+#             */
-/*   Updated: 2025/02/20 14:17:34 by mcygan           ###   ########.fr       */
+/*   Updated: 2025/02/20 15:22:03 by mcygan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
 
-static int	tex_pxl_colour(t_data *data, int y, int h)
+/* static int	tex_pxl_colour(t_data *data, int y, int h)
 {
 	int	texX;
 	int	texY;
@@ -22,7 +22,7 @@ static int	tex_pxl_colour(t_data *data, int y, int h)
 		texX = data->texture.w - texX - 1;
 	texY = ((double)y / (double)h) * (double)data->texture.h;
 	return (data->texture.addr[data->texture.w * texY + texX]);
-}
+} */
 
 static void	draw_vertical_ray(t_data *data, int x, int h)
 {
@@ -35,15 +35,15 @@ static void	draw_vertical_ray(t_data *data, int x, int h)
 	if (floor > WIN_H)
 		floor = WIN_H;
 	if (x < MAP_W * MAP_SCALE)
-		i = MAP_H * MAP_SCALE - 1;
+		i = MAP_H * MAP_SCALE;
 	else
-		i = -1;
-	while (++i < ceiling)
-		pxl_put(&data->img, x, i, 0x99DDFF);
-	while (++i < floor)
-		pxl_put(&data->img, x, i, tex_pxl_colour(data, i - ceiling, h));
-	while (++i < WIN_H)
-		pxl_put(&data->img, x, i, 0x2F1600);
+		i = 0;
+	while (i < ceiling)
+		pxl_put(&data->img, x, i++, 0x99DDFF);
+	while (i < floor)
+		pxl_put(&data->img, x, i++, 0x124725);
+	while (i < WIN_H)
+		pxl_put(&data->img, x, i++, 0x2F1600);
 }
 
 static double	dda(t_data *data, double cx, double cy)
@@ -113,18 +113,9 @@ static double	dda(t_data *data, double cx, double cy)
 			hit = true;
 	}
 	if (!side)
-	{
 		perpWallDist = sideDistX - deltaDistX;
-		data->wallX = posY + perpWallDist * rayDirY;
-	}
 	else
-	{
 		perpWallDist = sideDistY - deltaDistY;
-		data->wallX = posX + perpWallDist * rayDirX;
-
-	}
-	data->wallX -= floor(data->wallX);
-	data->side = side;
 	return (perpWallDist);
 }
 
