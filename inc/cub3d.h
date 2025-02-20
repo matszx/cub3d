@@ -6,7 +6,7 @@
 /*   By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 15:42:11 by mcygan            #+#    #+#             */
-/*   Updated: 2025/02/20 16:37:45 by mcygan           ###   ########.fr       */
+/*   Updated: 2025/02/20 17:47:38 by mcygan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,8 @@ typedef struct s_data
 	double		wallY;
 	double		rayDirX;
 	double		rayDirY;
+	int			tex_x;
+	int			tex_y;
 }	t_data;
 
 typedef struct s_render_info

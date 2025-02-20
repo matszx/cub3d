@@ -6,22 +6,32 @@
 /*   By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 14:15:05 by mcygan            #+#    #+#             */
-/*   Updated: 2025/02/20 16:44:46 by mcygan           ###   ########.fr       */
+/*   Updated: 2025/02/20 19:07:03 by mcygan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
 
-/* static int	tex_pxl_colour(t_data *data, int y, int h)
+static int	tex_pxl_colour(t_data *data, int y, int h)
 {
-	int	texX;
-	int	texY;
+	int		texX;
+	int		texY;
+	char	*dst;
 
-	texX = data->wallX * data->texture.w;
-	if ((data->side && data->rayDirY < 0) || (!data->side && data->rayDirX > 0))
+	texX = data->wallX * (double)data->texture.w;
+	if ((data->side && data->rayDirY < 0.0) || (!data->side && data->rayDirX > 0.0))
 		texX = data->texture.w - texX - 1;
 	texY = ((double)y / (double)h) * (double)data->texture.h;
-	return (data->texture.addr[data->texture.w * texY + texX]);
+	dst = data->texture.addr + (texY * data->texture.line_len + texX * (data->texture.bpp / 8));
+	return (*(unsigned int *) dst);
+}
+
+/* static int	tex_colour(t_texture *tex, int x, int y)
+{
+	char	*dst;
+
+	dst = tex->addr + (y * tex->line_len + x * (tex->bpp / 8));
+	return (*(unsigned int *) dst);
 } */
 
 static void	draw_vertical_ray(t_data *data, int x, int h)
@@ -41,7 +51,10 @@ static void	draw_vertical_ray(t_data *data, int x, int h)
 	while (i < ceiling)
 		pxl_put(&data->img, x, i++, 0x99DDFF);
 	while (i < floor)
-		pxl_put(&data->img, x, i++, 0x124725);
+	{
+		pxl_put(&data->img, x, i, tex_pxl_colour(data, i - ceiling, h));
+		i++;
+	}
 	while (i < WIN_H)
 		pxl_put(&data->img, x, i++, 0x2F1600);
 }
@@ -62,6 +75,8 @@ static double	dda(t_data *data, double cx, double cy)
 	int		side;
 	double	perpWallDist;
 
+	data->rayDirX = rayDirX;
+	data->rayDirY = rayDirY;
 	if (rayDirX)
 		deltaDistX = fabs(1 / rayDirX);
 	else
@@ -90,7 +105,6 @@ static double	dda(t_data *data, double cx, double cy)
 		stepY = 1;
 		sideDistY = (mapY + 1.0 - data->pos_y) * deltaDistY;
 	}
-
 	while (!hit)
 	{
 		if (sideDistX < sideDistY)
@@ -109,9 +123,21 @@ static double	dda(t_data *data, double cx, double cy)
 			hit = true;
 	}
 	if (!side)
+	{
 		perpWallDist = sideDistX - deltaDistX;
+		data->wallX = data->pos_y + perpWallDist + rayDirY;
+	}
 	else
+	{
 		perpWallDist = sideDistY - deltaDistY;
+		data->wallX = data->pos_x + perpWallDist + rayDirX;
+	}
+	data->wallX -= floor(data->wallX);
+	data->tex_x = data->wallX * 512.0;
+	if (!side && rayDirX > 0)
+		data->tex_x = 512 - data->tex_x - 1;
+	if (side && rayDirY < 0)
+		data->tex_x = 512 - data->tex_x - 1;
 	return (perpWallDist);
 }
 
