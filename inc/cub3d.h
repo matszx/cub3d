@@ -6,7 +6,7 @@
 /*   By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 15:42:11 by mcygan            #+#    #+#             */
-/*   Updated: 2025/02/17 23:16:27 by mcygan           ###   ########.fr       */
+/*   Updated: 2025/02/20 11:08:04 by mcygan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,14 @@ typedef struct s_img
 {
 	void	*ptr;
 	char	*addr;
+
 	int		bpp;
 	int		line_len;
 	int		endian;
-}	t_img;
+
+	int		w;
+	int		h;
+}	t_img, t_texture;
 
 typedef struct s_data
 {
@@ -69,6 +73,13 @@ typedef struct s_data
 	bool	right_press;
 
 	size_t	last_frame_time;
+
+	t_texture	texture;
+	int			side;
+	double		wallX;
+	double		wallY;
+	double		rayDirX;
+	double		rayDirY;
 }	t_data;
 
 // utils.c
@@ -78,6 +89,7 @@ void	draw_tile(t_img *img, int x, int y, int colour);
 void	draw_player(t_data *data);
 
 // handlers.c
+int		close_handler(t_data *data, char *error);
 void	events_init(t_data *data);
 
 // move.c

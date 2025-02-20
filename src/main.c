@@ -6,11 +6,24 @@
 /*   By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 15:30:03 by mcygan            #+#    #+#             */
-/*   Updated: 2025/02/17 23:16:16 by mcygan           ###   ########.fr       */
+/*   Updated: 2025/02/20 13:59:24 by mcygan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
+
+static t_texture	init_texture(t_data *data, char *path)
+{
+	t_texture	texture;
+
+	if (!(texture.ptr = mlx_xpm_file_to_image\
+		(data->mlx, path, &texture.w, &texture.h)))
+		close_handler(data, "can't load texture");
+	if (!(texture.addr = mlx_get_data_addr\
+		(texture.ptr, &texture.bpp, &texture.line_len, &texture.endian)))
+		close_handler(data, "can't get texture memory addr");
+	return (texture);
+}
 
 static void	init_data(t_data *data, char **map)
 {
@@ -33,6 +46,7 @@ static void	init_data(t_data *data, char **map)
 	data->left_press = false;
 	data->right_press = false;
 	data->last_frame_time = time_ms();
+	data->texture = init_texture(data, "./textures/metal.xpm");
 }
 
 static void	draw_map(t_data *data)
@@ -47,14 +61,26 @@ static void	draw_map(t_data *data)
 		while (++j < data->map_w)
 		{
 			if (data->map[i][j] == '1')
-				draw_tile(&data->img, j, i, 0x2E2E2E);
+				draw_tile(&data->img, j, i, 0x151515);
 			else
 				draw_tile(&data->img, j, i, 0x065EE2);
 		}
 	}
 }
 
-static void	draw_vertical_ray(t_img *img, int x, int h)
+static int	tex_pxl_colour(t_data *data, int y, int h)
+{
+	int	texX;
+	int	texY;
+
+	texX = data->wallX * data->texture.w;
+	if ((data->side && data->rayDirY < 0) || (!data->side && data->rayDirX > 0))
+		texX = data->texture.w - texX - 1;
+	texY = ((double)y / (double)h) * (double)data->texture.h;
+	return (data->texture.addr[data->texture.w * texY + texX]);
+}
+
+static void	draw_vertical_ray(t_data *data, int x, int h)
 {
 	int	ceiling;
 	int	floor;
@@ -65,15 +91,15 @@ static void	draw_vertical_ray(t_img *img, int x, int h)
 	if (floor > WIN_H)
 		floor = WIN_H;
 	if (x < MAP_W * MAP_SCALE)
-		i = MAP_H * MAP_SCALE;
+		i = MAP_H * MAP_SCALE - 1;
 	else
-		i = 0;
-	while (i < ceiling)
-		pxl_put(img, x, i++, 0x99DDFF);
-	while (i < floor)
-		pxl_put(img, x, i++, 0x15805F);
-	while (i < WIN_H)
-		pxl_put(img, x, i++, 0x2F1600);
+		i = -1;
+	while (++i < ceiling)
+		pxl_put(&data->img, x, i, 0x99DDFF);
+	while (++i < floor)
+		pxl_put(&data->img, x, i, tex_pxl_colour(data, i - ceiling, h));
+	while (++i < WIN_H)
+		pxl_put(&data->img, x, i, 0x2F1600);
 }
 
 static double	dda(t_data *data, double cx, double cy)
@@ -94,6 +120,8 @@ static double	dda(t_data *data, double cx, double cy)
 	int		side;
 	double	perpWallDist;
 
+	data->rayDirX = rayDirX;
+	data->rayDirY = rayDirY;
 	if (rayDirX)
 		deltaDistX = fabs(1/ rayDirX);
 	else
@@ -141,9 +169,18 @@ static double	dda(t_data *data, double cx, double cy)
 			hit = true;
 	}
 	if (!side)
+	{
 		perpWallDist = sideDistX - deltaDistX;
+		data->wallX = posY + perpWallDist * rayDirY;
+	}
 	else
+	{
 		perpWallDist = sideDistY - deltaDistY;
+		data->wallX = posX + perpWallDist * rayDirX;
+
+	}
+	data->wallX -= floor(data->wallX);
+	data->side = side;
 	return (perpWallDist);
 }
 
@@ -165,19 +202,10 @@ static void	draw_rays(t_data *data)
 	{
 		projplane_x = (((i * 2) - x_max) / x_max) * (projplane_halfw);
 		angle = data->player_a + atan(projplane_x);
-		/* t = 0.0; */
 		cx = data->player_x + cos(angle);
 		cy = data->player_y + sin(angle);
 		t = dda(data, cx, cy);
-		/* while (t < 20.0)
-		{
-			cx = data->player_x + t * cos(angle);
-			cy = data->player_y + t * sin(angle);
-			if (data->map[(int)cy][(int)cx] == '1')
-				break ;
-			t += 0.01;
-		} */
-		draw_vertical_ray(&data->img, i, WIN_H / (t * cos(angle - data->player_a)));
+		draw_vertical_ray(data, i, WIN_H / (t * cos(angle - data->player_a)));
 	}
 }
 

@@ -6,14 +6,16 @@
 /*   By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 13:43:44 by mcygan            #+#    #+#             */
-/*   Updated: 2025/02/17 14:14:46 by mcygan           ###   ########.fr       */
+/*   Updated: 2025/02/19 14:55:11 by mcygan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
 
-static int	close_handler(t_data *data)
+int	close_handler(t_data *data, char *error)
 {
+	if (error)
+		printf("\x1b[1;31mError:\x1b[0m %s\n", error);
 	mlx_destroy_image(data->mlx, data->img.ptr);
 	mlx_destroy_window(data->mlx, data->win);
 	mlx_destroy_display(data->mlx);
@@ -36,7 +38,7 @@ static int	key_press_handler(int keycode, t_data *data)
 	else if (keycode == KEY_RIGHT)
 		data->right_press = true;
 	else if (keycode == KEY_ESCAPE)
-		close_handler(data);
+		close_handler(data, NULL);
 	return (0);
 }
 
