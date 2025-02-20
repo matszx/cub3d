@@ -6,7 +6,7 @@
 /*   By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 14:15:05 by mcygan            #+#    #+#             */
-/*   Updated: 2025/02/20 16:16:56 by mcygan           ###   ########.fr       */
+/*   Updated: 2025/02/20 16:44:46 by mcygan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,14 +48,12 @@ static void	draw_vertical_ray(t_data *data, int x, int h)
 
 static double	dda(t_data *data, double cx, double cy)
 {
-	double	posX = data->player_x;
-	double	posY = data->player_y;
-	double	rayDirX = cx - posX;
-	double	rayDirY = cy - posY;
+	double	rayDirX = cx - data->pos_x;
+	double	rayDirY = cy - data->pos_y;
 	double	deltaDistX;
 	double	deltaDistY;
-	int		mapX = (int)posX;
-	int		mapY = (int)posY;
+	int		mapX = (int)data->pos_x;
+	int		mapY = (int)data->pos_y;
 	double	sideDistX;
 	double	sideDistY;
 	int		stepX;
@@ -64,35 +62,33 @@ static double	dda(t_data *data, double cx, double cy)
 	int		side;
 	double	perpWallDist;
 
-	data->rayDirX = rayDirX;
-	data->rayDirY = rayDirY;
 	if (rayDirX)
-		deltaDistX = fabs(1/ rayDirX);
+		deltaDistX = fabs(1 / rayDirX);
 	else
-		deltaDistX = 1e30;
+		deltaDistX = INFINITY;
 	if (rayDirY)
-		deltaDistY = fabs(1/ rayDirY);
+		deltaDistY = fabs(1 / rayDirY);
 	else
-		deltaDistY = 1e30;
+		deltaDistY = INFINITY;
 	if (rayDirX < 0)
 	{
 		stepX = -1;
-		sideDistX = (posX - mapX) * deltaDistX;
+		sideDistX = (data->pos_x - mapX) * deltaDistX;
 	}
 	else
 	{
 		stepX = 1;
-		sideDistX = (mapX + 1.0 - posX) * deltaDistX;
+		sideDistX = (mapX + 1.0 - data->pos_x) * deltaDistX;
 	}
 	if (rayDirY < 0)
 	{
 		stepY = -1;
-		sideDistY = (posY - mapY) * deltaDistY;
+		sideDistY = (data->pos_y - mapY) * deltaDistY;
 	}	
 	else
 	{
 		stepY = 1;
-		sideDistY = (mapY + 1.0 - posY) * deltaDistY;
+		sideDistY = (mapY + 1.0 - data->pos_y) * deltaDistY;
 	}
 
 	while (!hit)
@@ -130,9 +126,9 @@ static void	cast_rays(t_data *data)
 	while (++i < WIN_W)
 	{
 		projplane_x = (i * 2.0 - WIN_W) / WIN_W * tan(data->fov / 2);
-		angle = data->player_a + atan(projplane_x);
-		t = dda(data, data->player_x + cos(angle), data->player_y + sin(angle));
-		draw_vertical_ray(data, i, WIN_H / (t * cos(angle - data->player_a)));
+		angle = data->pos_a + atan(projplane_x);
+		t = dda(data, data->pos_x + cos(angle), data->pos_y + sin(angle));
+		draw_vertical_ray(data, i, WIN_H / (t * cos(angle - data->pos_a)));
 	}
 }
 

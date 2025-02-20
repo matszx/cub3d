@@ -6,7 +6,7 @@
 /*   By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 15:42:11 by mcygan            #+#    #+#             */
-/*   Updated: 2025/02/20 14:16:26 by mcygan           ###   ########.fr       */
+/*   Updated: 2025/02/20 16:37:45 by mcygan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,9 +60,9 @@ typedef struct s_data
 	int		map_w;
 	int		map_h;
 
-	double	player_x;
-	double	player_y;
-	double	player_a;
+	double	pos_x;
+	double	pos_y;
+	double	pos_a;
 	double	fov;
 
 	bool	w_press;
@@ -81,6 +81,12 @@ typedef struct s_data
 	double		rayDirX;
 	double		rayDirY;
 }	t_data;
+
+typedef struct s_render_info
+{
+	
+}	t_render_info;
+
 
 // init.c
 void	init_data(t_data *data, char **map);

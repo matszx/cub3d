@@ -6,7 +6,7 @@
 /*   By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 14:06:38 by mcygan            #+#    #+#             */
-/*   Updated: 2025/02/20 14:09:18 by mcygan           ###   ########.fr       */
+/*   Updated: 2025/02/20 16:21:58 by mcygan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,8 @@ static void	draw_player(t_data *data)
 	int	i;
 	int	j;
 
-	x = data->player_x * MAP_SCALE - MAP_SCALE / 5;
-	y = data->player_y * MAP_SCALE - MAP_SCALE / 5;
+	x = data->pos_x * MAP_SCALE - MAP_SCALE / 5;
+	y = data->pos_y * MAP_SCALE - MAP_SCALE / 5;
 	i = y;
 	if (i < 0)
 		i = 0;
