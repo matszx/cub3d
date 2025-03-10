@@ -6,7 +6,7 @@
 /*   By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 14:15:05 by mcygan            #+#    #+#             */
-/*   Updated: 2025/03/10 14:53:12 by mcygan           ###   ########.fr       */
+/*   Updated: 2025/03/10 17:09:13 by mcygan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,25 +14,18 @@
 
 static int	tex_pxl_colour(t_data *data, int y, int h)
 {
-	int		texX;
-	int		texY;
-	char	*dst;
+	t_texture	texture;
+	int			tex_y;
+	char		*dst;
 
-	texX = data->wallX * (double)data->texture.w;
-	if ((data->side && data->rayDirY < 0.0) || (!data->side && data->rayDirX > 0.0))
-		texX = data->texture.w - texX - 1;
-	texY = ((double)y / (double)h) * (double)data->texture.h;
-	dst = data->texture.addr + (texY * data->texture.line_len + texX * (data->texture.bpp / 8));
+	if (data->side)
+		texture = data->texture_N;
+	else
+		texture = data->texture_S;
+	tex_y = ((double)y / (double)h) * (double)texture.h;
+	dst = texture.addr + (tex_y * texture.line_len + data->tex_x * (texture.bpp / 8));
 	return (*(unsigned int *) dst);
 }
-
-/* static int	tex_colour(t_texture *tex, int x, int y)
-{
-	char	*dst;
-
-	dst = tex->addr + (y * tex->line_len + x * (tex->bpp / 8));
-	return (*(unsigned int *) dst);
-} */
 
 static void	draw_vertical_ray(t_data *data, int x, int h)
 {
@@ -134,10 +127,11 @@ static double	dda(t_data *data, double cx, double cy)
 	}
 	data->wallX -= floor(data->wallX);
 	data->tex_x = data->wallX * 512.0;
-	if (!side && rayDirX > 0)
+	if (side && rayDirY > 0.0)
 		data->tex_x = 512 - data->tex_x - 1;
-	if (side && rayDirY < 0)
+	else if (!side && rayDirX < 0.0)
 		data->tex_x = 512 - data->tex_x - 1;
+	data->side = side;
 	return (perpWallDist);
 }
 

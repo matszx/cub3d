@@ -6,7 +6,7 @@
 /*   By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 12:03:55 by mcygan            #+#    #+#             */
-/*   Updated: 2025/02/20 16:23:47 by mcygan           ###   ########.fr       */
+/*   Updated: 2025/03/10 17:01:12 by mcygan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,4 +78,5 @@ void	player_move(t_data *data)
 		data->pos_a -= MOVE_SPEED;
 	if (data->right_press)
 		data->pos_a += MOVE_SPEED;
+	data->pos_a = fmod(data->pos_a, M_PI * 2);
 }

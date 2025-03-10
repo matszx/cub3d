@@ -6,7 +6,7 @@
 /*   By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 15:42:11 by mcygan            #+#    #+#             */
-/*   Updated: 2025/02/20 17:47:38 by mcygan           ###   ########.fr       */
+/*   Updated: 2025/03/10 15:25:05 by mcygan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,10 @@ typedef struct s_data
 
 	size_t	last_frame_time;
 
-	t_texture	texture;
+	t_texture	texture_N;
+	t_texture	texture_E;
+	t_texture	texture_S;
+	t_texture	texture_W;
 	int			side;
 	double		wallX;
 	double		wallY;
@@ -83,12 +86,6 @@ typedef struct s_data
 	int			tex_x;
 	int			tex_y;
 }	t_data;
-
-typedef struct s_render_info
-{
-	
-}	t_render_info;
-
 
 // init.c
 void	init_data(t_data *data, char **map);
