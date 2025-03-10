@@ -6,7 +6,7 @@
 /*   By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 14:04:10 by mcygan            #+#    #+#             */
-/*   Updated: 2025/03/10 17:09:55 by mcygan           ###   ########.fr       */
+/*   Updated: 2025/03/10 18:43:25 by mcygan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,5 +47,7 @@ void	init_data(t_data *data, char **map)
 	data->right_press = false;
 	data->last_frame_time = time_ms();
 	data->texture_N = init_texture(data, "./textures/metal.xpm");
+	data->texture_E = init_texture(data, "./textures/caca.xpm");
 	data->texture_S = init_texture(data, "./textures/brick.xpm");
+	data->texture_W = init_texture(data, "./textures/blue.xpm");
 }

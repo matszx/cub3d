@@ -6,24 +6,46 @@
 /*   By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 14:15:05 by mcygan            #+#    #+#             */
-/*   Updated: 2025/03/10 17:09:13 by mcygan           ###   ########.fr       */
+/*   Updated: 2025/03/10 18:44:14 by mcygan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
 
-static int	tex_pxl_colour(t_data *data, int y, int h)
+static t_texture	*get_texture(t_data *data)
 {
-	t_texture	texture;
+	const double	half_pi = M_PI / 2;
+	const double	threehalves_pi = 3 * M_PI / 2;
+	const double	two_pi = 2 * M_PI;
+	
+	if (data->angle >= 0 && data->angle < half_pi && data->side)
+		return (&data->texture_S);
+	if (data->angle >= 0 && data->angle < half_pi && !data->side)
+		return (&data->texture_E);
+	if (data->angle >= half_pi && data->angle < M_PI && data->side)
+		return (&data->texture_S);
+	if (data->angle >= half_pi && data->angle < M_PI && !data->side)
+		return (&data->texture_W);
+	if (data->angle >= M_PI && data->angle < threehalves_pi && data->side)
+		return (&data->texture_N);
+	if (data->angle >= M_PI && data->angle < threehalves_pi && !data->side)
+		return (&data->texture_W);
+	if (data->angle >= threehalves_pi && data->angle < two_pi && data->side)
+		return (&data->texture_N);
+	if (data->angle >= threehalves_pi && data->angle < two_pi && !data->side)
+		return (&data->texture_E);
+	return (NULL);
+}
+
+static int	get_texel(t_data *data, int y, int h)
+{
+	t_texture	*texture;
 	int			tex_y;
 	char		*dst;
 
-	if (data->side)
-		texture = data->texture_N;
-	else
-		texture = data->texture_S;
-	tex_y = ((double)y / (double)h) * (double)texture.h;
-	dst = texture.addr + (tex_y * texture.line_len + data->tex_x * (texture.bpp / 8));
+	texture = get_texture(data);
+	tex_y = ((double)y / (double)h) * (double)texture->h;
+	dst = texture->addr + (tex_y * texture->line_len + data->tex_x * (texture->bpp / 8));
 	return (*(unsigned int *) dst);
 }
 
@@ -45,7 +67,7 @@ static void	draw_vertical_ray(t_data *data, int x, int h)
 		pxl_put(&data->img, x, i++, 0x99DDFF);
 	while (i < floor)
 	{
-		pxl_put(&data->img, x, i, tex_pxl_colour(data, i - ceiling, h));
+		pxl_put(&data->img, x, i, get_texel(data, i - ceiling, h));
 		i++;
 	}
 	while (i < WIN_H)
@@ -148,6 +170,9 @@ static void	cast_rays(t_data *data)
 		projplane_x = (i * 2.0 - WIN_W) / WIN_W * tan(data->fov / 2);
 		angle = data->pos_a + atan(projplane_x);
 		t = dda(data, data->pos_x + cos(angle), data->pos_y + sin(angle));
+		data->angle = fmod(angle, M_PI * 2);
+		if (data->angle < 0.0)
+			data->angle += 2 * M_PI;
 		draw_vertical_ray(data, i, WIN_H / (t * cos(angle - data->pos_a)));
 	}
 }

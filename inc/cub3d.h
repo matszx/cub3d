@@ -6,7 +6,7 @@
 /*   By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 15:42:11 by mcygan            #+#    #+#             */
-/*   Updated: 2025/03/10 15:25:05 by mcygan           ###   ########.fr       */
+/*   Updated: 2025/03/10 18:09:22 by mcygan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ typedef struct s_data
 	double		rayDirY;
 	int			tex_x;
 	int			tex_y;
+	double		angle;
 }	t_data;
 
 // init.c
