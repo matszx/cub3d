@@ -6,7 +6,7 @@
 /*   By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 14:15:05 by mcygan            #+#    #+#             */
-/*   Updated: 2025/02/20 19:07:03 by mcygan           ###   ########.fr       */
+/*   Updated: 2025/03/10 14:53:12 by mcygan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,12 +125,12 @@ static double	dda(t_data *data, double cx, double cy)
 	if (!side)
 	{
 		perpWallDist = sideDistX - deltaDistX;
-		data->wallX = data->pos_y + perpWallDist + rayDirY;
+		data->wallX = data->pos_y + perpWallDist * rayDirY;
 	}
 	else
 	{
 		perpWallDist = sideDistY - deltaDistY;
-		data->wallX = data->pos_x + perpWallDist + rayDirX;
+		data->wallX = data->pos_x + perpWallDist * rayDirX;
 	}
 	data->wallX -= floor(data->wallX);
 	data->tex_x = data->wallX * 512.0;
