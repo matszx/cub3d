@@ -6,19 +6,17 @@
 /*   By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 15:42:11 by mcygan            #+#    #+#             */
-/*   Updated: 2025/03/13 16:54:19 by mcygan           ###   ########.fr       */
+/*   Updated: 2025/03/13 23:11:52 by mcygan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
 
-#include <mlx.h>
-#include <stdio.h>
-#include <stdint.h>
-#include <math.h>
-#include <stdbool.h>
 #include <stdlib.h>
-#include <unistd.h>
+#include <stdio.h>
+#include <stdbool.h>
+#include <mlx.h>
+#include <math.h>
 #include <sys/time.h>
 
 #define KEY_W		0x77
@@ -60,6 +58,14 @@ typedef struct s_data
 	int			map_w;
 	int			map_h;
 
+	t_img		texture_n;
+	t_img		texture_s;
+	t_img		texture_w;
+	t_img		texture_e;
+
+	int			sky_colour;
+	int			floor_colour;
+
 	double		pos_x;
 	double		pos_y;
 	double		pos_a;
@@ -73,20 +79,22 @@ typedef struct s_data
 	bool		right_press;
 
 	size_t		last_frame_time;
-
-	t_img		texture_n;
-	t_img		texture_e;
-	t_img		texture_s;
-	t_img		texture_w;
-	int			side;
-	double		wall_x;
-	double		wall_y;
-	double		raydir_x;
-	double		raydir_y;
-	int			tex_x;
-	int			tex_y;
-	double		angle;
 }	t_data;
+
+typedef struct s_ray_info
+{
+	double	angle;
+	double	raydir_x;
+	double	raydir_y;
+	double	delta_x;
+	double	delta_y;
+	double	side_x;
+	double	side_y;
+	double	step_x;
+	double	step_y;
+	double	perp_dist;
+	int		side;
+}	t_ray_info;
 
 // init.c
 void	init_data(t_data *data, char **map);
@@ -98,7 +106,7 @@ void	draw_minimap(t_data *data);
 int		render(t_data *data);
 
 // texture.c
-int		get_texel(t_data *data, int y, int h, double perp_dist);
+int		get_texel(t_data *data, t_ray_info *info, int y, int wall_h);
 
 // move.c
 void	player_move(t_data *data);

@@ -6,20 +6,22 @@
 /*   By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 14:15:05 by mcygan            #+#    #+#             */
-/*   Updated: 2025/03/13 16:54:05 by mcygan           ###   ########.fr       */
+/*   Updated: 2025/03/13 23:40:53 by mcygan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
 
-static void	draw_vertical_ray(t_data *data, int x, int h, double perp_dist)
+static void	draw_vertical_ray(t_data *data, t_ray_info *info, int x)
 {
+	int	wall_h;
 	int	ceiling;
 	int	floor;
 	int	i;
 
-	ceiling = (WIN_H - h) / 2;
-	floor = ceiling + h;
+	wall_h = WIN_H / (info->perp_dist * cos(info->angle - data->pos_a));
+	ceiling = (WIN_H - wall_h) / 2;
+	floor = ceiling + wall_h;
 	if (floor > WIN_H)
 		floor = WIN_H;
 	if (x < MAP_W * MAP_SCALE)
@@ -30,94 +32,82 @@ static void	draw_vertical_ray(t_data *data, int x, int h, double perp_dist)
 		pxl_put(&data->img, x, i++, 0x99DDFF);
 	while (i < floor)
 	{
-		pxl_put(&data->img, x, i, get_texel(data, i - ceiling, h, perp_dist));
+		pxl_put(&data->img, x, i, get_texel(data, info, i - ceiling, wall_h));
 		i++;
 	}
 	while (i < WIN_H)
 		pxl_put(&data->img, x, i++, 0x2F1600);
 }
 
-static double	dda(t_data *data, double cx, double cy)
+static t_ray_info	get_ray_info(t_data *data, double cx, double cy)
 {
-	double	deltaDistX;
-	double	deltaDistY;
-	int		mapX = (int)data->pos_x;
-	int		mapY = (int)data->pos_y;
-	double	sideDistX;
-	double	sideDistY;
-	int		stepX;
-	int		stepY;
+	t_ray_info	info;
 
-	data->raydir_x = cx - data->pos_x;
-	data->raydir_y = cy - data->pos_y;
-	if (data->raydir_x)
-		deltaDistX = fabs(1 / data->raydir_x);
+	info.raydir_x = cx - data->pos_x;
+	info.raydir_y = cy - data->pos_y;
+	info.delta_x = fabs(1 / info.raydir_x);
+	info.delta_y = fabs(1 / info.raydir_y);
+	info.step_x = 2 * (info.raydir_x > 0) - 1;
+	if (info.raydir_x < 0)
+		info.side_x = (data->pos_x - (int)data->pos_x) * info.delta_x;
 	else
-		deltaDistX = INFINITY;
-	if (data->raydir_y)
-		deltaDistY = fabs(1 / data->raydir_y);
+		info.side_x = ((int)data->pos_x + 1.0 - data->pos_x) * info.delta_x;
+	info.step_y = 2 * (info.raydir_y > 0) - 1;
+	if (info.raydir_y < 0)
+		info.side_y = (data->pos_y - (int)data->pos_y) * info.delta_y;
 	else
-		deltaDistY = INFINITY;
-	if (data->raydir_x < 0)
-	{
-		stepX = -1;
-		sideDistX = (data->pos_x - mapX) * deltaDistX;
-	}
-	else
-	{
-		stepX = 1;
-		sideDistX = (mapX + 1.0 - data->pos_x) * deltaDistX;
-	}
-	if (data->raydir_y < 0)
-	{
-		stepY = -1;
-		sideDistY = (data->pos_y - mapY) * deltaDistY;
-	}	
-	else
-	{
-		stepY = 1;
-		sideDistY = (mapY + 1.0 - data->pos_y) * deltaDistY;
-	}
+		info.side_y = ((int)data->pos_y + 1.0 - data->pos_y) * info.delta_y;
+	return (info);
+}
+
+static double	dda(t_data *data, t_ray_info *info)
+{
+	int			map_x;
+	int			map_y;
+
+	map_x = (int)data->pos_x;
+	map_y = (int)data->pos_y;
 	while (1)
 	{
-		if (sideDistX < sideDistY)
+		if (info->side_x < info->side_y)
 		{
-			sideDistX += deltaDistX;
-			mapX += stepX;
-			data->side = 0;
+			info->side_x += info->delta_x;
+			map_x += info->step_x;
+			info->side = 0;
 		}
 		else
 		{
-			sideDistY += deltaDistY;
-			mapY += stepY;
-			data->side = 1;
+			info->side_y += info->delta_y;
+			map_y += info->step_y;
+			info->side = 1;
 		}
-		if (data->map[mapY][mapX] == '1')
+		if (data->map[map_y][map_x] == '1')
 			break ;
 	}
-	if (!data->side)
-		return (sideDistX - deltaDistX);
-	else
-		return (sideDistY - deltaDistY);
+	if (!info->side)
+		return (info->side_x - info->delta_x);
+	return (info->side_y - info->delta_y);
 }
 
 static void	cast_rays(t_data *data)
 {
-	int		i;
-	double	projplane_x;
-	double	angle;
-	double	t;
+	int			i;
+	double		projplane_x;
+	double		angle;
+	t_ray_info	info;
 
 	i = -1;
 	while (++i < WIN_W)
 	{
 		projplane_x = (i * 2.0 - WIN_W) / WIN_W * tan(data->fov / 2);
 		angle = data->pos_a + atan(projplane_x);
-		t = dda(data, data->pos_x + cos(angle), data->pos_y + sin(angle));
-		data->angle = fmod(angle, M_PI * 2);
-		if (data->angle < 0.0)
-			data->angle += 2 * M_PI;
-		draw_vertical_ray(data, i, WIN_H / (t * cos(angle - data->pos_a)), t);
+		info = get_ray_info(\
+			data, data->pos_x + cos(angle), data->pos_y + sin(angle));
+		info.perp_dist = dda(data, &info);
+		info.angle = fmod(angle, M_PI * 2);
+		if (info.angle < 0.0)
+			info.angle += 2 * M_PI;
+		draw_vertical_ray(data, &info, i);
 	}
 }
 
