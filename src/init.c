@@ -6,13 +6,13 @@
 /*   By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 14:04:10 by mcygan            #+#    #+#             */
-/*   Updated: 2025/03/12 19:06:25 by mcygan           ###   ########.fr       */
+/*   Updated: 2025/03/14 00:27:51 by mcygan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
 
-static t_img	init_img(t_data *data, char *path)
+static t_img	init_texture(t_data *data, char *path)
 {
 	t_img	tex;
 
@@ -25,13 +25,26 @@ static t_img	init_img(t_data *data, char *path)
 	return (tex);
 }
 
-void	init_data(t_data *data, char **map)
+static void	init_mlx(t_data *data)
 {
 	data->mlx = mlx_init();
+	if (!data->mlx)
+		close_handler(data, "can't initialise minilibx");
 	data->win = mlx_new_window(data->mlx, WIN_W, WIN_H, "cub3d");
+	if (!data->win)
+		close_handler(data, "can't initialise window");
 	data->img.ptr = mlx_new_image(data->mlx, WIN_W, WIN_H);
+	if (!data->img.ptr)
+		close_handler(data, "can't initialise image");
 	data->img.addr = mlx_get_data_addr(\
 		data->img.ptr, &data->img.bpp, &data->img.line_len, &data->img.endian);
+	if (!data->img.addr)
+		close_handler(data, "can't get image memory address");
+}
+
+void	init_data(t_data *data, char **map)
+{
+	init_mlx(data);
 	data->map = map;
 	data->map_w = 16;
 	data->map_h = 16;
@@ -46,8 +59,8 @@ void	init_data(t_data *data, char **map)
 	data->left_press = false;
 	data->right_press = false;
 	data->last_frame_time = time_ms();
-	data->texture_n = init_img(data, "./textures/metal.xpm");
-	data->texture_e = init_img(data, "./textures/caca.xpm");
-	data->texture_s = init_img(data, "./textures/brick.xpm");
-	data->texture_w = init_img(data, "./textures/blue.xpm");
+	data->texture_n = init_texture(data, "./textures/metal.xpm");
+	data->texture_e = init_texture(data, "./textures/caca.xpm");
+	data->texture_s = init_texture(data, "./textures/brick.xpm");
+	data->texture_w = init_texture(data, "./textures/blue.xpm");
 }
