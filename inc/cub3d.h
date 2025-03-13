@@ -6,7 +6,7 @@
 /*   By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 15:42:11 by mcygan            #+#    #+#             */
-/*   Updated: 2025/03/10 18:09:22 by mcygan           ###   ########.fr       */
+/*   Updated: 2025/03/12 21:56:01 by mcygan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,21 +21,21 @@
 #include <unistd.h>
 #include <sys/time.h>
 
-#define KEY_W			0x77
-#define KEY_A			0x61
-#define KEY_S			0x73
-#define KEY_D			0x64
-#define KEY_LEFT		0xff51
-#define KEY_RIGHT		0xff53
-#define KEY_ESCAPE		0xff1b
+#define KEY_W		0x77
+#define KEY_A		0x61
+#define KEY_S		0x73
+#define KEY_D		0x64
+#define KEY_LEFT	0xff51
+#define KEY_RIGHT	0xff53
+#define KEY_ESCAPE	0xff1b
 
-#define WIN_W			1200
-#define WIN_H			800
-#define MAP_W			16
-#define MAP_H			16
-#define MAP_SCALE		10
-#define FOV				60
-#define MOVE_SPEED		0.03
+#define WIN_W		1200
+#define WIN_H		800
+#define MAP_W		16
+#define MAP_H		16
+#define MAP_SCALE	10
+#define FOV			60
+#define MOVE_SPEED	0.03
 
 typedef struct s_img
 {
@@ -48,41 +48,41 @@ typedef struct s_img
 
 	int		w;
 	int		h;
-}	t_img, t_texture;
+}	t_img;
 
 typedef struct s_data
 {
-	void	*mlx;
-	void	*win;
-	t_img	img;
+	void		*mlx;
+	void		*win;
+	t_img		img;
 
-	char	**map;
-	int		map_w;
-	int		map_h;
+	char		**map;
+	int			map_w;
+	int			map_h;
 
-	double	pos_x;
-	double	pos_y;
-	double	pos_a;
-	double	fov;
+	double		pos_x;
+	double		pos_y;
+	double		pos_a;
+	double		fov;
 
-	bool	w_press;
-	bool	a_press;
-	bool	s_press;
-	bool	d_press;
-	bool	left_press;
-	bool	right_press;
+	bool		w_press;
+	bool		a_press;
+	bool		s_press;
+	bool		d_press;
+	bool		left_press;
+	bool		right_press;
 
-	size_t	last_frame_time;
+	size_t		last_frame_time;
 
-	t_texture	texture_N;
-	t_texture	texture_E;
-	t_texture	texture_S;
-	t_texture	texture_W;
+	t_img		texture_n;
+	t_img		texture_e;
+	t_img		texture_s;
+	t_img		texture_w;
 	int			side;
-	double		wallX;
-	double		wallY;
-	double		rayDirX;
-	double		rayDirY;
+	double		wall_x;
+	double		wall_y;
+	double		raydir_x;
+	double		raydir_y;
 	int			tex_x;
 	int			tex_y;
 	double		angle;
@@ -96,6 +96,9 @@ void	draw_minimap(t_data *data);
 
 // render.c
 int		render(t_data *data);
+
+// texture.c
+int		get_texel(t_data *data, int y, int h);
 
 // move.c
 void	player_move(t_data *data);

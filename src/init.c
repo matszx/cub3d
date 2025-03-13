@@ -6,15 +6,15 @@
 /*   By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 14:04:10 by mcygan            #+#    #+#             */
-/*   Updated: 2025/03/10 18:43:25 by mcygan           ###   ########.fr       */
+/*   Updated: 2025/03/12 19:06:25 by mcygan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
 
-static t_texture	init_texture(t_data *data, char *path)
+static t_img	init_img(t_data *data, char *path)
 {
-	t_texture	tex;
+	t_img	tex;
 
 	tex.ptr = mlx_xpm_file_to_image(data->mlx, path, &tex.w, &tex.h);
 	if (!(tex.ptr))
@@ -46,8 +46,8 @@ void	init_data(t_data *data, char **map)
 	data->left_press = false;
 	data->right_press = false;
 	data->last_frame_time = time_ms();
-	data->texture_N = init_texture(data, "./textures/metal.xpm");
-	data->texture_E = init_texture(data, "./textures/caca.xpm");
-	data->texture_S = init_texture(data, "./textures/brick.xpm");
-	data->texture_W = init_texture(data, "./textures/blue.xpm");
+	data->texture_n = init_img(data, "./textures/metal.xpm");
+	data->texture_e = init_img(data, "./textures/caca.xpm");
+	data->texture_s = init_img(data, "./textures/brick.xpm");
+	data->texture_w = init_img(data, "./textures/blue.xpm");
 }

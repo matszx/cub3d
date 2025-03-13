@@ -6,48 +6,11 @@
 /*   By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 14:15:05 by mcygan            #+#    #+#             */
-/*   Updated: 2025/03/10 18:44:14 by mcygan           ###   ########.fr       */
+/*   Updated: 2025/03/13 11:06:51 by mcygan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
-
-static t_texture	*get_texture(t_data *data)
-{
-	const double	half_pi = M_PI / 2;
-	const double	threehalves_pi = 3 * M_PI / 2;
-	const double	two_pi = 2 * M_PI;
-	
-	if (data->angle >= 0 && data->angle < half_pi && data->side)
-		return (&data->texture_S);
-	if (data->angle >= 0 && data->angle < half_pi && !data->side)
-		return (&data->texture_E);
-	if (data->angle >= half_pi && data->angle < M_PI && data->side)
-		return (&data->texture_S);
-	if (data->angle >= half_pi && data->angle < M_PI && !data->side)
-		return (&data->texture_W);
-	if (data->angle >= M_PI && data->angle < threehalves_pi && data->side)
-		return (&data->texture_N);
-	if (data->angle >= M_PI && data->angle < threehalves_pi && !data->side)
-		return (&data->texture_W);
-	if (data->angle >= threehalves_pi && data->angle < two_pi && data->side)
-		return (&data->texture_N);
-	if (data->angle >= threehalves_pi && data->angle < two_pi && !data->side)
-		return (&data->texture_E);
-	return (NULL);
-}
-
-static int	get_texel(t_data *data, int y, int h)
-{
-	t_texture	*texture;
-	int			tex_y;
-	char		*dst;
-
-	texture = get_texture(data);
-	tex_y = ((double)y / (double)h) * (double)texture->h;
-	dst = texture->addr + (tex_y * texture->line_len + data->tex_x * (texture->bpp / 8));
-	return (*(unsigned int *) dst);
-}
 
 static void	draw_vertical_ray(t_data *data, int x, int h)
 {
@@ -76,8 +39,8 @@ static void	draw_vertical_ray(t_data *data, int x, int h)
 
 static double	dda(t_data *data, double cx, double cy)
 {
-	double	rayDirX = cx - data->pos_x;
-	double	rayDirY = cy - data->pos_y;
+	double	raydir_x = cx - data->pos_x;
+	double	raydir_y = cy - data->pos_y;
 	double	deltaDistX;
 	double	deltaDistY;
 	int		mapX = (int)data->pos_x;
@@ -90,17 +53,17 @@ static double	dda(t_data *data, double cx, double cy)
 	int		side;
 	double	perpWallDist;
 
-	data->rayDirX = rayDirX;
-	data->rayDirY = rayDirY;
-	if (rayDirX)
-		deltaDistX = fabs(1 / rayDirX);
+	data->raydir_x = raydir_x;
+	data->raydir_y = raydir_y;
+	if (raydir_x)
+		deltaDistX = fabs(1 / raydir_x);
 	else
 		deltaDistX = INFINITY;
-	if (rayDirY)
-		deltaDistY = fabs(1 / rayDirY);
+	if (raydir_y)
+		deltaDistY = fabs(1 / raydir_y);
 	else
 		deltaDistY = INFINITY;
-	if (rayDirX < 0)
+	if (raydir_x < 0)
 	{
 		stepX = -1;
 		sideDistX = (data->pos_x - mapX) * deltaDistX;
@@ -110,7 +73,7 @@ static double	dda(t_data *data, double cx, double cy)
 		stepX = 1;
 		sideDistX = (mapX + 1.0 - data->pos_x) * deltaDistX;
 	}
-	if (rayDirY < 0)
+	if (raydir_y < 0)
 	{
 		stepY = -1;
 		sideDistY = (data->pos_y - mapY) * deltaDistY;
@@ -140,18 +103,18 @@ static double	dda(t_data *data, double cx, double cy)
 	if (!side)
 	{
 		perpWallDist = sideDistX - deltaDistX;
-		data->wallX = data->pos_y + perpWallDist * rayDirY;
+		data->wall_x = data->pos_y + perpWallDist * raydir_y;
 	}
 	else
 	{
 		perpWallDist = sideDistY - deltaDistY;
-		data->wallX = data->pos_x + perpWallDist * rayDirX;
+		data->wall_x = data->pos_x + perpWallDist * raydir_x;
 	}
-	data->wallX -= floor(data->wallX);
-	data->tex_x = data->wallX * 512.0;
-	if (side && rayDirY > 0.0)
+	data->wall_x -= floor(data->wall_x);
+	data->tex_x = data->wall_x * 512.0;
+	if (side && raydir_y > 0.0)
 		data->tex_x = 512 - data->tex_x - 1;
-	else if (!side && rayDirX < 0.0)
+	else if (!side && raydir_x < 0.0)
 		data->tex_x = 512 - data->tex_x - 1;
 	data->side = side;
 	return (perpWallDist);

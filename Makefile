@@ -6,7 +6,7 @@
 #    By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/23 15:29:54 by mcygan            #+#    #+#              #
-#    Updated: 2025/03/10 17:58:47 by mcygan           ###   ########.fr        #
+#    Updated: 2025/03/13 11:06:11 by mcygan           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,6 +20,7 @@ SRC_FILES 		=	main.c \
 					init.c \
 					minimap.c \
 					render.c \
+					texture.c \
 					move.c \
 					handlers.c \
 					utils.c
