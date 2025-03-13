@@ -6,7 +6,7 @@
 /*   By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 15:42:11 by mcygan            #+#    #+#             */
-/*   Updated: 2025/03/12 21:56:01 by mcygan           ###   ########.fr       */
+/*   Updated: 2025/03/13 16:54:19 by mcygan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ void	draw_minimap(t_data *data);
 int		render(t_data *data);
 
 // texture.c
-int		get_texel(t_data *data, int y, int h);
+int		get_texel(t_data *data, int y, int h, double perp_dist);
 
 // move.c
 void	player_move(t_data *data);

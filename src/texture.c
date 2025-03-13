@@ -6,7 +6,7 @@
 /*   By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 21:55:26 by mcygan            #+#    #+#             */
-/*   Updated: 2025/03/13 11:03:57 by mcygan           ###   ########.fr       */
+/*   Updated: 2025/03/13 16:55:13 by mcygan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,14 +37,25 @@ static t_img	*get_texture(t_data *data)
 	return (NULL);
 }
 
-int	get_texel(t_data *data, int y, int h)
+int	get_texel(t_data *data, int y, int h, double perp_dist)
 {
 	t_img	*tex;
+	double	wall_x;
+	int		tex_x;
 	int		tex_y;
 	char	*dst;
 
 	tex = get_texture(data);
+	if (!data->side)
+		wall_x = data->pos_y + perp_dist * data->raydir_y;
+	else
+		wall_x = data->pos_x + perp_dist * data->raydir_x;
+	wall_x -= floor(wall_x);
+	tex_x = wall_x * tex->w;
+	if ((data->side && data->raydir_y > 0.0) || 
+		(!data->side && data->raydir_x < 0.0))
+		tex_x = tex->w - tex_x - 1;
 	tex_y = ((double)y / (double)h) * (double)tex->h;
-	dst = tex->addr + (tex_y * tex->line_len + data->tex_x * (tex->bpp / 8));
+	dst = tex->addr + (tex_y * tex->line_len + tex_x * (tex->bpp / 8));
 	return (*(unsigned int *) dst);
 }
