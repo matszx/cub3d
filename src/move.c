@@ -6,7 +6,7 @@
 /*   By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 12:03:55 by mcygan            #+#    #+#             */
-/*   Updated: 2025/03/13 11:07:01 by mcygan           ###   ########.fr       */
+/*   Updated: 2025/03/14 01:43:36 by mcygan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,8 @@ static void	move_d(t_data *data)
 
 void	player_move(t_data *data)
 {
+	double	mouse_delta;
+
 	if (data->w_press)
 		move_w(data);
 	if (data->a_press)
@@ -78,4 +80,10 @@ void	player_move(t_data *data)
 		data->pos_a -= MOVE_SPEED;
 	if (data->right_press)
 		data->pos_a += MOVE_SPEED;
+	if (data->mouse_move)
+	{
+		mouse_delta = data->mouse_move * SENSITIVITY;
+		data->pos_a += mouse_delta;
+		data->mouse_move -= mouse_delta;
+	}
 }

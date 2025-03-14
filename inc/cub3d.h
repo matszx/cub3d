@@ -6,7 +6,7 @@
 /*   By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 15:42:11 by mcygan            #+#    #+#             */
-/*   Updated: 2025/03/13 23:11:52 by mcygan           ###   ########.fr       */
+/*   Updated: 2025/03/14 01:40:08 by mcygan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@
 #define MAP_SCALE	10
 #define FOV			60
 #define MOVE_SPEED	0.03
+#define SENSITIVITY	0.0001
 
 typedef struct s_img
 {
@@ -77,6 +78,9 @@ typedef struct s_data
 	bool		d_press;
 	bool		left_press;
 	bool		right_press;
+
+	int			mouse_x;
+	int			mouse_move;
 
 	size_t		last_frame_time;
 }	t_data;
