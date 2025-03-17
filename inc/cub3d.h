@@ -6,7 +6,7 @@
 /*   By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 15:42:11 by mcygan            #+#    #+#             */
-/*   Updated: 2025/03/17 18:46:35 by mcygan           ###   ########.fr       */
+/*   Updated: 2025/03/17 20:36:36 by mcygan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,10 +65,10 @@ typedef struct s_data
 	int		grid_w;
 	int		grid_h;
 
-	t_img	texture_n;
-	t_img	texture_s;
-	t_img	texture_w;
-	t_img	texture_e;
+	t_img	tex_no;
+	t_img	tex_so;
+	t_img	tex_we;
+	t_img	tex_ea;
 
 	int		sky_colour;
 	int		floor_colour;

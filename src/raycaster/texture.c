@@ -6,7 +6,7 @@
 /*   By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 21:55:26 by mcygan            #+#    #+#             */
-/*   Updated: 2025/03/17 18:04:10 by mcygan           ###   ########.fr       */
+/*   Updated: 2025/03/17 20:36:36 by mcygan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,21 +19,21 @@ static t_img	*get_texture(t_data *data, t_ray_info *info)
 	const double	two_pi = 2 * M_PI;
 
 	if (info->angle >= 0 && info->angle < half_pi && info->side)
-		return (&data->texture_s);
+		return (&data->tex_so);
 	if (info->angle >= 0 && info->angle < half_pi && !info->side)
-		return (&data->texture_e);
+		return (&data->tex_ea);
 	if (info->angle >= half_pi && info->angle < M_PI && info->side)
-		return (&data->texture_s);
+		return (&data->tex_so);
 	if (info->angle >= half_pi && info->angle < M_PI && !info->side)
-		return (&data->texture_w);
+		return (&data->tex_we);
 	if (info->angle >= M_PI && info->angle < threehalves_pi && info->side)
-		return (&data->texture_n);
+		return (&data->tex_no);
 	if (info->angle >= M_PI && info->angle < threehalves_pi && !info->side)
-		return (&data->texture_w);
+		return (&data->tex_we);
 	if (info->angle >= threehalves_pi && info->angle < two_pi && info->side)
-		return (&data->texture_n);
+		return (&data->tex_no);
 	if (info->angle >= threehalves_pi && info->angle < two_pi && !info->side)
-		return (&data->texture_e);
+		return (&data->tex_ea);
 	return (NULL);
 }
 
