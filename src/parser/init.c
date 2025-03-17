@@ -6,11 +6,11 @@
 /*   By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 14:04:10 by mcygan            #+#    #+#             */
-/*   Updated: 2025/03/14 00:27:51 by mcygan           ###   ########.fr       */
+/*   Updated: 2025/03/17 18:46:35 by mcygan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/cub3d.h"
+#include "../../inc/cub3d.h"
 
 static t_img	init_texture(t_data *data, char *path)
 {
@@ -46,8 +46,8 @@ void	init_data(t_data *data, char **map)
 {
 	init_mlx(data);
 	data->map = map;
-	data->map_w = 16;
-	data->map_h = 16;
+	data->grid_w = 16;
+	data->grid_h = 16;
 	data->pos_x = 1.9;
 	data->pos_y = 1.9;
 	data->pos_a = 1.5;

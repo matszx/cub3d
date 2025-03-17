@@ -6,11 +6,11 @@
 /*   By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 21:55:26 by mcygan            #+#    #+#             */
-/*   Updated: 2025/03/13 22:33:52 by mcygan           ###   ########.fr       */
+/*   Updated: 2025/03/17 18:04:10 by mcygan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/cub3d.h"
+#include "../../inc/cub3d.h"
 
 static t_img	*get_texture(t_data *data, t_ray_info *info)
 {

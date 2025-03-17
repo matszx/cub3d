@@ -6,11 +6,11 @@
 /*   By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 14:15:05 by mcygan            #+#    #+#             */
-/*   Updated: 2025/03/13 23:40:53 by mcygan           ###   ########.fr       */
+/*   Updated: 2025/03/17 18:04:10 by mcygan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/cub3d.h"
+#include "../../inc/cub3d.h"
 
 static void	draw_vertical_ray(t_data *data, t_ray_info *info, int x)
 {

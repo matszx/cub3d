@@ -6,23 +6,27 @@
 /*   By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 15:42:11 by mcygan            #+#    #+#             */
-/*   Updated: 2025/03/14 01:40:08 by mcygan           ###   ########.fr       */
+/*   Updated: 2025/03/17 18:46:35 by mcygan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
 
 #include <stdlib.h>
-#include <stdio.h>
+#include <unistd.h>
 #include <stdbool.h>
+#include <limits.h>
+#include <stdio.h>
 #include <mlx.h>
 #include <math.h>
 #include <sys/time.h>
 
-#define KEY_W		0x77
-#define KEY_A		0x61
-#define KEY_S		0x73
-#define KEY_D		0x64
+#define BUFFER_SIZE	32
+
+#define KEY_W		0x0077
+#define KEY_A		0x0061
+#define KEY_S		0x0073
+#define KEY_D		0x0064
 #define KEY_LEFT	0xff51
 #define KEY_RIGHT	0xff53
 #define KEY_ESCAPE	0xff1b
@@ -34,7 +38,9 @@
 #define MAP_SCALE	10
 #define FOV			60
 #define MOVE_SPEED	0.03
-#define SENSITIVITY	0.0001
+
+#define MOUSE		false
+#define SENS		0.0001
 
 typedef struct s_img
 {
@@ -51,38 +57,37 @@ typedef struct s_img
 
 typedef struct s_data
 {
-	void		*mlx;
-	void		*win;
-	t_img		img;
+	void	*mlx;
+	void	*win;
+	t_img	img;
 
-	char		**map;
-	int			map_w;
-	int			map_h;
+	char	**map;
+	int		grid_w;
+	int		grid_h;
 
-	t_img		texture_n;
-	t_img		texture_s;
-	t_img		texture_w;
-	t_img		texture_e;
+	t_img	texture_n;
+	t_img	texture_s;
+	t_img	texture_w;
+	t_img	texture_e;
 
-	int			sky_colour;
-	int			floor_colour;
+	int		sky_colour;
+	int		floor_colour;
 
-	double		pos_x;
-	double		pos_y;
-	double		pos_a;
-	double		fov;
+	double	pos_x;
+	double	pos_y;
+	double	pos_a;
+	double	fov;
 
-	bool		w_press;
-	bool		a_press;
-	bool		s_press;
-	bool		d_press;
-	bool		left_press;
-	bool		right_press;
+	bool	w_press;
+	bool	a_press;
+	bool	s_press;
+	bool	d_press;
+	bool	left_press;
+	bool	right_press;
 
-	int			mouse_x;
-	int			mouse_move;
+	int		mouse_xdelta;
 
-	size_t		last_frame_time;
+	size_t	last_frame_time;
 }	t_data;
 
 typedef struct s_ray_info
@@ -122,3 +127,12 @@ void	init_events(t_data *data);
 // utils.c
 size_t	time_ms(void);
 void	pxl_put(t_img *img, int x, int y, int colour);
+
+// parser/get_next_line.c
+char	*get_next_line(int fd);
+
+// parser/utils.c
+size_t	ft_strlen(const char *s);
+char	*ft_strchr(const char *s, int c);
+char	*ft_strdup(const char *s1);
+char	*ft_strjoin(char const *s1, char const *s2);

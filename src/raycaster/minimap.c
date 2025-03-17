@@ -6,11 +6,11 @@
 /*   By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 14:06:38 by mcygan            #+#    #+#             */
-/*   Updated: 2025/02/20 16:21:58 by mcygan           ###   ########.fr       */
+/*   Updated: 2025/03/17 18:46:35 by mcygan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/cub3d.h"
+#include "../../inc/cub3d.h"
 
 static void	draw_tile(t_img *img, int x, int y, int colour)
 {
@@ -38,10 +38,10 @@ static void	draw_maze(t_data *data)
 	int	j;
 
 	i = -1;
-	while (++i < data->map_h)
+	while (++i < data->grid_h)
 	{
 		j = -1;
-		while (++j < data->map_w)
+		while (++j < data->grid_w)
 		{
 			if (data->map[i][j] == '1')
 				draw_tile(&data->img, j, i, 0x151515);

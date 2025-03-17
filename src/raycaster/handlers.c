@@ -6,11 +6,11 @@
 /*   By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 13:43:44 by mcygan            #+#    #+#             */
-/*   Updated: 2025/03/14 01:42:54 by mcygan           ###   ########.fr       */
+/*   Updated: 2025/03/17 18:45:08 by mcygan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/cub3d.h"
+#include "../../inc/cub3d.h"
 
 int	close_handler(t_data *data, char *error)
 {
@@ -67,7 +67,7 @@ static int	key_release_handler(int keycode, t_data *data)
 static int	mouse_handler(int x, int y, t_data *data)
 {
 	(void)y;
-	data->mouse_move = x - WIN_W / 2;
+	data->mouse_xdelta = x - WIN_W / 2;
 	return (0);
 }
 
@@ -75,5 +75,6 @@ void	init_events(t_data *data)
 {
 	mlx_hook(data->win, 2, 1L << 0, key_press_handler, data);
 	mlx_hook(data->win, 3, 1L << 1, key_release_handler, data);
-	mlx_hook(data->win, 6, 1L << 6, mouse_handler, data);
+	if (MOUSE)
+		mlx_hook(data->win, 6, 1L << 6, mouse_handler, data);
 }
