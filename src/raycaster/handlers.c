@@ -6,7 +6,7 @@
 /*   By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 13:43:44 by mcygan            #+#    #+#             */
-/*   Updated: 2025/03/17 18:45:08 by mcygan           ###   ########.fr       */
+/*   Updated: 2025/03/31 16:29:55 by mcygan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,9 @@
 
 int	close_handler(t_data *data, char *error)
 {
-	if (error)
-		printf("\x1b[1;31mError:\x1b[0m %s\n", error);
 	if (data->mlx)
 	{
+		free_cfg(data->config);
 		if (data->img.ptr)
 			mlx_destroy_image(data->mlx, data->img.ptr);
 		if (data->win)
@@ -25,7 +24,10 @@ int	close_handler(t_data *data, char *error)
 		mlx_destroy_display(data->mlx);
 		free(data->mlx);
 	}
-	exit(EXIT_SUCCESS);
+	if (!error)
+		exit(EXIT_SUCCESS);
+	printf("\x1b[1;31mError:\x1b[0m %s\n", error);
+	exit(EXIT_FAILURE);
 }
 
 static int	key_press_handler(int keycode, t_data *data)

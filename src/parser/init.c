@@ -6,24 +6,11 @@
 /*   By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 14:04:10 by mcygan            #+#    #+#             */
-/*   Updated: 2025/03/17 20:36:36 by mcygan           ###   ########.fr       */
+/*   Updated: 2025/03/20 15:53:26 by mcygan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/cub3d.h"
-
-static t_img	init_texture(t_data *data, char *path)
-{
-	t_img	tex;
-
-	tex.ptr = mlx_xpm_file_to_image(data->mlx, path, &tex.w, &tex.h);
-	if (!(tex.ptr))
-		close_handler(data, "can't load texture");
-	tex.addr = mlx_get_data_addr(tex.ptr, &tex.bpp, &tex.line_len, &tex.endian);
-	if (!(tex.addr))
-		close_handler(data, "can't get texture memory address");
-	return (tex);
-}
 
 static void	init_mlx(t_data *data)
 {
@@ -59,8 +46,10 @@ void	init_data(t_data *data, char **map)
 	data->left_press = false;
 	data->right_press = false;
 	data->last_frame_time = time_ms();
-	data->tex_no = init_texture(data, "./textures/metal.xpm");
-	data->tex_ea = init_texture(data, "./textures/caca.xpm");
-	data->tex_so = init_texture(data, "./textures/brick.xpm");
-	data->tex_we = init_texture(data, "./textures/blue.xpm");
+	data->tex_no_path = NULL;
+	data->tex_so_path = NULL;
+	data->tex_we_path = NULL;
+	data->tex_ea_path = NULL;
+	data->floor_colour = -1;
+	data->ceiling_colour = -1;
 }

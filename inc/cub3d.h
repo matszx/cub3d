@@ -6,7 +6,7 @@
 /*   By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 15:42:11 by mcygan            #+#    #+#             */
-/*   Updated: 2025/03/17 20:36:36 by mcygan           ###   ########.fr       */
+/*   Updated: 2025/03/31 17:45:34 by mcygan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,14 @@
 #include <unistd.h>
 #include <stdbool.h>
 #include <limits.h>
+#include <fcntl.h>
 #include <stdio.h>
 #include <mlx.h>
 #include <math.h>
 #include <sys/time.h>
 
 #define BUFFER_SIZE	32
+#define CONFIG_MAX	256
 
 #define KEY_W		0x0077
 #define KEY_A		0x0061
@@ -61,16 +63,22 @@ typedef struct s_data
 	void	*win;
 	t_img	img;
 
+	char	***config;
 	char	**map;
 	int		grid_w;
 	int		grid_h;
+
+	char	*tex_no_path;
+	char	*tex_so_path;
+	char	*tex_we_path;
+	char	*tex_ea_path;
 
 	t_img	tex_no;
 	t_img	tex_so;
 	t_img	tex_we;
 	t_img	tex_ea;
 
-	int		sky_colour;
+	int		ceiling_colour;
 	int		floor_colour;
 
 	double	pos_x;
@@ -136,3 +144,11 @@ size_t	ft_strlen(const char *s);
 char	*ft_strchr(const char *s, int c);
 char	*ft_strdup(const char *s1);
 char	*ft_strjoin(char const *s1, char const *s2);
+
+// parser/split.c
+char	**ft_split(char const *s, char c);
+void	free_split(char **strs);
+
+// parser/parse.c
+int		parse_cfg(t_data *data, char *path);
+void	free_cfg(char ***cfg);
