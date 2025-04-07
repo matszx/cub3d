@@ -6,7 +6,7 @@
 /*   By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 12:00:35 by mcygan            #+#    #+#             */
-/*   Updated: 2025/03/31 17:45:34 by mcygan           ###   ########.fr       */
+/*   Updated: 2025/04/07 15:43:43 by mcygan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,8 @@ void	free_split(char **strs)
 {
 	int	i;
 
-	i = 0;
-	while (strs[i])
-		i++;
-	while (i--)
+	i = -1;
+	while (strs[++i])
 		free(strs[i]);
 	free(strs);
 }

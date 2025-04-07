@@ -6,7 +6,7 @@
 /*   By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 14:04:10 by mcygan            #+#    #+#             */
-/*   Updated: 2025/03/20 15:53:26 by mcygan           ###   ########.fr       */
+/*   Updated: 2025/04/07 15:20:24 by mcygan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ void	init_data(t_data *data, char **map)
 	data->map = map;
 	data->grid_w = 16;
 	data->grid_h = 16;
-	data->pos_x = 1.9;
-	data->pos_y = 1.9;
+	data->error = 0;
+	data->pos_x = -1;
 	data->pos_a = 1.5;
 	data->fov = M_PI / (180.0 / FOV);
 	data->w_press = false;

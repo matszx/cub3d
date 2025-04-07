@@ -6,7 +6,7 @@
 /*   By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 15:42:11 by mcygan            #+#    #+#             */
-/*   Updated: 2025/03/31 17:45:34 by mcygan           ###   ########.fr       */
+/*   Updated: 2025/04/07 15:20:08 by mcygan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@
 #include <sys/time.h>
 
 #define BUFFER_SIZE	32
-#define CONFIG_MAX	256
 
 #define KEY_W		0x0077
 #define KEY_A		0x0061
@@ -35,8 +34,6 @@
 
 #define WIN_W		1200
 #define WIN_H		800
-#define MAP_W		16
-#define MAP_H		16
 #define MAP_SCALE	10
 #define FOV			60
 #define MOVE_SPEED	0.03
@@ -65,6 +62,8 @@ typedef struct s_data
 
 	char	***config;
 	char	**map;
+	char	**check;
+	int		error;
 	int		grid_w;
 	int		grid_h;
 
@@ -152,3 +151,7 @@ void	free_split(char **strs);
 // parser/parse.c
 int		parse_cfg(t_data *data, char *path);
 void	free_cfg(char ***cfg);
+
+void	set_map_size(t_data *data);
+char	**init_check_matrix(t_data *data);
+int		parse_cluster(t_data *data, int x, int y);

@@ -6,7 +6,7 @@
 /*   By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 17:54:56 by mcygan            #+#    #+#             */
-/*   Updated: 2025/03/31 17:46:38 by mcygan           ###   ########.fr       */
+/*   Updated: 2025/04/07 15:35:13 by mcygan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,10 +66,8 @@ void	free_cfg(char ***cfg)
 
 	if (!cfg)
 		return ;
-	i = 0;
-	while (cfg[i])
-		i++;
-	while (i--)
+	i = -1;
+	while (cfg[++i])
 		free_split(cfg[i]);
 	free(cfg);
 }

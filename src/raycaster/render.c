@@ -6,7 +6,7 @@
 /*   By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 14:15:05 by mcygan            #+#    #+#             */
-/*   Updated: 2025/03/17 18:04:10 by mcygan           ###   ########.fr       */
+/*   Updated: 2025/04/04 22:56:45 by mcygan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ static void	draw_vertical_ray(t_data *data, t_ray_info *info, int x)
 	floor = ceiling + wall_h;
 	if (floor > WIN_H)
 		floor = WIN_H;
-	if (x < MAP_W * MAP_SCALE)
-		i = MAP_H * MAP_SCALE;
+	if (x < data->grid_w * MAP_SCALE)
+		i = data->grid_h * MAP_SCALE;
 	else
 		i = 0;
 	while (i < ceiling)
