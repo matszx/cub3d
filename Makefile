@@ -6,7 +6,7 @@
 #    By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/23 15:29:54 by mcygan            #+#    #+#              #
-#    Updated: 2025/04/07 15:45:21 by mcygan           ###   ########.fr        #
+#    Updated: 2025/04/08 15:07:49 by mcygan           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,6 +23,7 @@ SRC_FILES 		=	main.c \
 					parser/utils.c \
 					parser/split.c \
 					parser/map.c \
+					parser/grid.c \
 					raycaster/render.c \
 					raycaster/minimap.c \
 					raycaster/texture.c \

@@ -6,7 +6,7 @@
 /*   By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 15:42:11 by mcygan            #+#    #+#             */
-/*   Updated: 2025/04/07 15:20:08 by mcygan           ###   ########.fr       */
+/*   Updated: 2025/04/08 15:02:13 by mcygan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 #include <sys/time.h>
 
 #define BUFFER_SIZE	32
+#define CONFIG_MAX	256
 
 #define KEY_W		0x0077
 #define KEY_A		0x0061
@@ -63,6 +64,7 @@ typedef struct s_data
 	char	***config;
 	char	**map;
 	char	**check;
+	int		fd;
 	int		error;
 	int		grid_w;
 	int		grid_h;
@@ -113,7 +115,7 @@ typedef struct s_ray_info
 }	t_ray_info;
 
 // init.c
-void	init_data(t_data *data, char **map);
+void	init_data(t_data *data);
 
 // minimap.c
 void	draw_minimap(t_data *data);
@@ -155,3 +157,5 @@ void	free_cfg(char ***cfg);
 void	set_map_size(t_data *data);
 char	**init_check_matrix(t_data *data);
 int		parse_cluster(t_data *data, int x, int y);
+
+char	**get_grid(int fd);

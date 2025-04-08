@@ -6,7 +6,7 @@
 /*   By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 13:43:44 by mcygan            #+#    #+#             */
-/*   Updated: 2025/03/31 16:29:55 by mcygan           ###   ########.fr       */
+/*   Updated: 2025/04/08 12:35:40 by mcygan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 int	close_handler(t_data *data, char *error)
 {
+	if (data->fd > 0)
+		close(data->fd);
 	if (data->mlx)
 	{
 		free_cfg(data->config);

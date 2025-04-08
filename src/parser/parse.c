@@ -6,7 +6,7 @@
 /*   By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 17:54:56 by mcygan            #+#    #+#             */
-/*   Updated: 2025/04/07 15:35:13 by mcygan           ###   ########.fr       */
+/*   Updated: 2025/04/08 12:32:48 by mcygan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void	free_cfg(char ***cfg)
 	free(cfg);
 }
 
-static char	***get_cfg(const char *path)
+static char	***get_cfg(t_data *data, const char *path)
 {
 	const int	fd = open(path, O_RDONLY);
 	char		***cfg;
@@ -82,6 +82,7 @@ static char	***get_cfg(const char *path)
 
 	if (fd < 0)
 		return (NULL);
+	data->fd = fd;
 	cfg = malloc(sizeof(char ***) * 7);
 	if (!cfg)
 		return (NULL);
@@ -98,7 +99,6 @@ static char	***get_cfg(const char *path)
 		line = get_next_line(fd);
 	}
 	free(line);
-	close(fd);
 	cfg[count] = 0;
 	if (count != 6)
 		return (NULL);
@@ -110,7 +110,7 @@ int	parse_cfg(t_data *data, char *path)
 	char	***cfg;
 	int		i;
 
-	cfg = get_cfg(path);
+	cfg = get_cfg(data, path);
 	if (!cfg)
 		return (1);
 	i = -1;

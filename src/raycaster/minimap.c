@@ -6,7 +6,7 @@
 /*   By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 14:06:38 by mcygan            #+#    #+#             */
-/*   Updated: 2025/03/17 18:46:35 by mcygan           ###   ########.fr       */
+/*   Updated: 2025/04/08 16:20:05 by mcygan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static void	draw_maze(t_data *data)
 		j = -1;
 		while (++j < data->grid_w)
 		{
-			if (data->map[i][j] == '1')
+			if (data->map[i][j] == '1' || data->map[i][j] == ' ')
 				draw_tile(&data->img, j, i, 0x151515);
 			else
 				draw_tile(&data->img, j, i, 0x065EE2);
