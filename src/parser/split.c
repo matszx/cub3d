@@ -6,7 +6,7 @@
 /*   By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 12:00:35 by mcygan            #+#    #+#             */
-/*   Updated: 2025/04/07 15:43:43 by mcygan           ###   ########.fr       */
+/*   Updated: 2025/04/09 17:28:42 by mcygan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,8 @@ static size_t	word_count(char *str, char c)
 static char	*find_substr(char *str, char c)
 {
 	size_t	len;
-	char	*res;
 	size_t	i;
+	char	*res;
 
 	len = 0;
 	while (str[len] != c && str[len])
@@ -65,8 +65,8 @@ static char	*find_substr(char *str, char c)
 char	**ft_split(char const *s, char c)
 {
 	size_t	wc;
-	char	**res;
 	size_t	i;
+	char	**res;
 
 	wc = word_count((char *)s, c);
 	res = malloc((wc + 1) * sizeof(char *));

@@ -6,7 +6,7 @@
 /*   By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 11:40:45 by mcygan            #+#    #+#             */
-/*   Updated: 2025/04/08 16:13:41 by mcygan           ###   ########.fr       */
+/*   Updated: 2025/04/09 17:20:49 by mcygan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,9 +76,7 @@ int	parse_cluster(t_data *data, int x, int y)
 {
 	char 		c;
 	
-	printf("hello1 %d %d\n", x, y);
 	c = data->map[y][x];
-	printf("hello2\n");
 	if (c == '1')
 		return (0);
 	else if (x == 0 || x == data->grid_w - 1 || y == 0 || y == data->grid_h - 1)

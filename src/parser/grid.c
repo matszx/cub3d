@@ -1,23 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   grid.c                                             :+:      :+:    :+:   */
+/*   map.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 16:14:01 by mcygan            #+#    #+#             */
-/*   Updated: 2025/04/08 15:01:19 by mcygan           ###   ########.fr       */
+/*   Updated: 2025/04/09 20:16:39 by mcygan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/cub3d.h"
 
-static char	*next_nonempty_line(int fd)
+char	*next_nonempty_line(int fd)
 {
 	char	*line;
 
 	line = get_next_line(fd);
-	while (*line == 10)
+	while (line && *line == '\n')
 	{
 		free(line);
 		line = get_next_line(fd);
@@ -30,43 +30,38 @@ static int	copy_line(char *src, char *dst)
 	int	i;
 
 	i = 0;
-	while (src[i] && src[i] != 10 && i < CONFIG_MAX - 1)
+	while (src[i] && src[i] != '\n' && i < CONFIG_MAX)
 	{
 		dst[i] = src[i];
 		i++;
 	}
-	if (src[i] && src[i] != 10)
+	if (src[i] && src[i] != '\n')
 		return (1);
 	dst[i] = 0;
 	return (0);
 }
 
-char	**get_grid(int fd)
+char	**get_map(int fd)
 {
-	char	**grid;
-	char	*line;
 	int		i;
+	char	*line;
+	char	**map;
 
-	grid = malloc(sizeof(char *) * CONFIG_MAX);
-	if (!grid)
+	map = malloc(sizeof(char *) * (CONFIG_MAX + 1));
+	if (!map)
 		return (NULL);
 	line = next_nonempty_line(fd);
-	i = -1;
-	while (++i < CONFIG_MAX - 1 && line && *line != 10)
+	i = 0;
+	while (line && *line != 10 && i < CONFIG_MAX)
 	{
-		grid[i] = malloc(sizeof(char) * CONFIG_MAX);
-		if (!grid[i] || copy_line(line, grid[i]))
-			return (free_split(grid), NULL);
+		map[i] = malloc(sizeof(char) * (CONFIG_MAX + 1));
+		if (!map[i] || copy_line(line, map[i++]))
+			return (free_split(map), NULL);
 		free(line);
 		line = get_next_line(fd);
 	}
-	grid[i] = 0;
-	if (line)
-	{
-		free(line);
-		line = next_nonempty_line(fd);
-		if (line)
-			return (free_split(grid), NULL);
-	}
-	return (grid);
+	map[i] = 0;
+	if (line || i == CONFIG_MAX)
+		return (free(line), free_split(map), NULL);
+	return (free(line), map);
 }

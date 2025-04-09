@@ -6,7 +6,7 @@
 /*   By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 17:54:56 by mcygan            #+#    #+#             */
-/*   Updated: 2025/04/08 12:32:48 by mcygan           ###   ########.fr       */
+/*   Updated: 2025/04/09 23:47:25 by mcygan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,6 +131,6 @@ int	parse_cfg(t_data *data, char *path)
 		else
 			return (1);
 	}
-	data->config = cfg;
+	data->cfg = cfg;
 	return (0);
 }

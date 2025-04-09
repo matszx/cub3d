@@ -6,7 +6,7 @@
 /*   By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 13:43:44 by mcygan            #+#    #+#             */
-/*   Updated: 2025/04/08 12:35:40 by mcygan           ###   ########.fr       */
+/*   Updated: 2025/04/09 23:47:25 by mcygan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,20 @@
 
 int	close_handler(t_data *data, char *error)
 {
-	if (data->fd > 0)
-		close(data->fd);
-	if (data->mlx)
+	if (data)
 	{
-		free_cfg(data->config);
-		if (data->img.ptr)
-			mlx_destroy_image(data->mlx, data->img.ptr);
-		if (data->win)
-			mlx_destroy_window(data->mlx, data->win);
-		mlx_destroy_display(data->mlx);
-		free(data->mlx);
+		if (data->fd > 0)
+			close(data->fd);
+		if (data->mlx)
+		{
+			free_cfg(data->cfg);
+			if (data->img.ptr)
+				mlx_destroy_image(data->mlx, data->img.ptr);
+			if (data->win)
+				mlx_destroy_window(data->mlx, data->win);
+			mlx_destroy_display(data->mlx);
+			free(data->mlx);
+		}
 	}
 	if (!error)
 		exit(EXIT_SUCCESS);

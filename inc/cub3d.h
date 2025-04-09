@@ -6,7 +6,7 @@
 /*   By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 15:42:11 by mcygan            #+#    #+#             */
-/*   Updated: 2025/04/08 15:02:13 by mcygan           ###   ########.fr       */
+/*   Updated: 2025/04/09 23:47:31 by mcygan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@
 #include <sys/time.h>
 
 #define BUFFER_SIZE	32
-#define CONFIG_MAX	256
+#define CONFIG_MAX	255
+#define CFG_MAX		6
 
 #define KEY_W		0x0077
 #define KEY_A		0x0061
@@ -61,7 +62,7 @@ typedef struct s_data
 	void	*win;
 	t_img	img;
 
-	char	***config;
+	char	***cfg;
 	char	**map;
 	char	**check;
 	int		fd;
@@ -158,4 +159,4 @@ void	set_map_size(t_data *data);
 char	**init_check_matrix(t_data *data);
 int		parse_cluster(t_data *data, int x, int y);
 
-char	**get_grid(int fd);
+char	**get_map(int fd);
