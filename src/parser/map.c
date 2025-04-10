@@ -6,7 +6,7 @@
 /*   By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 11:40:45 by mcygan            #+#    #+#             */
-/*   Updated: 2025/04/09 17:20:49 by mcygan           ###   ########.fr       */
+/*   Updated: 2025/04/10 14:07:05 by mcygan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	set_map_size(t_data *data)
 	int		width;
 	int		i;
 	int		j;
-	
+
 	width = 0;
 	i = -1;
 	while (data->map[++i])
@@ -37,7 +37,7 @@ char	**init_check_matrix(t_data *data)
 	char	**check_matrix;
 	int		i;
 	int		j;
-	
+
 	check_matrix = malloc(sizeof(char *) * (data->grid_h + 1));
 	if (!check_matrix)
 		return (NULL);
@@ -74,8 +74,8 @@ static void	recursion(t_data *data, int x, int y)
 
 int	parse_cluster(t_data *data, int x, int y)
 {
-	char 		c;
-	
+	char	c;
+
 	c = data->map[y][x];
 	if (c == '1')
 		return (0);
@@ -89,7 +89,7 @@ int	parse_cluster(t_data *data, int x, int y)
 				return (data->error++, 1);
 			data->pos_x = x + 0.5;
 			data->pos_y = y + 0.5;
-			data->pos_a = 1.5; // placeholder
+			data->pos_a = 1.5;
 		}
 		data->check[y][x] = 1;
 		recursion(data, x, y);
