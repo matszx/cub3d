@@ -6,7 +6,7 @@
 /*   By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 14:15:05 by mcygan            #+#    #+#             */
-/*   Updated: 2025/04/04 22:56:45 by mcygan           ###   ########.fr       */
+/*   Updated: 2025/04/10 14:51:22 by mcygan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,14 +29,14 @@ static void	draw_vertical_ray(t_data *data, t_ray_info *info, int x)
 	else
 		i = 0;
 	while (i < ceiling)
-		pxl_put(&data->img, x, i++, 0x99DDFF);
+		pxl_put(&data->img, x, i++, data->ceiling_colour);
 	while (i < floor)
 	{
 		pxl_put(&data->img, x, i, get_texel(data, info, i - ceiling, wall_h));
 		i++;
 	}
 	while (i < WIN_H)
-		pxl_put(&data->img, x, i++, 0x2F1600);
+		pxl_put(&data->img, x, i++, data->floor_colour);
 }
 
 static t_ray_info	get_ray_info(t_data *data, double cx, double cy)

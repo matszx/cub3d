@@ -6,7 +6,7 @@
 /*   By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 17:54:56 by mcygan            #+#    #+#             */
-/*   Updated: 2025/04/09 23:47:25 by mcygan           ###   ########.fr       */
+/*   Updated: 2025/04/10 14:55:13 by mcygan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,15 +83,15 @@ static char	***get_cfg(t_data *data, const char *path)
 	if (fd < 0)
 		return (NULL);
 	data->fd = fd;
-	cfg = malloc(sizeof(char ***) * 7);
+	cfg = malloc(sizeof(char ***) * (CFG_MAX + 1));
 	if (!cfg)
 		return (NULL);
 	count = 0;
 	line = get_next_line(fd);
-	while (line && count < 6)
+	while (line && count < CFG_MAX)
 	{
-		strs = ft_split(line, 32);
-		if (strs[0][0] != 10)
+		strs = ft_split(line, ' ');
+		if (**strs != '\n')
 			cfg[count++] = strs;
 		else
 			free_split(strs);
@@ -100,37 +100,35 @@ static char	***get_cfg(t_data *data, const char *path)
 	}
 	free(line);
 	cfg[count] = 0;
-	if (count != 6)
+	if (count != CFG_MAX)
 		return (NULL);
 	return (cfg);
 }
 
 int	parse_cfg(t_data *data, char *path)
 {
-	char	***cfg;
 	int		i;
 
-	cfg = get_cfg(data, path);
-	if (!cfg)
+	data->cfg = get_cfg(data, path);
+	if (!data->cfg)
 		return (1);
 	i = -1;
 	while (++i < 6)
 	{
-		if (!ft_strcmp(cfg[i][0], "NO") && cfg[i][1] && !cfg[i][2] && data->tex_no_path == NULL)
-			data->tex_no_path = cfg[i][1];
-		else if (!ft_strcmp(cfg[i][0], "SO") && cfg[i][1] && !cfg[i][2] && data->tex_so_path == NULL)
-			data->tex_so_path = cfg[i][1];
-		else if (!ft_strcmp(cfg[i][0], "WE") && cfg[i][1] && !cfg[i][2] && data->tex_we_path == NULL)
-			data->tex_we_path = cfg[i][1];
-		else if (!ft_strcmp(cfg[i][0], "EA") && cfg[i][1] && !cfg[i][2] && data->tex_ea_path == NULL)
-			data->tex_ea_path = cfg[i][1];
-		else if (!ft_strcmp(cfg[i][0], "F") && cfg[i][1] && !cfg[i][2] && data->floor_colour == -1)
-			data->floor_colour = str_to_rgb(cfg[i][1]);
-		else if (!ft_strcmp(cfg[i][0], "C") && cfg[i][1] && !cfg[i][2] && data->ceiling_colour == -1)
-			data->ceiling_colour = str_to_rgb(cfg[i][1]);
+		if (!ft_strcmp(data->cfg[i][0], "NO") && data->cfg[i][1] && !data->cfg[i][2] && data->tex_no_path == NULL)
+			data->tex_no_path = data->cfg[i][1];
+		else if (!ft_strcmp(data->cfg[i][0], "SO") && data->cfg[i][1] && !data->cfg[i][2] && data->tex_so_path == NULL)
+			data->tex_so_path = data->cfg[i][1];
+		else if (!ft_strcmp(data->cfg[i][0], "WE") && data->cfg[i][1] && !data->cfg[i][2] && data->tex_we_path == NULL)
+			data->tex_we_path = data->cfg[i][1];
+		else if (!ft_strcmp(data->cfg[i][0], "EA") && data->cfg[i][1] && !data->cfg[i][2] && data->tex_ea_path == NULL)
+			data->tex_ea_path = data->cfg[i][1];
+		else if (!ft_strcmp(data->cfg[i][0], "F") && data->cfg[i][1] && !data->cfg[i][2] && data->floor_colour == -1)
+			data->floor_colour = str_to_rgb(data->cfg[i][1]);
+		else if (!ft_strcmp(data->cfg[i][0], "C") && data->cfg[i][1] && !data->cfg[i][2] && data->ceiling_colour == -1)
+			data->ceiling_colour = str_to_rgb(data->cfg[i][1]);
 		else
 			return (1);
 	}
-	data->cfg = cfg;
 	return (0);
 }
