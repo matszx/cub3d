@@ -6,13 +6,13 @@
 /*   By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 12:00:35 by mcygan            #+#    #+#             */
-/*   Updated: 2025/04/09 17:28:42 by mcygan           ###   ########.fr       */
+/*   Updated: 2025/04/11 23:47:09 by mcygan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/cub3d.h"
 
-void	free_split(char **strs)
+void	free_matrix(char **strs)
 {
 	int	i;
 
@@ -58,7 +58,7 @@ static char	*find_substr(char *str, char c)
 		res[i] = str[i];
 		i++;
 	}
-	res[i] = '\0';
+	res[i] = 0;
 	return (res);
 }
 
@@ -81,7 +81,7 @@ char	**ft_split(char const *s, char c)
 		{
 			res[i++] = find_substr((char *)s, c);
 			if (!res[i - 1])
-				return (free_split(res), NULL);
+				return (free_matrix(res), NULL);
 		}
 		while (*s != c && *s)
 			s++;

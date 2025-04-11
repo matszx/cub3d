@@ -6,11 +6,36 @@
 /*   By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 11:40:45 by mcygan            #+#    #+#             */
-/*   Updated: 2025/04/10 14:07:05 by mcygan           ###   ########.fr       */
+/*   Updated: 2025/04/11 23:57:04 by mcygan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/cub3d.h"
+
+char	**get_map(int fd)
+{
+	int		i;
+	char	*line;
+	char	**map;
+
+	map = malloc(sizeof(char *) * (CONFIG_MAX + 1));
+	if (!map)
+		return (NULL);
+	line = next_nonempty_line(fd);
+	i = 0;
+	while (line && *line != '\n' && i < CONFIG_MAX)
+	{
+		map[i] = malloc(sizeof(char) * (CONFIG_MAX + 1));
+		if (!map[i] || copy_line(line, map[i++]))
+			return (free_matrix(map), NULL);
+		free(line);
+		line = get_next_line(fd);
+	}
+	map[i] = 0;
+	if (line || i == CONFIG_MAX)
+		return (free(line), free_matrix(map), NULL);
+	return (free(line), map);
+}
 
 void	set_map_size(t_data *data)
 {
@@ -32,35 +57,7 @@ void	set_map_size(t_data *data)
 	data->grid_h = i;
 }
 
-char	**init_check_matrix(t_data *data)
-{
-	char	**check_matrix;
-	int		i;
-	int		j;
-
-	check_matrix = malloc(sizeof(char *) * (data->grid_h + 1));
-	if (!check_matrix)
-		return (NULL);
-	i = -1;
-	while (++i < data->grid_h)
-	{
-		check_matrix[i] = malloc(sizeof(char) * (data->grid_w + 1));
-		if (!check_matrix[i])
-		{
-			while (i--)
-				free(check_matrix[i]);
-			return (free(check_matrix), NULL);
-		}
-		j = -1;
-		while (++j < data->grid_w)
-			check_matrix[i][j] = 0;
-		check_matrix[i][j] = '\n';
-	}
-	check_matrix[i] = NULL;
-	return (check_matrix);
-}
-
-static void	recursion(t_data *data, int x, int y)
+static void	propagate(t_data *data, int x, int y)
 {
 	if (x > 0 && !data->check[y][x - 1])
 		parse_cluster(data, x - 1, y);
@@ -92,7 +89,7 @@ int	parse_cluster(t_data *data, int x, int y)
 			data->pos_a = 1.5;
 		}
 		data->check[y][x] = 1;
-		recursion(data, x, y);
+		propagate(data, x, y);
 	}
 	else
 		return (data->error++, 1);

@@ -6,20 +6,21 @@
 /*   By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 18:28:55 by mcygan            #+#    #+#             */
-/*   Updated: 2025/03/17 18:28:56 by mcygan           ###   ########.fr       */
+/*   Updated: 2025/04/11 23:35:25 by mcygan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/cub3d.h"
 
-static char	*ft_truncate(char *buffer)
+static char	*truncate_buffer(char *buffer)
 {
+	
 	char	*nl;
 	size_t	nl_idx;
-	char	*new;
 	int		i;
+	char	*new;
 
-	nl = ft_strchr(buffer, '\n');
+	nl = ft_strchr(buffer, 10);
 	if (!nl)
 		return (free(buffer), NULL);
 	nl_idx = nl - buffer;
@@ -29,11 +30,11 @@ static char	*ft_truncate(char *buffer)
 	i = 0;
 	while (buffer[++nl_idx])
 		new[i++] = buffer[nl_idx];
-	new[i] = '\0';
+	new[i] = 0;
 	return (free(buffer), new);
 }
 
-static char	*ft_getline(char *buffer)
+static char	*get_line(char *buffer)
 {
 	char	*eol;
 	size_t	eol_idx;
@@ -41,7 +42,7 @@ static char	*ft_getline(char *buffer)
 
 	if (!*buffer)
 		return (NULL);
-	eol = ft_strchr(buffer, '\n');
+	eol = ft_strchr(buffer, 10);
 	if (eol)
 		eol_idx = eol - buffer + 1;
 	else
@@ -49,13 +50,13 @@ static char	*ft_getline(char *buffer)
 	line = malloc(eol_idx + 1);
 	if (!line)
 		return (NULL);
-	line[eol_idx] = '\0';
+	line[eol_idx] = 0;
 	while (eol_idx--)
 		line[eol_idx] = buffer[eol_idx];
 	return (line);
 }
 
-static char	*ft_join(char *buffer, char *buf)
+static char	*join_buffer(char *buffer, char *buf)
 {
 	char	*res;
 
@@ -63,7 +64,7 @@ static char	*ft_join(char *buffer, char *buf)
 	return (free(buffer), res);
 }
 
-static char	*ft_read(int fd, char *buffer)
+static char	*get_buffer(int fd, char *buffer)
 {
 	char	*buf;
 	int		bytes_read;
@@ -77,8 +78,8 @@ static char	*ft_read(int fd, char *buffer)
 		bytes_read = read(fd, buf, BUFFER_SIZE);
 		if (bytes_read < 0)
 			return (free(buffer), free(buf), NULL);
-		buf[bytes_read] = '\0';
-		buffer = ft_join(buffer, buf);
+		buf[bytes_read] = 0;
+		buffer = join_buffer(buffer, buf);
 		if (ft_strchr(buf, '\n'))
 			break ;
 	}
@@ -94,10 +95,10 @@ char	*get_next_line(int fd)
 		return (NULL);
 	if (!buffer)
 		buffer = ft_strdup("");
-	buffer = ft_read(fd, buffer);
+	buffer = get_buffer(fd, buffer);
 	if (!buffer)
 		return (NULL);
-	line = ft_getline(buffer);
-	buffer = ft_truncate(buffer);
+	line = get_line(buffer);
+	buffer = truncate_buffer(buffer);
 	return (line);
 }

@@ -6,7 +6,7 @@
 /*   By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 15:42:11 by mcygan            #+#    #+#             */
-/*   Updated: 2025/04/11 14:07:23 by mcygan           ###   ########.fr       */
+/*   Updated: 2025/04/11 23:55:25 by mcygan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,7 +149,7 @@ char	*ft_strjoin(char const *s1, char const *s2);
 
 // parser/split.c
 char	**ft_split(char const *s, char c);
-void	free_split(char **strs);
+void	free_matrix(char **strs);
 
 // parser/parse.c
 int		parse_cfg(t_data *data, char *path);
@@ -165,3 +165,4 @@ char	*next_nonempty_line(int fd);
 
 int		ft_strcmp(const char *s1, const char *s2);
 int		ft_atoi(const char *str);
+int		copy_line(char *src, char *dst);

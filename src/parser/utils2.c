@@ -1,31 +1,46 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map.c                                             :+:      :+:    :+:   */
+/*   utils2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/01 16:14:01 by mcygan            #+#    #+#             */
-/*   Updated: 2025/04/09 20:16:39 by mcygan           ###   ########.fr       */
+/*   Created: 2025/04/11 23:25:54 by mcygan            #+#    #+#             */
+/*   Updated: 2025/04/11 23:56:16 by mcygan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/cub3d.h"
 
-char	*next_nonempty_line(int fd)
+int	ft_atoi(const char *str)
 {
-	char	*line;
+	long	last;
+	long	res;
+	int		sign;
 
-	line = get_next_line(fd);
-	while (line && *line == '\n')
+	res = 0;
+	sign = 1;
+	while (*str == 32 || (*str >= 9 && *str <= 13))
+		str++;
+	if (*str == '+')
+		str++;
+	else if (*str == '-')
 	{
-		free(line);
-		line = get_next_line(fd);
+		sign = -1;
+		str++;
 	}
-	return (line);
+	while (*str >= '0' && *str <= '9')
+	{
+		last = res;
+		res = res * 10 + (*str - '0');
+		if (res < last)
+			return (~sign >> 1);
+		str++;
+	}
+	return (res * sign);
 }
 
-static int	copy_line(char *src, char *dst)
+int	copy_line(char *src, char *dst)
 {
 	int	i;
 
@@ -41,27 +56,15 @@ static int	copy_line(char *src, char *dst)
 	return (0);
 }
 
-char	**get_map(int fd)
+char	*next_nonempty_line(int fd)
 {
-	int		i;
 	char	*line;
-	char	**map;
 
-	map = malloc(sizeof(char *) * (CONFIG_MAX + 1));
-	if (!map)
-		return (NULL);
-	line = next_nonempty_line(fd);
-	i = 0;
-	while (line && *line != 10 && i < CONFIG_MAX)
+	line = get_next_line(fd);
+	while (line && *line == '\n')
 	{
-		map[i] = malloc(sizeof(char) * (CONFIG_MAX + 1));
-		if (!map[i] || copy_line(line, map[i++]))
-			return (free_split(map), NULL);
 		free(line);
 		line = get_next_line(fd);
 	}
-	map[i] = 0;
-	if (line || i == CONFIG_MAX)
-		return (free(line), free_split(map), NULL);
-	return (free(line), map);
+	return (line);
 }
