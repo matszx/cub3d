@@ -6,7 +6,7 @@
 /*   By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 15:42:11 by mcygan            #+#    #+#             */
-/*   Updated: 2025/04/10 15:30:19 by mcygan           ###   ########.fr       */
+/*   Updated: 2025/04/11 14:07:23 by mcygan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,3 +162,6 @@ int		parse_cluster(t_data *data, int x, int y);
 char	**get_map(int fd);
 
 char	*next_nonempty_line(int fd);
+
+int		ft_strcmp(const char *s1, const char *s2);
+int		ft_atoi(const char *str);
