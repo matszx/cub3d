@@ -6,7 +6,7 @@
 /*   By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 15:42:11 by mcygan            #+#    #+#             */
-/*   Updated: 2025/04/09 23:47:31 by mcygan           ###   ########.fr       */
+/*   Updated: 2025/04/10 15:30:19 by mcygan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,3 +160,5 @@ char	**init_check_matrix(t_data *data);
 int		parse_cluster(t_data *data, int x, int y);
 
 char	**get_map(int fd);
+
+char	*next_nonempty_line(int fd);

@@ -6,7 +6,7 @@
 /*   By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 17:54:56 by mcygan            #+#    #+#             */
-/*   Updated: 2025/04/10 14:55:13 by mcygan           ###   ########.fr       */
+/*   Updated: 2025/04/11 12:55:24 by mcygan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,35 +74,29 @@ void	free_cfg(char ***cfg)
 
 static char	***get_cfg(t_data *data, const char *path)
 {
-	const int	fd = open(path, O_RDONLY);
-	char		***cfg;
 	int			count;
 	char		*line;
-	char		**strs;
+	char		***cfg;
 
-	if (fd < 0)
+	data->fd = open(path, O_RDONLY);
+	if (data->fd < 0)
 		return (NULL);
-	data->fd = fd;
 	cfg = malloc(sizeof(char ***) * (CFG_MAX + 1));
 	if (!cfg)
 		return (NULL);
 	count = 0;
-	line = get_next_line(fd);
-	while (line && count < CFG_MAX)
+	line = next_nonempty_line(data->fd);
+	while (line && count < CFG_MAX - 1)
 	{
-		strs = ft_split(line, ' ');
-		if (**strs != '\n')
-			cfg[count++] = strs;
-		else
-			free_split(strs);
+		cfg[count++] = ft_split(line, ' ');
 		free(line);
-		line = get_next_line(fd);
+		line = next_nonempty_line(data->fd);
 	}
-	free(line);
+	cfg[count++] = ft_split(line, ' ');
 	cfg[count] = 0;
 	if (count != CFG_MAX)
-		return (NULL);
-	return (cfg);
+		return (free(line), NULL);
+	return (free(line), cfg);
 }
 
 int	parse_cfg(t_data *data, char *path)
