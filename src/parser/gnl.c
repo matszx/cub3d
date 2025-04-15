@@ -6,7 +6,7 @@
 /*   By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 18:28:55 by mcygan            #+#    #+#             */
-/*   Updated: 2025/04/11 23:35:25 by mcygan           ###   ########.fr       */
+/*   Updated: 2025/04/15 11:25:23 by mcygan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 static char	*truncate_buffer(char *buffer)
 {
-	
 	char	*nl;
 	size_t	nl_idx;
 	int		i;
