@@ -6,7 +6,7 @@
 /*   By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 11:30:50 by mcygan            #+#    #+#             */
-/*   Updated: 2025/04/11 23:47:09 by mcygan           ###   ########.fr       */
+/*   Updated: 2025/04/16 09:45:35 by mcygan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static char	***get_cfg(t_data *data, const char *path)
 		cfg[count++] = ft_split(line, ' ');
 	cfg[count] = 0;
 	if (count != CFG_MAX)
-		return (free(line), NULL);
+		return (free(line), free(cfg), NULL);
 	return (free(line), cfg);
 }
 
