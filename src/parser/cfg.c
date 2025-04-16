@@ -6,7 +6,7 @@
 /*   By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 11:30:50 by mcygan            #+#    #+#             */
-/*   Updated: 2025/04/16 13:20:55 by mcygan           ###   ########.fr       */
+/*   Updated: 2025/04/16 15:28:07 by mcygan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,17 +63,17 @@ static int	str_to_rgb(char *str)
 
 int	fill_data(t_data *data, char *s1, char *s2)
 {
-	if (ft_strcmp(s1, "NO") && !data->tex_no_path)
+	if (!ft_strcmp(s1, "NO") && !data->tex_no_path)
 		data->tex_no_path = s2;
-	else if (ft_strcmp(s1, "SO") && !data->tex_so_path)
+	else if (!ft_strcmp(s1, "SO") && !data->tex_so_path)
 		data->tex_so_path = s2;
-	else if (ft_strcmp(s1, "WE") && !data->tex_we_path)
+	else if (!ft_strcmp(s1, "WE") && !data->tex_we_path)
 		data->tex_we_path = s2;
-	else if (ft_strcmp(s1, "EA") && !data->tex_ea_path)
+	else if (!ft_strcmp(s1, "EA") && !data->tex_ea_path)
 		data->tex_ea_path = s2;
-	else if (ft_strcmp(s1, "F") && data->floor_colour == -1)
+	else if (!ft_strcmp(s1, "F") && data->floor_colour == -1)
 		data->floor_colour = str_to_rgb(s2);
-	else if (ft_strcmp(s1, "C") && data->ceiling_colour == -1)
+	else if (!ft_strcmp(s1, "C") && data->ceiling_colour == -1)
 		data->ceiling_colour = str_to_rgb(s2);
 	else
 		return (1);
