@@ -6,7 +6,7 @@
 /*   By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 15:30:03 by mcygan            #+#    #+#             */
-/*   Updated: 2025/04/16 13:15:19 by mcygan           ###   ########.fr       */
+/*   Updated: 2025/04/16 14:18:21 by mcygan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,12 @@ int	main(int argc, char **argv)
 
 	if (argc != 2)
 		close_handler(NULL, "needs single argument");
+	data.fd = open(argv[1], O_RDONLY);
+	if (data.fd < 0)
+		close_handler(NULL, "invalid path");
 	init_data(&data);
 	init_events(&data);
-	parse(&data, argv[1]);
+	parse(&data);
 	load_textures(&data);
 	mlx_loop_hook(data.mlx, render, &data);
 	mlx_loop(data.mlx);

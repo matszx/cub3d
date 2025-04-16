@@ -6,7 +6,7 @@
 /*   By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 15:42:11 by mcygan            #+#    #+#             */
-/*   Updated: 2025/04/16 13:30:03 by mcygan           ###   ########.fr       */
+/*   Updated: 2025/04/16 14:18:26 by mcygan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,7 +165,7 @@ int		ft_strcmp(const char *s1, const char *s2);
 int		ft_atoi(const char *str);
 int		copy_line(char *src, char *dst);
 
-void	parse(t_data *data, char *path);
+void	parse(t_data *data);
 void	load_textures(t_data *data);
 
 int		fill_data(t_data *data, char *s1, char *s2);

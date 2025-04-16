@@ -6,7 +6,7 @@
 /*   By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 17:54:56 by mcygan            #+#    #+#             */
-/*   Updated: 2025/04/16 13:33:01 by mcygan           ###   ########.fr       */
+/*   Updated: 2025/04/16 14:20:10 by mcygan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,14 +85,11 @@ static int	parse_map(t_data *data)
 	}
 	if (data->pos_x < 0)
 		data->error++;
-	return (data->error);
+	return (free_matrix(data->map_check), data->error);
 }
 
-void	parse(t_data *data, char *path)
+void	parse(t_data *data)
 {
-	data->fd = open(path, O_RDONLY);
-	if (data->fd < 0)
-		close_handler(data, "invalid path");
 	data->cfg = get_cfg(data);
 	if (!data->cfg || parse_cfg(data))
 		close_handler(data, "settings misconfigured");
