@@ -6,7 +6,7 @@
 /*   By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 15:30:03 by mcygan            #+#    #+#             */
-/*   Updated: 2025/04/16 12:00:56 by mcygan           ###   ########.fr       */
+/*   Updated: 2025/04/16 12:18:10 by mcygan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,10 +74,8 @@ int	main(int argc, char **argv)
 		close_handler(NULL, "invalid path");
 	init_data(&data);
 	init_events(&data);
-	if (parse_cfg(&data))
-		close_handler(&data, "settings misconfigured");
-	if (parse_map(&data))
-		close_handler(&data, "map misconfigured");
+	if (parse_cfg(&data) || parse_map(&data))
+		close_handler(&data, "file misconfigured");
 	load_textures(&data);
 	mlx_loop_hook(data.mlx, render, &data);
 	mlx_loop(data.mlx);

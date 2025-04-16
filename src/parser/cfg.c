@@ -6,7 +6,7 @@
 /*   By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 11:30:50 by mcygan            #+#    #+#             */
-/*   Updated: 2025/04/16 11:25:58 by mcygan           ###   ########.fr       */
+/*   Updated: 2025/04/16 12:10:37 by mcygan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@ static int	str_to_rgb(char *str)
 	int		rgb;
 
 	strs = ft_split(str, ',');
+	if (!strs || !strs[0] || !strs[1] || !strs[2] || strs[3])
+		return (free_matrix(strs), -1);
 	rgb = ft_atoi(strs[0]) << 16 | ft_atoi(strs[1]) << 8 | ft_atoi(strs[2]);
 	return (free_matrix(strs), rgb);
 }
@@ -96,5 +98,9 @@ int	parse_cfg(t_data *data)
 		else
 			return (1);
 	}
+	if (!data->tex_no_path || !data->tex_so_path\
+		|| !data->tex_we_path || !data->tex_ea_path\
+		|| data->floor_colour < 0 || data->ceiling_colour < 0)
+		return (1);
 	return (0);
 }
