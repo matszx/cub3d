@@ -6,7 +6,7 @@
 /*   By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 15:42:11 by mcygan            #+#    #+#             */
-/*   Updated: 2025/04/16 10:59:55 by mcygan           ###   ########.fr       */
+/*   Updated: 2025/04/16 11:18:30 by mcygan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,7 +152,7 @@ char	**ft_split(char const *s, char c);
 void	free_matrix(char **strs);
 
 // parser/parse.c
-int		parse_cfg(t_data *data, char *path);
+int		parse_cfg(t_data *data);
 void	free_cfg(char ***cfg);
 
 void	set_map_size(t_data *data);

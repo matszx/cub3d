@@ -6,7 +6,7 @@
 /*   By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 11:40:45 by mcygan            #+#    #+#             */
-/*   Updated: 2025/04/16 10:59:55 by mcygan           ###   ########.fr       */
+/*   Updated: 2025/04/16 11:57:13 by mcygan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ static int	set_player_pos(t_data *data, int x, int y, char dir)
 	data->pos_x = x + 0.5;
 	data->pos_y = y + 0.5;
 	if (dir == 'N')
-		data->pos_a = - M_PI / 2;
+		data->pos_a = -M_PI / 2;
 	else if (dir == 'S')
 		data->pos_a = M_PI / 2;
 	else if (dir == 'W')

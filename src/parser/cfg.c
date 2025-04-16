@@ -6,7 +6,7 @@
 /*   By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 11:30:50 by mcygan            #+#    #+#             */
-/*   Updated: 2025/04/16 09:45:35 by mcygan           ###   ########.fr       */
+/*   Updated: 2025/04/16 11:25:58 by mcygan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,16 +24,15 @@ void	free_cfg(char ***cfg)
 	free(cfg);
 }
 
-static char	***get_cfg(t_data *data, const char *path)
+static char	***get_cfg(t_data *data)
 {
 	int			count;
 	char		*line;
 	char		***cfg;
 
 	cfg = malloc(sizeof(char ***) * (CFG_MAX + 1));
-	data->fd = open(path, O_RDONLY);
-	if (!cfg || data->fd < 0)
-		return (free(cfg), NULL);
+	if (!cfg)
+		return (NULL);
 	line = next_nonempty_line(data->fd);
 	count = 0;
 	while (line && count < CFG_MAX - 1)
@@ -79,11 +78,11 @@ static int	fill_data(t_data *data, char *s1, char *s2)
 	return (0);
 }
 
-int	parse_cfg(t_data *data, char *path)
+int	parse_cfg(t_data *data)
 {
 	int		i;
 
-	data->cfg = get_cfg(data, path);
+	data->cfg = get_cfg(data);
 	if (!data->cfg)
 		return (1);
 	i = -1;
