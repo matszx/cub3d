@@ -6,7 +6,7 @@
 /*   By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 15:30:03 by mcygan            #+#    #+#             */
-/*   Updated: 2025/04/16 11:57:00 by mcygan           ###   ########.fr       */
+/*   Updated: 2025/04/16 12:00:56 by mcygan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,8 @@ static int	parse_map(t_data *data)
 	if (!data->map)
 		return (1);
 	set_map_size(data);
-	data->check = init_check_matrix(data);
-	if (!data->check)
+	data->map_check = init_check_matrix(data);
+	if (!data->map_check)
 		return (1);
 	i = -1;
 	while (data->map[++i])
@@ -52,7 +52,7 @@ static int	parse_map(t_data *data)
 		j = -1;
 		while (++j < data->map_w)
 		{
-			if (!data->check[i][j] && (data->map[i][j] == '0'\
+			if (!data->map_check[i][j] && (data->map[i][j] == '0'\
 				|| data->map[i][j] == 'N' || data->map[i][j] == 'S'\
 				|| data->map[i][j] == 'W' || data->map[i][j] == 'E'))
 				parse_cluster(data, j, i);

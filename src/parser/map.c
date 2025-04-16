@@ -6,7 +6,7 @@
 /*   By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 11:40:45 by mcygan            #+#    #+#             */
-/*   Updated: 2025/04/16 11:57:13 by mcygan           ###   ########.fr       */
+/*   Updated: 2025/04/16 12:00:56 by mcygan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,13 +76,13 @@ static int	set_player_pos(t_data *data, int x, int y, char dir)
 
 static void	propagate(t_data *data, int x, int y)
 {
-	if (x > 0 && !data->check[y][x - 1])
+	if (x > 0 && !data->map_check[y][x - 1])
 		parse_cluster(data, x - 1, y);
-	if (x < data->map_w - 1 && !data->check[y][x + 1])
+	if (x < data->map_w - 1 && !data->map_check[y][x + 1])
 		parse_cluster(data, x + 1, y);
-	if (y > 0 && !data->check[y - 1][x])
+	if (y > 0 && !data->map_check[y - 1][x])
 		parse_cluster(data, x, y - 1);
-	if (y < data->map_h - 1 && !data->check[y + 1][x])
+	if (y < data->map_h - 1 && !data->map_check[y + 1][x])
 		parse_cluster(data, x, y + 1);
 }
 
@@ -102,7 +102,7 @@ int	parse_cluster(t_data *data, int x, int y)
 			if (set_player_pos(data, x, y, c))
 				return (data->error++, 1);
 		}
-		data->check[y][x] = 1;
+		data->map_check[y][x] = 1;
 		propagate(data, x, y);
 	}
 	else

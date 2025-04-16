@@ -6,7 +6,7 @@
 /*   By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 15:42:11 by mcygan            #+#    #+#             */
-/*   Updated: 2025/04/16 11:18:30 by mcygan           ###   ########.fr       */
+/*   Updated: 2025/04/16 12:01:06 by mcygan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ typedef struct s_data
 
 	char	***cfg;
 	char	**map;
-	char	**check;
+	char	**map_check;
 	int		fd;
 	int		error;
 	int		map_w;
