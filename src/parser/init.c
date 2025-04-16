@@ -6,7 +6,7 @@
 /*   By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 14:04:10 by mcygan            #+#    #+#             */
-/*   Updated: 2025/04/16 13:16:00 by mcygan           ###   ########.fr       */
+/*   Updated: 2025/04/16 13:33:35 by mcygan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,9 +69,9 @@ static int	init_texture(t_data *data, char *path, t_img *addr)
 
 void	load_textures(t_data *data)
 {
-	if (init_texture(data, data->tex_no_path, &data->tex_no)\
-		|| init_texture(data, data->tex_so_path, &data->tex_so)\
-		|| init_texture(data, data->tex_we_path, &data->tex_we)\
-		|| init_texture(data, data->tex_ea_path, &data->tex_ea))
+	if (init_texture(data, data->tex_no_path, &data->tex_no) || \
+		init_texture(data, data->tex_so_path, &data->tex_so) || \
+		init_texture(data, data->tex_we_path, &data->tex_we) || \
+		init_texture(data, data->tex_ea_path, &data->tex_ea))
 		close_handler(data, "can't load texture");
 }

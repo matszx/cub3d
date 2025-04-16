@@ -6,7 +6,7 @@
 /*   By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 17:54:56 by mcygan            #+#    #+#             */
-/*   Updated: 2025/04/16 13:23:36 by mcygan           ###   ########.fr       */
+/*   Updated: 2025/04/16 13:33:01 by mcygan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,9 @@ static int	parse_cfg(t_data *data)
 		else
 			return (1);
 	}
-	if (!data->tex_no_path || !data->tex_so_path\
-		|| !data->tex_we_path || !data->tex_ea_path\
-		|| data->floor_colour < 0 || data->ceiling_colour < 0)
+	if (!data->tex_no_path || !data->tex_so_path || \
+		!data->tex_we_path || !data->tex_ea_path || \
+		data->floor_colour < 0 || data->ceiling_colour < 0)
 		return (1);
 	return (0);
 }
