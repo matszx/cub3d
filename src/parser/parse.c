@@ -6,7 +6,7 @@
 /*   By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 17:54:56 by mcygan            #+#    #+#             */
-/*   Updated: 2025/04/16 14:20:10 by mcygan           ###   ########.fr       */
+/*   Updated: 2025/04/16 14:55:22 by mcygan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static char	**init_check_matrix(t_data *data)
 	i = -1;
 	while (++i < data->map_h)
 	{
-		check_matrix[i] = malloc(sizeof(char) * (data->map_w + 1));
+		check_matrix[i] = malloc(sizeof(char) * data->map_w);
 		if (!check_matrix[i])
 		{
 			while (i--)
@@ -56,7 +56,6 @@ static char	**init_check_matrix(t_data *data)
 		j = -1;
 		while (++j < data->map_w)
 			check_matrix[i][j] = 0;
-		check_matrix[i][j] = '\n';
 	}
 	check_matrix[i] = NULL;
 	return (check_matrix);
