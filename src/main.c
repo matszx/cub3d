@@ -6,7 +6,7 @@
 /*   By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 15:30:03 by mcygan            #+#    #+#             */
-/*   Updated: 2025/04/10 00:00:23 by mcygan           ###   ########.fr       */
+/*   Updated: 2025/04/16 11:01:08 by mcygan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static int	parse_map(t_data *data)
 	while (data->map[++i])
 	{
 		j = -1;
-		while (++j < data->grid_w)
+		while (++j < data->map_w)
 		{
 			if (!data->check[i][j] && (data->map[i][j] == '0'\
 				|| data->map[i][j] == 'N' || data->map[i][j] == 'S'\
@@ -43,6 +43,8 @@ static int	parse_map(t_data *data)
 				parse_cluster(data, j, i);
 		}
 	}
+	if (data->pos_x < 0)
+		data->error++;
 	return (data->error);
 }
 
@@ -53,6 +55,7 @@ int	main(int argc, char **argv)
 	if (argc != 2)
 		close_handler(NULL, "needs single argument");
 	init_data(&data);
+	init_events(&data);
 	if (parse_cfg(&data, argv[1]))
 		close_handler(&data, "invalid path");
 	data.map = get_map(data.fd);
@@ -66,7 +69,6 @@ int	main(int argc, char **argv)
 	data.tex_so = init_texture(&data, data.tex_so_path);
 	data.tex_we = init_texture(&data, data.tex_we_path);
 	data.tex_ea = init_texture(&data, data.tex_ea_path);
-	init_events(&data);
 	mlx_loop_hook(data.mlx, render, &data);
 	mlx_loop(data.mlx);
 	return (0);

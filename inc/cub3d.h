@@ -6,7 +6,7 @@
 /*   By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 15:42:11 by mcygan            #+#    #+#             */
-/*   Updated: 2025/04/11 23:55:25 by mcygan           ###   ########.fr       */
+/*   Updated: 2025/04/16 10:59:55 by mcygan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,8 @@ typedef struct s_data
 	char	**check;
 	int		fd;
 	int		error;
-	int		grid_w;
-	int		grid_h;
+	int		map_w;
+	int		map_h;
 
 	char	*tex_no_path;
 	char	*tex_so_path;

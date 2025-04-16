@@ -6,7 +6,7 @@
 /*   By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 14:06:38 by mcygan            #+#    #+#             */
-/*   Updated: 2025/04/15 11:23:52 by mcygan           ###   ########.fr       */
+/*   Updated: 2025/04/16 10:59:55 by mcygan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,10 @@ static void	draw_maze(t_data *data)
 	int	j;
 
 	i = -1;
-	while (++i < data->grid_h)
+	while (++i < data->map_h)
 	{
 		j = -1;
-		while (++j < data->grid_w)
+		while (++j < data->map_w)
 		{
 			if (data->map[i][j] == '0'\
 				|| data->map[i][j] == 'N' || data->map[i][j] == 'S'\

@@ -6,7 +6,7 @@
 /*   By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 11:40:45 by mcygan            #+#    #+#             */
-/*   Updated: 2025/04/11 23:57:04 by mcygan           ###   ########.fr       */
+/*   Updated: 2025/04/16 10:59:55 by mcygan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,19 +53,36 @@ void	set_map_size(t_data *data)
 		if (j > width)
 			width = j;
 	}
-	data->grid_w = width;
-	data->grid_h = i;
+	data->map_w = width;
+	data->map_h = i;
+}
+
+static int	set_player_pos(t_data *data, int x, int y, char dir)
+{
+	if (data->pos_x > 0.0)
+		return (1);
+	data->pos_x = x + 0.5;
+	data->pos_y = y + 0.5;
+	if (dir == 'N')
+		data->pos_a = - M_PI / 2;
+	else if (dir == 'S')
+		data->pos_a = M_PI / 2;
+	else if (dir == 'W')
+		data->pos_a = M_PI;
+	else if (dir == 'E')
+		data->pos_a = 0;
+	return (0);
 }
 
 static void	propagate(t_data *data, int x, int y)
 {
 	if (x > 0 && !data->check[y][x - 1])
 		parse_cluster(data, x - 1, y);
-	if (x < data->grid_w - 1 && !data->check[y][x + 1])
+	if (x < data->map_w - 1 && !data->check[y][x + 1])
 		parse_cluster(data, x + 1, y);
 	if (y > 0 && !data->check[y - 1][x])
 		parse_cluster(data, x, y - 1);
-	if (y < data->grid_h - 1 && !data->check[y + 1][x])
+	if (y < data->map_h - 1 && !data->check[y + 1][x])
 		parse_cluster(data, x, y + 1);
 }
 
@@ -76,17 +93,14 @@ int	parse_cluster(t_data *data, int x, int y)
 	c = data->map[y][x];
 	if (c == '1')
 		return (0);
-	else if (x == 0 || x == data->grid_w - 1 || y == 0 || y == data->grid_h - 1)
+	else if (x == 0 || x == data->map_w - 1 || y == 0 || y == data->map_h - 1)
 		return (data->error++, 1);
 	else if (c == '0' || c == 'N' || c == 'S' || c == 'E' || c == 'W')
 	{
 		if (c != '0')
 		{
-			if (data->pos_x > 0.0)
+			if (set_player_pos(data, x, y, c))
 				return (data->error++, 1);
-			data->pos_x = x + 0.5;
-			data->pos_y = y + 0.5;
-			data->pos_a = 1.5;
 		}
 		data->check[y][x] = 1;
 		propagate(data, x, y);

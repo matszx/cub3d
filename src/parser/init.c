@@ -6,7 +6,7 @@
 /*   By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 14:04:10 by mcygan            #+#    #+#             */
-/*   Updated: 2025/04/11 23:57:16 by mcygan           ###   ########.fr       */
+/*   Updated: 2025/04/16 11:00:16 by mcygan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,13 +35,13 @@ char	**init_check_matrix(t_data *data)
 	int		i;
 	int		j;
 
-	check_matrix = malloc(sizeof(char *) * (data->grid_h + 1));
+	check_matrix = malloc(sizeof(char *) * (data->map_h + 1));
 	if (!check_matrix)
 		return (NULL);
 	i = -1;
-	while (++i < data->grid_h)
+	while (++i < data->map_h)
 	{
-		check_matrix[i] = malloc(sizeof(char) * (data->grid_w + 1));
+		check_matrix[i] = malloc(sizeof(char) * (data->map_w + 1));
 		if (!check_matrix[i])
 		{
 			while (i--)
@@ -49,7 +49,7 @@ char	**init_check_matrix(t_data *data)
 			return (free(check_matrix), NULL);
 		}
 		j = -1;
-		while (++j < data->grid_w)
+		while (++j < data->map_w)
 			check_matrix[i][j] = 0;
 		check_matrix[i][j] = '\n';
 	}
@@ -60,11 +60,8 @@ char	**init_check_matrix(t_data *data)
 void	init_data(t_data *data)
 {
 	init_mlx(data);
-	data->grid_w = 16;
-	data->grid_h = 16;
 	data->error = 0;
 	data->pos_x = -1;
-	data->pos_a = -1.5;
 	data->fov = M_PI / (180.0 / FOV);
 	data->w_press = false;
 	data->a_press = false;
