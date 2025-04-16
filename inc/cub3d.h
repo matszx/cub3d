@@ -6,7 +6,7 @@
 /*   By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 15:42:11 by mcygan            #+#    #+#             */
-/*   Updated: 2025/04/16 12:01:06 by mcygan           ###   ########.fr       */
+/*   Updated: 2025/04/16 13:30:03 by mcygan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 #include <sys/time.h>
 
 #define BUFFER_SIZE	32
-#define CONFIG_MAX	255
+#define MAP_MAX	255
 #define CFG_MAX		6
 
 #define KEY_W		0x0077
@@ -152,11 +152,9 @@ char	**ft_split(char const *s, char c);
 void	free_matrix(char **strs);
 
 // parser/parse.c
-int		parse_cfg(t_data *data);
 void	free_cfg(char ***cfg);
 
 void	set_map_size(t_data *data);
-char	**init_check_matrix(t_data *data);
 int		parse_cluster(t_data *data, int x, int y);
 
 char	**get_map(int fd);
@@ -166,3 +164,9 @@ char	*next_nonempty_line(int fd);
 int		ft_strcmp(const char *s1, const char *s2);
 int		ft_atoi(const char *str);
 int		copy_line(char *src, char *dst);
+
+void	parse(t_data *data, char *path);
+void	load_textures(t_data *data);
+
+int		fill_data(t_data *data, char *s1, char *s2);
+char	***get_cfg(t_data *data);

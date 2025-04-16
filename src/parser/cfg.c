@@ -6,7 +6,7 @@
 /*   By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 11:30:50 by mcygan            #+#    #+#             */
-/*   Updated: 2025/04/16 12:10:37 by mcygan           ###   ########.fr       */
+/*   Updated: 2025/04/16 13:20:55 by mcygan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	free_cfg(char ***cfg)
 	free(cfg);
 }
 
-static char	***get_cfg(t_data *data)
+char	***get_cfg(t_data *data)
 {
 	int			count;
 	char		*line;
@@ -61,7 +61,7 @@ static int	str_to_rgb(char *str)
 	return (free_matrix(strs), rgb);
 }
 
-static int	fill_data(t_data *data, char *s1, char *s2)
+int	fill_data(t_data *data, char *s1, char *s2)
 {
 	if (ft_strcmp(s1, "NO") && !data->tex_no_path)
 		data->tex_no_path = s2;
@@ -76,31 +76,6 @@ static int	fill_data(t_data *data, char *s1, char *s2)
 	else if (ft_strcmp(s1, "C") && data->ceiling_colour == -1)
 		data->ceiling_colour = str_to_rgb(s2);
 	else
-		return (1);
-	return (0);
-}
-
-int	parse_cfg(t_data *data)
-{
-	int		i;
-
-	data->cfg = get_cfg(data);
-	if (!data->cfg)
-		return (1);
-	i = -1;
-	while (++i < CFG_MAX)
-	{
-		if (data->cfg[i][1] && !data->cfg[i][2])
-		{
-			if (fill_data(data, data->cfg[i][0], data->cfg[i][1]))
-				return (1);
-		}
-		else
-			return (1);
-	}
-	if (!data->tex_no_path || !data->tex_so_path\
-		|| !data->tex_we_path || !data->tex_ea_path\
-		|| data->floor_colour < 0 || data->ceiling_colour < 0)
 		return (1);
 	return (0);
 }

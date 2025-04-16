@@ -6,7 +6,7 @@
 /*   By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 23:25:54 by mcygan            #+#    #+#             */
-/*   Updated: 2025/04/11 23:56:16 by mcygan           ###   ########.fr       */
+/*   Updated: 2025/04/16 13:30:03 by mcygan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	copy_line(char *src, char *dst)
 	int	i;
 
 	i = 0;
-	while (src[i] && src[i] != '\n' && i < CONFIG_MAX)
+	while (src[i] && src[i] != '\n' && i < MAP_MAX)
 	{
 		dst[i] = src[i];
 		i++;
