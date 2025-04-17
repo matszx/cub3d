@@ -6,7 +6,7 @@
 /*   By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 14:04:10 by mcygan            #+#    #+#             */
-/*   Updated: 2025/04/17 11:40:35 by mcygan           ###   ########.fr       */
+/*   Updated: 2025/04/17 13:18:00 by mcygan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,29 +52,29 @@ void	init_data(t_data *data)
 	data->last_frame_time = time_ms();
 }
 
-static int	init_texture(t_data *data, char *path, t_img *addr)
+int	init_img(t_data *data, char *path, t_img *addr)
 {
-	t_img	tex;
+	t_img	img;
 	size_t	pathlen;
 
 	pathlen = ft_strlen(path);
 	if (path[pathlen - 1] == '\n')
 		path[pathlen - 1] = 0;
-	tex.ptr = mlx_xpm_file_to_image(data->mlx, path, &tex.w, &tex.h);
-	if (!(tex.ptr))
+	img.ptr = mlx_xpm_file_to_image(data->mlx, path, &img.w, &img.h);
+	if (!(img.ptr))
 		return (1);
-	tex.addr = mlx_get_data_addr(tex.ptr, &tex.bpp, &tex.line_len, &tex.endian);
-	if (!(tex.addr))
+	img.addr = mlx_get_data_addr(img.ptr, &img.bpp, &img.line_len, &img.endian);
+	if (!(img.addr))
 		return (1);
-	*addr = tex;
+	*addr = img;
 	return (0);
 }
 
 void	load_textures(t_data *data)
 {
-	if (init_texture(data, data->tex_no_path, &data->tex_no) || \
-		init_texture(data, data->tex_so_path, &data->tex_so) || \
-		init_texture(data, data->tex_we_path, &data->tex_we) || \
-		init_texture(data, data->tex_ea_path, &data->tex_ea))
+	if (init_img(data, data->tex_no_path, &data->tex_no) || \
+		init_img(data, data->tex_so_path, &data->tex_so) || \
+		init_img(data, data->tex_we_path, &data->tex_we) || \
+		init_img(data, data->tex_ea_path, &data->tex_ea))
 		close_handler(data, "can't load texture");
 }

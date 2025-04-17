@@ -6,7 +6,7 @@
 #    By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/23 15:29:54 by mcygan            #+#    #+#              #
-#    Updated: 2025/04/12 00:03:52 by mcygan           ###   ########.fr        #
+#    Updated: 2025/04/17 13:16:19 by mcygan           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,20 +17,21 @@ INC				=	-I/usr/include -Iminilibx
 LIB				=	-Lminilibx -lmlx -L/usr/lib/X11 -lX11 -lXext -lm
 
 SRC_FILES 		=	main.c \
-					parser/parse.c \
-					parser/init.c \
+					parser/cfg.c \
 					parser/gnl.c \
+					parser/init.c \
+					parser/map.c \
+					parser/parse.c \
+					parser/split.c \
 					parser/utils1.c \
 					parser/utils2.c \
-					parser/split.c \
-					parser/map.c \
-					parser/cfg.c \
-					raycaster/render.c \
-					raycaster/minimap.c \
-					raycaster/texture.c \
 					raycaster/handlers.c \
+					raycaster/minimap.c \
 					raycaster/move.c \
-					raycaster/utils.c
+					raycaster/render.c \
+					raycaster/sprite.c \
+					raycaster/texture.c \
+					raycaster/utils.c		
 					
 SRC_DIR			=	src/
 SRC				=	$(addprefix $(SRC_DIR), $(SRC_FILES))

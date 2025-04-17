@@ -6,7 +6,7 @@
 /*   By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 16:21:45 by mcygan            #+#    #+#             */
-/*   Updated: 2025/03/17 18:04:10 by mcygan           ###   ########.fr       */
+/*   Updated: 2025/04/17 13:05:58 by mcygan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,4 +26,10 @@ void	pxl_put(t_img *img, int x, int y, int colour)
 
 	dst = img->addr + (y * img->line_len + x * (img->bpp / 8));
 	*(int *)dst = colour;
+}
+
+int	get_pxl(t_img *img, int x, int y)
+{
+	return (*(unsigned int *)((img->addr
+			+ (y * img->line_len) + (x * img->bpp / 8))));
 }

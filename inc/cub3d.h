@@ -6,7 +6,7 @@
 /*   By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 15:42:11 by mcygan            #+#    #+#             */
-/*   Updated: 2025/04/16 16:39:12 by mcygan           ###   ########.fr       */
+/*   Updated: 2025/04/17 13:17:22 by mcygan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,8 @@ typedef struct s_data
 	t_img	tex_we;
 	t_img	tex_ea;
 
+	t_img	sprite;
+
 	int		ceiling_colour;
 	int		floor_colour;
 
@@ -127,6 +129,7 @@ char	*get_next_line(int fd);
 
 // parser/init.c
 void	init_data(t_data *data);
+int		init_img(t_data *data, char *path, t_img *addr);
 void	load_textures(t_data *data);
 
 // parser/map.c
@@ -172,3 +175,7 @@ int		get_texel(t_data *data, t_ray_info *info, int y, int wall_h);
 // raycaster/utils.c
 size_t	time_ms(void);
 void	pxl_put(t_img *img, int x, int y, int colour);
+
+void	load_sprites(t_data *data);
+void	put_sprite_to_img(t_img *dst, t_img *src, int x, int y);
+int		get_pxl(t_img *img, int x, int y);
