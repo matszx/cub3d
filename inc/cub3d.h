@@ -6,7 +6,7 @@
 /*   By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 15:42:11 by mcygan            #+#    #+#             */
-/*   Updated: 2025/04/17 14:29:42 by mcygan           ###   ########.fr       */
+/*   Updated: 2025/04/17 14:39:57 by mcygan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@
 #define KEY_D		0x0064
 #define KEY_LEFT	0xff51
 #define KEY_RIGHT	0xff53
+#define KEY_SPACE	0x0020
 #define KEY_ESCAPE	0xff1b
 
 #define WIN_W		1200
