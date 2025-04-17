@@ -6,7 +6,7 @@
 /*   By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 14:15:05 by mcygan            #+#    #+#             */
-/*   Updated: 2025/04/17 13:39:55 by mcygan           ###   ########.fr       */
+/*   Updated: 2025/04/17 14:26:10 by mcygan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,8 @@ int	render(t_data *data)
 		player_move(data);
 		draw_minimap(data);
 		cast_rays(data);
-		update_sprite_frame(data);
+		if (data->animation)
+			animate_sprite(data);
 		put_sprite_to_img(&data->img, &data->sprite[data->frame], \
 			2 * WIN_W / 3, WIN_H - data->sprite[data->frame].h - 1);
 		mlx_put_image_to_window(data->mlx, data->win, data->img.ptr, 0, 0);

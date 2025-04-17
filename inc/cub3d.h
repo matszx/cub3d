@@ -6,7 +6,7 @@
 /*   By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 15:42:11 by mcygan            #+#    #+#             */
-/*   Updated: 2025/04/17 13:39:55 by mcygan           ###   ########.fr       */
+/*   Updated: 2025/04/17 14:29:42 by mcygan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,9 +99,10 @@ typedef struct s_data
 
 	int		mouse_xdelta;
 
-	t_img	sprite[5];
+	bool	animation;
 	int		frame;
 	size_t	last_sprite_time;
+	t_img	sprite[5];
 
 	size_t	last_frame_time;
 }	t_data;
@@ -174,7 +175,7 @@ int		render(t_data *data);
 // raycaster/sprite.c
 void	load_sprites(t_data *data);
 void	put_sprite_to_img(t_img *dst, t_img *src, int x, int y);
-void	update_sprite_frame(t_data *data);
+void	animate_sprite(t_data *data);
 
 // raycaster/texture.c
 int		get_texel(t_data *data, t_ray_info *info, int y, int wall_h);

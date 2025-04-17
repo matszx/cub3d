@@ -6,7 +6,7 @@
 /*   By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 10:58:17 by mcygan            #+#    #+#             */
-/*   Updated: 2025/04/17 13:39:55 by mcygan           ###   ########.fr       */
+/*   Updated: 2025/04/17 14:26:10 by mcygan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,12 +41,17 @@ void	put_sprite_to_img(t_img *img, t_img *sprite, int x, int y)
 	}
 }
 
-void	update_sprite_frame(t_data *data)
+void	animate_sprite(t_data *data)
 {
+	data->animation = true;
 	if (time_ms() - data->last_sprite_time > 80)
 	{
 		data->frame++;
-		data->frame %= 5;
 		data->last_sprite_time = time_ms();
+		if (data->frame >= 5)
+		{
+			data->frame = 0;
+			data->animation = false;
+		}
 	}
 }
