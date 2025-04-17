@@ -6,7 +6,7 @@
 /*   By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 14:04:10 by mcygan            #+#    #+#             */
-/*   Updated: 2025/04/17 13:18:00 by mcygan           ###   ########.fr       */
+/*   Updated: 2025/04/17 13:38:13 by mcygan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ void	init_data(t_data *data)
 	data->d_press = false;
 	data->left_press = false;
 	data->right_press = false;
+	data->frame = time_ms();
 	data->last_frame_time = time_ms();
 }
 
