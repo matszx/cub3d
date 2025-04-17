@@ -6,7 +6,7 @@
 /*   By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 14:04:10 by mcygan            #+#    #+#             */
-/*   Updated: 2025/04/16 13:33:35 by mcygan           ###   ########.fr       */
+/*   Updated: 2025/04/17 11:40:35 by mcygan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,11 @@ void	init_data(t_data *data)
 static int	init_texture(t_data *data, char *path, t_img *addr)
 {
 	t_img	tex;
+	size_t	pathlen;
 
-	path[ft_strlen(path) - 1] = 0;
+	pathlen = ft_strlen(path);
+	if (path[pathlen - 1] == '\n')
+		path[pathlen - 1] = 0;
 	tex.ptr = mlx_xpm_file_to_image(data->mlx, path, &tex.w, &tex.h);
 	if (!(tex.ptr))
 		return (1);
