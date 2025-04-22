@@ -6,7 +6,7 @@
 /*   By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 15:42:11 by mcygan            #+#    #+#             */
-/*   Updated: 2025/04/17 14:39:57 by mcygan           ###   ########.fr       */
+/*   Updated: 2025/04/22 15:35:50 by mcygan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,7 +161,7 @@ int		copy_line(char *src, char *dst);
 char	*next_nonempty_line(int fd);
 
 // raycaster/handlers.c
-int		close_handler(t_data *data, char *error);
+void	close_handler(t_data *data, char *error);
 void	init_events(t_data *data);
 
 // raycaster/minimap.c

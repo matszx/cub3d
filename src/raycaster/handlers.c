@@ -6,32 +6,38 @@
 /*   By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 13:43:44 by mcygan            #+#    #+#             */
-/*   Updated: 2025/04/17 14:40:27 by mcygan           ###   ########.fr       */
+/*   Updated: 2025/04/22 15:36:06 by mcygan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/cub3d.h"
 
-int	close_handler(t_data *data, char *error)
+void	close_handler(t_data *data, char *error)
 {
-	if (data)
+	int	i;
+
+	if (!data)
+		return (printf("\x1b[1;31mError:\x1b[0m %s\n", error), exit(1));
+	close(data->fd);
+	if (data->mlx)
 	{
-		close(data->fd);
-		if (data->mlx)
+		free_cfg(data->cfg);
+		if (data->img.ptr)
+			mlx_destroy_image(data->mlx, data->img.ptr);
+		i = -1;
+		while (++i < 5)
 		{
-			free_cfg(data->cfg);
-			if (data->img.ptr)
-				mlx_destroy_image(data->mlx, data->img.ptr);
-			if (data->win)
-				mlx_destroy_window(data->mlx, data->win);
-			mlx_destroy_display(data->mlx);
-			free(data->mlx);
+			if (data->sprite[i].ptr)
+				mlx_destroy_image(data->mlx, data->sprite[i].ptr);
 		}
+		if (data->win)
+			mlx_destroy_window(data->mlx, data->win);
+		mlx_destroy_display(data->mlx);
+		free(data->mlx);
 	}
 	if (!error)
-		exit(EXIT_SUCCESS);
-	printf("\x1b[1;31mError:\x1b[0m %s\n", error);
-	exit(EXIT_FAILURE);
+		return (exit(0));
+	return (printf("\x1b[1;31mError:\x1b[0m %s\n", error), exit(1));
 }
 
 static int	key_press_handler(int keycode, t_data *data)
