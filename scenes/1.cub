@@ -1,10 +1,10 @@
-NO ./textures/metal.xpm
-SO ./textures/brick.xpm
-WE ./textures/blue.xpm
-EA ./textures/caca.xpm
+NO ./textures/metal1.xpm
+SO ./textures/metal2.xpm
+WE ./textures/metal3.xpm
+EA ./textures/metal4.xpm
 
-F 12,25,12
-C 12,12,12
+F 40,40,40
+C 0,0,0
 
         1111111111111111111111111
         1000000000110000000000001
