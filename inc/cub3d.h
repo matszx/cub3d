@@ -6,7 +6,7 @@
 /*   By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 15:42:11 by mcygan            #+#    #+#             */
-/*   Updated: 2025/04/27 23:56:50 by mcygan           ###   ########.fr       */
+/*   Updated: 2025/04/28 01:13:28 by mcygan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,11 @@
 
 #define WIN_W		1200
 #define WIN_H		800
-#define MAP_SCALE	10
+#define MAP_SCALE	300
 #define FOV			60
 #define MOVE_SPEED	0.03
 
-#define MINIMAP		false
+#define MINIMAP		true
 #define WEAPON		false
 
 #define MOUSE		false
@@ -101,15 +101,17 @@ typedef struct s_data
 	bool	left_press;
 	bool	right_press;
 
-	int		mouse_lastpos;
-	int		mouse_move;
+	size_t	last_frame_time;
+
+	int		map_scale;
 
 	bool	animation;
 	int		frame;
 	size_t	last_sprite_time;
-	t_img	sprite[6];
+	t_img	sprite[5];
 
-	size_t	last_frame_time;
+	int		mouse_lastpos;
+	int		mouse_move;
 }	t_data;
 
 typedef struct s_ray_info

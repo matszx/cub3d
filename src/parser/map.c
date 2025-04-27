@@ -6,7 +6,7 @@
 /*   By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 11:40:45 by mcygan            #+#    #+#             */
-/*   Updated: 2025/04/16 13:30:03 by mcygan           ###   ########.fr       */
+/*   Updated: 2025/04/28 00:37:36 by mcygan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ void	set_map_size(t_data *data)
 	}
 	data->map_w = width;
 	data->map_h = i;
+	data->map_scale = MAP_SCALE / fmax(width, i);
 }
 
 static int	set_player_pos(t_data *data, int x, int y, char dir)

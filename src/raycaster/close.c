@@ -6,7 +6,7 @@
 /*   By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/27 23:56:00 by mcygan            #+#    #+#             */
-/*   Updated: 2025/04/27 23:58:16 by mcygan           ###   ########.fr       */
+/*   Updated: 2025/04/28 01:25:54 by mcygan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,10 @@ static void	destroy_images(t_data *data)
 
 	i = -1;
 	while (++i < 5)
-		mlx_destroy_image(data->mlx, data->sprite[i].ptr);
+	{
+		if (data->sprite[i].ptr)
+			mlx_destroy_image(data->mlx, data->sprite[i].ptr);
+	}
 	if (data->tex_no.ptr)
 		mlx_destroy_image(data->mlx, data->tex_no.ptr);
 	if (data->tex_so.ptr)
@@ -33,20 +36,21 @@ static void	destroy_images(t_data *data)
 
 void	close_handler(t_data *data, char *error)
 {
-	if (!data)
-		return (printf("\x1b[1;31mError:\x1b[0m %s\n", error), exit(1));
-	close(data->fd);
-	if (data->mlx)
+	if (data)
 	{
-		free_cfg(data->cfg);
-		free_matrix(data->map);
-		destroy_images(data);
-		if (data->win)
-			mlx_destroy_window(data->mlx, data->win);
-		mlx_destroy_display(data->mlx);
-		free(data->mlx);
+		close(data->fd);
+		if (data->mlx)
+		{
+			free_cfg(data->cfg);
+			free_matrix(data->map);
+			destroy_images(data);
+			if (data->win)
+				mlx_destroy_window(data->mlx, data->win);
+			mlx_destroy_display(data->mlx);
+			free(data->mlx);
+		}
 	}
-	if (!error)
-		return (exit(0));
-	return (printf("\x1b[1;31mError:\x1b[0m %s\n", error), exit(1));
+	if (error)
+		printf("\x1b[1;31mError:\x1b[0m %s\n", error);
+	exit(error != NULL);
 }
