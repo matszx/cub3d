@@ -6,7 +6,7 @@
 /*   By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 14:15:05 by mcygan            #+#    #+#             */
-/*   Updated: 2025/04/17 14:50:28 by mcygan           ###   ########.fr       */
+/*   Updated: 2025/04/27 23:02:44 by mcygan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static void	draw_vertical_ray(t_data *data, t_ray_info *info, int x)
 	floor = ceiling + wall_h;
 	if (floor > WIN_H)
 		floor = WIN_H;
-	if (x < data->map_w * MAP_SCALE)
+	if (MINIMAP && x < data->map_w * MAP_SCALE)
 		i = data->map_h * MAP_SCALE;
 	else
 		i = 0;
@@ -117,12 +117,16 @@ int	render(t_data *data)
 	{
 		data->last_frame_time = time_ms();
 		player_move(data);
-		draw_minimap(data);
 		cast_rays(data);
-		if (data->animation)
-			animate_sprite(data);
-		put_sprite_to_img(&data->img, &data->sprite[data->frame], \
-			5 * WIN_W / 9, WIN_H - data->sprite[data->frame].h - 1);
+		if (MINIMAP)
+			draw_minimap(data);
+		if (WEAPON)
+		{
+			if (data->animation)
+				animate_sprite(data);
+			put_sprite_to_img(&data->img, &data->sprite[data->frame], \
+				5 * WIN_W / 9, WIN_H - data->sprite[data->frame].h - 1);
+		}
 		mlx_put_image_to_window(data->mlx, data->win, data->img.ptr, 0, 0);
 	}
 	return (0);
