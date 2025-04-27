@@ -6,13 +6,13 @@
 #    By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/23 15:29:54 by mcygan            #+#    #+#              #
-#    Updated: 2025/04/17 13:16:19 by mcygan           ###   ########.fr        #
+#    Updated: 2025/04/27 23:26:18 by mcygan           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME 			=	cub3d
 CC 				=	gcc
-CFLAGS 			=	-Wall -Wextra -Werror -O3 -ffast-math -fsanitize=address
+CFLAGS 			=	-Wall -Wextra -Werror -O3 -ffast-math
 INC				=	-I/usr/include -Iminilibx
 LIB				=	-Lminilibx -lmlx -L/usr/lib/X11 -lX11 -lXext -lm
 
