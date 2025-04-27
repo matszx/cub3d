@@ -6,7 +6,7 @@
 /*   By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 14:04:10 by mcygan            #+#    #+#             */
-/*   Updated: 2025/04/17 14:29:23 by mcygan           ###   ########.fr       */
+/*   Updated: 2025/04/27 18:17:20 by mcygan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ void	init_data(t_data *data)
 	data->d_press = false;
 	data->left_press = false;
 	data->right_press = false;
+	data->mouse_lastpos = WIN_W / 2;
+	data->mouse_move = 0;
 	data->animation = false;
 	data->frame = 0;
 	data->last_sprite_time = time_ms();

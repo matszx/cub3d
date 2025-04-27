@@ -6,7 +6,7 @@
 /*   By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 13:43:44 by mcygan            #+#    #+#             */
-/*   Updated: 2025/04/22 15:36:06 by mcygan           ###   ########.fr       */
+/*   Updated: 2025/04/27 17:59:56 by mcygan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,8 @@ static int	key_release_handler(int keycode, t_data *data)
 static int	mouse_handler(int x, int y, t_data *data)
 {
 	(void)y;
-	data->mouse_xdelta = x - WIN_W / 2;
+	data->mouse_move += x - data->mouse_lastpos;
+	data->mouse_lastpos = x;
 	return (0);
 }
 

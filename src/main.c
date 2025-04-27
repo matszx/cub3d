@@ -6,7 +6,7 @@
 /*   By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 15:30:03 by mcygan            #+#    #+#             */
-/*   Updated: 2025/04/17 13:08:55 by mcygan           ###   ########.fr       */
+/*   Updated: 2025/04/27 22:51:29 by mcygan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ int	main(int argc, char **argv)
 	parse(&data);
 	load_textures(&data);
 	load_sprites(&data);
+	mlx_mouse_hide(data.mlx, data.win);
 	mlx_loop_hook(data.mlx, render, &data);
 	mlx_loop(data.mlx);
 	return (0);
