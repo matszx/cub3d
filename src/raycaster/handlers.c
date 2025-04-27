@@ -6,40 +6,11 @@
 /*   By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 13:43:44 by mcygan            #+#    #+#             */
-/*   Updated: 2025/04/27 23:22:10 by mcygan           ###   ########.fr       */
+/*   Updated: 2025/04/27 23:52:24 by mcygan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/cub3d.h"
-
-void	close_handler(t_data *data, char *error)
-{
-	int	i;
-
-	if (!data)
-		return (printf("\x1b[1;31mError:\x1b[0m %s\n", error), exit(1));
-	close(data->fd);
-	if (data->mlx)
-	{
-		free_cfg(data->cfg);
-		free_matrix(data->map);
-		if (data->img.ptr)
-			mlx_destroy_image(data->mlx, data->img.ptr);
-		i = -1;
-		while (++i < 5)
-		{
-			if (data->sprite[i].ptr)
-				mlx_destroy_image(data->mlx, data->sprite[i].ptr);
-		}
-		if (data->win)
-			mlx_destroy_window(data->mlx, data->win);
-		mlx_destroy_display(data->mlx);
-		free(data->mlx);
-	}
-	if (!error)
-		return (exit(0));
-	return (printf("\x1b[1;31mError:\x1b[0m %s\n", error), exit(1));
-}
 
 static int	key_press_handler(int keycode, t_data *data)
 {

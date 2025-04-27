@@ -6,7 +6,7 @@
 /*   By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 15:42:11 by mcygan            #+#    #+#             */
-/*   Updated: 2025/04/27 23:03:08 by mcygan           ###   ########.fr       */
+/*   Updated: 2025/04/27 23:56:50 by mcygan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ typedef struct s_data
 	bool	animation;
 	int		frame;
 	size_t	last_sprite_time;
-	t_img	sprite[5];
+	t_img	sprite[6];
 
 	size_t	last_frame_time;
 }	t_data;
@@ -164,8 +164,10 @@ int		ft_atoi(const char *str);
 int		copy_line(char *src, char *dst);
 char	*next_nonempty_line(int fd);
 
-// raycaster/handlers.c
+// raycaster/close.c
 void	close_handler(t_data *data, char *error);
+
+// raycaster/handlers.c
 void	init_events(t_data *data);
 
 // raycaster/minimap.c
