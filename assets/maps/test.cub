@@ -1,10 +1,10 @@
-NO ./textures/metal.xpm
-SO ./textures/brick.xpm
-WE ./textures/blue.xpm
-EA ./textures/caca.xpm
+NO ./assets/textures/north.xpm
+SO ./assets/textures/south.xpm
+WE ./assets/textures/west.xpm
+EA ./assets/textures/east.xpm
 
-F 220,100,0
-C 225,30,0
+F 25,25,25
+C 200,200,200
 
 1111111111111111
 1000000000000001

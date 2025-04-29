@@ -6,7 +6,7 @@
 /*   By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 10:58:17 by mcygan            #+#    #+#             */
-/*   Updated: 2025/04/27 23:41:58 by mcygan           ###   ########.fr       */
+/*   Updated: 2025/04/29 15:27:34 by mcygan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 void	load_sprites(t_data *data)
 {
-	if (init_img(data, "./sprites/gun1.xpm", &data->sprite[0]) || \
-		init_img(data, "./sprites/gun2.xpm", &data->sprite[1]) || \
-		init_img(data, "./sprites/gun3.xpm", &data->sprite[2]) || \
-		init_img(data, "./sprites/gun4.xpm", &data->sprite[3]) || \
-		init_img(data, "./sprites/gun5.xpm", &data->sprite[4]))
+	if (init_img(data, "./assets/sprites/gun1.xpm", &data->sprite[0]) || \
+		init_img(data, "./assets/sprites/gun2.xpm", &data->sprite[1]) || \
+		init_img(data, "./assets/sprites/gun3.xpm", &data->sprite[2]) || \
+		init_img(data, "./assets/sprites/gun4.xpm", &data->sprite[3]) || \
+		init_img(data, "./assets/sprites/gun5.xpm", &data->sprite[4]))
 		close_handler(data, "can't load sprite");
 }
 
