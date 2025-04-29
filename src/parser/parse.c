@@ -6,7 +6,7 @@
 /*   By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 17:54:56 by mcygan            #+#    #+#             */
-/*   Updated: 2025/04/16 14:55:22 by mcygan           ###   ########.fr       */
+/*   Updated: 2025/04/29 12:39:00 by mcygan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ static int	parse_map(t_data *data)
 	}
 	if (data->pos_x < 0)
 		data->error++;
-	return (free_matrix(data->map_check), data->error);
+	return (free_str_array(data->map_check), data->error);
 }
 
 void	parse(t_data *data)

@@ -6,7 +6,7 @@
 /*   By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 11:40:45 by mcygan            #+#    #+#             */
-/*   Updated: 2025/04/28 00:37:36 by mcygan           ###   ########.fr       */
+/*   Updated: 2025/04/29 12:39:00 by mcygan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,13 @@ char	**get_map(int fd)
 	{
 		map[i] = malloc(sizeof(char) * (MAP_MAX + 1));
 		if (!map[i] || copy_line(line, map[i++]))
-			return (free_matrix(map), NULL);
+			return (free_str_array(map), NULL);
 		free(line);
 		line = get_next_line(fd);
 	}
 	map[i] = 0;
 	if (line || i == MAP_MAX)
-		return (free(line), free_matrix(map), NULL);
+		return (free(line), free_str_array(map), NULL);
 	return (free(line), map);
 }
 

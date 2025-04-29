@@ -6,7 +6,7 @@
 /*   By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 14:04:10 by mcygan            #+#    #+#             */
-/*   Updated: 2025/04/29 11:59:55 by mcygan           ###   ########.fr       */
+/*   Updated: 2025/04/29 12:59:14 by mcygan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ static int	init_mlx(t_data *data)
 
 static void	set_null_ptrs(t_data *data)
 {
+	data->map = NULL;
 	data->tex_no_path = NULL;
 	data->tex_so_path = NULL;
 	data->tex_we_path = NULL;

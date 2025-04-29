@@ -6,11 +6,23 @@
 /*   By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 23:25:54 by mcygan            #+#    #+#             */
-/*   Updated: 2025/04/16 13:30:03 by mcygan           ###   ########.fr       */
+/*   Updated: 2025/04/29 12:44:44 by mcygan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/cub3d.h"
+
+void	free_str_array(char **strs)
+{
+	size_t	i;
+
+	if (!strs)
+		return ;
+	i = 0;
+	while (strs[i])
+		free(strs[i++]);
+	free(strs);
+}
 
 int	ft_atoi(const char *str)
 {
@@ -42,7 +54,7 @@ int	ft_atoi(const char *str)
 
 int	copy_line(char *src, char *dst)
 {
-	int	i;
+	size_t	i;
 
 	i = 0;
 	while (src[i] && src[i] != '\n' && i < MAP_MAX)

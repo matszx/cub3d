@@ -6,7 +6,7 @@
 /*   By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/27 23:56:00 by mcygan            #+#    #+#             */
-/*   Updated: 2025/04/29 12:19:24 by mcygan           ###   ########.fr       */
+/*   Updated: 2025/04/29 12:39:00 by mcygan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	close_handler(t_data *data, char *error)
 		if (data->mlx)
 		{
 			free_cfg(data->cfg);
-			free_matrix(data->map);
+			free_str_array(data->map);
 			destroy_images(data);
 			if (data->win)
 				mlx_destroy_window(data->mlx, data->win);

@@ -6,7 +6,7 @@
 /*   By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 11:30:50 by mcygan            #+#    #+#             */
-/*   Updated: 2025/04/16 15:28:07 by mcygan           ###   ########.fr       */
+/*   Updated: 2025/04/29 12:39:00 by mcygan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	free_cfg(char ***cfg)
 		return ;
 	i = -1;
 	while (cfg[++i])
-		free_matrix(cfg[i]);
+		free_str_array(cfg[i]);
 	free(cfg);
 }
 
@@ -56,9 +56,9 @@ static int	str_to_rgb(char *str)
 
 	strs = ft_split(str, ',');
 	if (!strs || !strs[0] || !strs[1] || !strs[2] || strs[3])
-		return (free_matrix(strs), -1);
+		return (free_str_array(strs), -1);
 	rgb = ft_atoi(strs[0]) << 16 | ft_atoi(strs[1]) << 8 | ft_atoi(strs[2]);
-	return (free_matrix(strs), rgb);
+	return (free_str_array(strs), rgb);
 }
 
 int	fill_data(t_data *data, char *s1, char *s2)

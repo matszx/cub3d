@@ -6,21 +6,11 @@
 /*   By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 12:00:35 by mcygan            #+#    #+#             */
-/*   Updated: 2025/04/11 23:47:09 by mcygan           ###   ########.fr       */
+/*   Updated: 2025/04/29 12:39:00 by mcygan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/cub3d.h"
-
-void	free_matrix(char **strs)
-{
-	int	i;
-
-	i = -1;
-	while (strs[++i])
-		free(strs[i]);
-	free(strs);
-}
 
 static size_t	word_count(char *str, char c)
 {
@@ -81,7 +71,7 @@ char	**ft_split(char const *s, char c)
 		{
 			res[i++] = find_substr((char *)s, c);
 			if (!res[i - 1])
-				return (free_matrix(res), NULL);
+				return (free_str_array(res), NULL);
 		}
 		while (*s != c && *s)
 			s++;

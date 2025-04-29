@@ -6,7 +6,7 @@
 /*   By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 15:42:11 by mcygan            #+#    #+#             */
-/*   Updated: 2025/04/28 01:13:28 by mcygan           ###   ########.fr       */
+/*   Updated: 2025/04/29 13:00:48 by mcygan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,7 +151,6 @@ int		parse_cluster(t_data *data, int x, int y);
 void	parse(t_data *data);
 
 // parser/split.c
-void	free_matrix(char **strs);
 char	**ft_split(char const *s, char c);
 
 // parser/utils1.c
@@ -162,6 +161,7 @@ char	*ft_strjoin(char const *s1, char const *s2);
 int		ft_strcmp(const char *s1, const char *s2);
 
 // parser/utils2.c
+void	free_str_array(char **strs);
 int		ft_atoi(const char *str);
 int		copy_line(char *src, char *dst);
 char	*next_nonempty_line(int fd);
