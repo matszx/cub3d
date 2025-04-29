@@ -6,7 +6,7 @@
 /*   By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 14:15:05 by mcygan            #+#    #+#             */
-/*   Updated: 2025/04/28 00:38:58 by mcygan           ###   ########.fr       */
+/*   Updated: 2025/04/29 14:18:26 by mcygan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,7 @@ int	render(t_data *data)
 			if (data->animation)
 				animate_sprite(data);
 			put_sprite_to_img(&data->img, &data->sprite[data->frame], \
-				5 * WIN_W / 9, WIN_H - data->sprite[data->frame].h - 1);
+				WIN_W * WEAPON_POS, WIN_H - data->sprite[data->frame].h - 1);
 		}
 		mlx_put_image_to_window(data->mlx, data->win, data->img.ptr, 0, 0);
 	}
