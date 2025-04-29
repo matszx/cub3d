@@ -6,7 +6,7 @@
 /*   By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 14:04:10 by mcygan            #+#    #+#             */
-/*   Updated: 2025/04/28 01:28:56 by mcygan           ###   ########.fr       */
+/*   Updated: 2025/04/29 11:59:55 by mcygan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,15 +30,29 @@ static int	init_mlx(t_data *data)
 	return (0);
 }
 
-void	init_data(t_data *data)
+static void	set_null_ptrs(t_data *data)
 {
-	if (init_mlx(data))
-		close_handler(data, "can't load mlx");
-	data->error = 0;
 	data->tex_no_path = NULL;
 	data->tex_so_path = NULL;
 	data->tex_we_path = NULL;
 	data->tex_ea_path = NULL;
+	data->tex_no.ptr = NULL;
+	data->tex_so.ptr = NULL;
+	data->tex_we.ptr = NULL;
+	data->tex_ea.ptr = NULL;
+	data->sprite[0].ptr = NULL;
+	data->sprite[1].ptr = NULL;
+	data->sprite[2].ptr = NULL;
+	data->sprite[3].ptr = NULL;
+	data->sprite[4].ptr = NULL;
+}
+
+void	init_data(t_data *data)
+{
+	if (init_mlx(data))
+		close_handler(data, "can't load mlx");
+	set_null_ptrs(data);
+	data->error = 0;
 	data->floor_colour = -1;
 	data->ceiling_colour = -1;
 	data->pos_x = -1;
@@ -70,7 +84,7 @@ int	init_img(t_data *data, char *path, t_img *addr)
 		return (1);
 	img.addr = mlx_get_data_addr(img.ptr, &img.bpp, &img.line_len, &img.endian);
 	if (!(img.addr))
-		return (1);
+		return (mlx_destroy_image(data->mlx, img.ptr), 1);
 	*addr = img;
 	return (0);
 }
