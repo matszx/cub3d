@@ -6,7 +6,7 @@
 /*   By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/27 23:56:00 by mcygan            #+#    #+#             */
-/*   Updated: 2025/04/29 12:39:00 by mcygan           ###   ########.fr       */
+/*   Updated: 2025/05/28 00:48:22 by mcygan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,24 @@ static void	destroy_images(t_data *data)
 	destroy_image(data->mlx, data->img.ptr);
 }
 
+static void	finish_reading(int fd)
+{
+	char *line;
+
+	line = get_next_line(fd);
+	while (line)
+	{
+		free(line);
+		line = get_next_line(fd);
+	}
+	close(fd);
+}
+
 void	close_handler(t_data *data, char *error)
 {
 	if (data)
 	{
-		close(data->fd);
+		finish_reading(data->fd);
 		if (data->mlx)
 		{
 			free_cfg(data->cfg);
