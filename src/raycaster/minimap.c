@@ -6,7 +6,7 @@
 /*   By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 14:06:38 by mcygan            #+#    #+#             */
-/*   Updated: 2025/04/28 01:11:06 by mcygan           ###   ########.fr       */
+/*   Updated: 2025/06/02 00:33:56 by mcygan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,8 @@ static void	draw_player(t_data *data)
 	int	j;
 
 	player_size = data->map_scale / 2;
-	x = data->pos_x * data->map_scale - data->map_scale / player_size;
-	y = data->pos_y * data->map_scale - data->map_scale / player_size;
+	x = data->pos_x * data->map_scale - player_size / 2;
+	y = data->pos_y * data->map_scale - player_size / 2;
 	i = y;
 	if (i < 0)
 		i = 0;
