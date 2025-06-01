@@ -6,7 +6,7 @@
 /*   By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 13:43:44 by mcygan            #+#    #+#             */
-/*   Updated: 2025/04/27 23:52:24 by mcygan           ###   ########.fr       */
+/*   Updated: 2025/06/01 23:56:31 by mcygan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,10 +58,17 @@ static int	mouse_handler(int x, int y, t_data *data)
 	return (0);
 }
 
+static int	quit_cub3d(t_data *data)
+{
+	close_handler(data, NULL);
+	return (0);
+}
+
 void	init_events(t_data *data)
 {
 	mlx_hook(data->win, 2, 1L << 0, key_press_handler, data);
 	mlx_hook(data->win, 3, 1L << 1, key_release_handler, data);
 	if (MOUSE)
 		mlx_hook(data->win, 6, 1L << 6, mouse_handler, data);
+	mlx_hook(data->win, 17, 1L << 0, quit_cub3d, data);
 }
