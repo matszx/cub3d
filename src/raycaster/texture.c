@@ -6,7 +6,7 @@
 /*   By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 21:55:26 by mcygan            #+#    #+#             */
-/*   Updated: 2025/03/17 20:36:36 by mcygan           ###   ########.fr       */
+/*   Updated: 2025/06/03 11:59:13 by mcygan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,9 @@ static t_img	*get_texture(t_data *data, t_ray_info *info)
 		return (&data->tex_no);
 	if (info->angle >= M_PI && info->angle < threehalves_pi && !info->side)
 		return (&data->tex_we);
-	if (info->angle >= threehalves_pi && info->angle < two_pi && info->side)
+	if (info->angle >= threehalves_pi && info->angle <= two_pi && info->side)
 		return (&data->tex_no);
-	if (info->angle >= threehalves_pi && info->angle < two_pi && !info->side)
+	if (info->angle >= threehalves_pi && info->angle <= two_pi && !info->side)
 		return (&data->tex_ea);
 	return (NULL);
 }
