@@ -6,7 +6,7 @@
 /*   By: mcygan <mcygan@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 11:40:45 by mcygan            #+#    #+#             */
-/*   Updated: 2025/04/30 14:26:33 by mcygan           ###   ########.fr       */
+/*   Updated: 2025/06/03 11:59:06 by mcygan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ int	parse_cluster(t_data *data, int x, int y)
 		return (0);
 	else if (x == 0 || x == data->map_w - 1 || y == 0 || y == data->map_h - 1)
 		return (data->error++, 1);
-	else if (c == '0' || c == 'N' || c == 'S' || c == 'E' || c == 'W')
+	else if (c == '0' || c == 'N' || c == 'S' || c == 'W' || c == 'E')
 	{
 		if (c != '0')
 		{
